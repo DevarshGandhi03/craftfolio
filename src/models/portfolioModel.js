@@ -18,71 +18,85 @@ const PortfolioSchema = new mongoose.Schema({
     trim: true,
     required: true,
   },
-  userDescription:{
+  userDescription: {
     type: String,
     trim: true,
     required: true,
   },
-  projects:[{
-    projectTitle:String,
-    projectImage:String,
-    projectDescription:String,
-    projectLiveLink:String,
-  }],
-  about:{
+  projects: [
+    {
+      projectTitle: String,
+      projectImage: String,
+      projectDescription: String,
+      projectLiveLink: String,
+    },
+  ],
+  education: [
+    {
+      instituteName: String,
+      degree: String,
+      from: String,
+      to: String,
+    },
+  ],
+  about: {
     type: String,
     trim: true,
     required: true,
   },
-  contactMessages:[
+  contactMessages: [
     {
-        sendersName:String,
-        sendersEmail:String,
-        sendersMessage:String,
-    }
+      sendersName: String,
+      sendersEmail: String,
+      sendersMessage: String,
+    },
   ],
-  jobExperiences:[
-    
+  jobExperiences: [
     {
-        companyName:String,
-        city:String,
-        state:String,
-        jobTitle:String,
-        jobDescription:String,
-        from:String,
-        to:String,
-        present:Boolean,
-    }
+      companyName: String,
+      city: String,
+      state: String,
+      jobTitle: String,
+      jobDescription: String,
+      from: String,
+      to: String,
+      present: Boolean,
+    },
   ],
-  github:{
+  github: {
     type: String,
     trim: true,
   },
-  linkedin:{
+  linkedin: {
     type: String,
     trim: true,
   },
-  twitter:{
+  twitter: {
     type: String,
     trim: true,
   },
-  instagram:{
+  instagram: {
     type: String,
     trim: true,
   },
-  phoneNo:{
-    type:Number,
-    trim:true,
+  phoneNo: {
+    type: Number,
+    trim: true,
   },
-  skills:[{
-    type:String
-  }],
-  resume:{
-    type:String,
-    trim:true,
+  skills: [
+    {
+      type: String,
+      trim: true,
+    },
+  ],
+  resume: {
+    type: String,
+    trim: true,
   },
-  portfolioTheme:String,
-  resumeTheme:String,
-  
-   
+  portfolioTheme: String,
+  resumeTheme: String,
 });
+
+const Portfolio =
+  mongoose.models.Portfolio || mongoose.model("Portfolio", PortfolioSchema);
+export default Portfolio;

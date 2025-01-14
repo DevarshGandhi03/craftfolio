@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     required: true,
   },
+  
   email: {
     type: String,
     unique: true,
@@ -20,6 +21,6 @@ const UserSchema = new mongoose.Schema({
   isVerified: Boolean,
 });
 
-const User = mongoose.model.User || mongoose.model("User", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
 export default User;
