@@ -30,14 +30,14 @@ export const POST = async (req) => {
     const response = await uploadOnCloudinary(filePath);
 
     return apiResponse({
-      message: "User image uploaded !",
+      message: "Resume uploaded !",
       statusCode: 200,
       data: response.url,
     });
   } catch (error) {
     console.log("Error occured ", error);
     return apiResponse({
-      message: "Error occoured while uploading user image !",
+      message: "Error occoured while uploading user resume !",
       statusCode: 400,
       error,
     });
