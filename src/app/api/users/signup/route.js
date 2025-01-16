@@ -7,8 +7,7 @@ export async function POST(request) {
   await connectToDb();
   try {
     const { email } = await request.json();
-    console.log(email);
-
+    
     if (!email) {
       return apiResponse({
         message: "Please enter your email.",

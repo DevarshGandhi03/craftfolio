@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export function apiResponse({message,data,statusCode,success,error=null}){
+export function apiResponse({message,data,statusCode,success,error=null,headers}){
     const response={
         message,statusCode
     }
@@ -14,5 +14,5 @@ export function apiResponse({message,data,statusCode,success,error=null}){
         response.error=error
     }
 
-    return NextResponse.json(response,{status:statusCode})
+    return NextResponse.json(response,{status:statusCode,headers})
 }

@@ -11,6 +11,7 @@ export async function POST(request) {
 
   if (!user) {
     return apiResponse({
+      success:false,
       message: "User not found.",
       statusCode: 400,
     });
@@ -18,6 +19,7 @@ export async function POST(request) {
 
   if (user.verifyOtp === otp && user.verifyOtpExpiry > Date.now()) {
     user.isVerified = true;
+    user.resendVerifyOtpExpiry=undefined;
     await user.save();
     return apiResponse({
       success: true,

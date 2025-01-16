@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import User from "./userModel";
 
 const PortfolioSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, User },
+  userId: { type: mongoose.Schema.Types.ObjectId,User },
   fullName: {
     type: String,
     trim: true,
