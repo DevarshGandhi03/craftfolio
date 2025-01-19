@@ -4,7 +4,7 @@ import AuthLoading from "../../../public/AuthLoading2.json"
 
 function SignupLoading() {
   return (
-    <Lootie className="w-4/5" animationData={AuthLoading2} loop={true} autoplay={true} />
+    <Lootie className="w-4/5" animationData={AuthLoading} loop={true} autoplay={true} />
   );
 }
 

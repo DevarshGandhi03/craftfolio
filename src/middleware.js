@@ -7,17 +7,13 @@ export const config = {
 export default async function middleware(request) {
   const token = request.cookies.get("token");
   const url = request.nextUrl;
-
-  // Redirect to dashboard if the user is already authenticated
-  // and trying to access sign-in, sign-up, or home page
-
   if (
     token &&
     (url.pathname.startsWith("/signin") ||
       url.pathname.startsWith("/signup") ||
       url.pathname === "/")
   ) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/dashboard/profile", request.url));
   }
 
   if (!token && url.pathname.startsWith("/dashboard")) {

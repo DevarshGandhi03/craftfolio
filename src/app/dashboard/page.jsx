@@ -1,14 +1,9 @@
-"use client"
-import { AuthContext } from '@/context/authContext'
-import React, { useContext } from 'react'
+import React from "react";
+import { redirect } from "next/navigation";
 
 function Dashboard() {
-  const {user}=useContext(AuthContext)
-  return (
-    <div>
-      {user.username}
-    </div>
-  )
+  redirect("/dashboard/profile");
+  return null;
 }
 
-export default Dashboard
+export default Dashboard;

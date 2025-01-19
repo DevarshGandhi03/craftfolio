@@ -30,7 +30,6 @@ export const deleteMediaFromCloudinary = async (localFilePath) => {
     try {
       await cloudinary.uploader.destroy(localFilePath);
     } catch (error) {
-      console.log(error);
       throw new Error("failed to delete assest from cloudinary");
     }
   };

@@ -8,7 +8,35 @@ export const AuthContext = React.createContext(null);
 
 function AuthProvider({ children, token }) {
   const [user, setUser] = useState(null);
+  const [userPortfolioDetails, setUserPortfolioDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fetchingUserDetails, setFetchingUserDetails] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [calledOnce, setCalledOnce] = useState(false);
+
+
+  async function getPortfolioDetails() {
+    if (user) {
+      try {
+        const response = await axios.get(
+          window.location.origin +
+            "/api/users/get-portfolio-details?id=" +
+            user._id
+        );
+        
+        if (response.data.success) {
+          setUserPortfolioDetails(response.data.data)
+          setIsSubmitted(true);
+          setCalledOnce(true);
+          setFetchingUserDetails(false);
+        }
+      } catch (error) {
+        setFetchingUserDetails(false);
+      }
+    }else{
+      setFetchingUserDetails(false)
+    }
+  }
 
   const checkAuth = async () => {
     if (token) {
@@ -26,18 +54,24 @@ function AuthProvider({ children, token }) {
     setLoading(false);
   };
 
-  const resetCredentials=()=>{
-    setUser(null)
-  }
-
+  const resetCredentials = () => {
+    setUser(null);
+  };
 
   useEffect(() => {
     checkAuth();
   }, []);
+  useEffect(() => {
+    getPortfolioDetails();
+  }, [isSubmitted, user]);
 
+   console.log(userPortfolioDetails);
+   
   return (
-    <AuthContext.Provider value={{ user, setUser,resetCredentials }}>
-      {loading ? <Loading/> : children}
+    <AuthContext.Provider
+      value={{ user, setUser, resetCredentials, setIsSubmitted, isSubmitted ,userPortfolioDetails,calledOnce,setCalledOnce}}
+    >
+      {loading || fetchingUserDetails ? <Loading /> : children}
     </AuthContext.Provider>
   );
 }

@@ -14,7 +14,7 @@ export async function GET(request) {
 
     if (!userPortfolioDetails) {
       return apiResponse({
-        message: "User details not found!",
+        message: "Portfolio details not found!",
         statusCode: 400,
         success: false,
       });

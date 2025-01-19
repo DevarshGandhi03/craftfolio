@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import AuthProvider from "@/context/authContext";
 import { cookies } from "next/headers";
+import PortfolioProvider from "@/context/portfolioContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,16 +22,17 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  
   const cookieStore = await cookies();
   const token = cookieStore.get("token");
   return (
-    <html lang="en" >
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar />
-        <AuthProvider token={token}>{children}</AuthProvider>
+        <AuthProvider token={token}>
+          <PortfolioProvider>{children}</PortfolioProvider>
+        </AuthProvider>
         <Toaster />
       </body>
     </html>

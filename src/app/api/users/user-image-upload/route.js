@@ -49,7 +49,7 @@ export const POST = async (req) => {
     return apiResponse({
       message: "User image uploaded !",
       statusCode: 200,
-      data: response.url,
+      data: response,
     });
   } catch (error) {
     console.log("Error occured ", error);

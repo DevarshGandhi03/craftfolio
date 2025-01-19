@@ -13,6 +13,11 @@ const PortfolioSchema = new mongoose.Schema({
     trim: true,
     required: true,
   },
+  userImageId: {
+    type: String,
+    trim: true,
+    required: true,
+  },
   userTitle: {
     type: String,
     trim: true,
@@ -29,6 +34,8 @@ const PortfolioSchema = new mongoose.Schema({
       projectImage: String,
       projectDescription: String,
       projectLiveLink: String,
+      projectImageId: String,
+      
     },
   ],
   education: [
@@ -80,7 +87,7 @@ const PortfolioSchema = new mongoose.Schema({
     trim: true,
   },
   phoneNo: {
-    type: Number,
+    type: String,
     trim: true,
   },
   skills: [
@@ -90,6 +97,10 @@ const PortfolioSchema = new mongoose.Schema({
     },
   ],
   resume: {
+    type: String,
+    trim: true,
+  },
+  resumeId: {
     type: String,
     trim: true,
   },
