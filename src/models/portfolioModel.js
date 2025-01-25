@@ -104,8 +104,13 @@ const PortfolioSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  hashnodeUsername: {
+    type: String,
+    trim: true,
+  },
   portfolioTheme: String,
   resumeTheme: String,
+  isPublished: Boolean,
 });
 
 const Portfolio =

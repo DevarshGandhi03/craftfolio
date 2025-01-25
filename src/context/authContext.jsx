@@ -13,6 +13,7 @@ function AuthProvider({ children, token }) {
   const [fetchingUserDetails, setFetchingUserDetails] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [calledOnce, setCalledOnce] = useState(false);
+  const [isPublished, setIsPublished] = useState(false);
 
 
   async function getPortfolioDetails() {
@@ -25,6 +26,9 @@ function AuthProvider({ children, token }) {
         );
         
         if (response.data.success) {
+          if (response.data.data.isPublished) {
+            setIsPublished(true)
+          }
           setUserPortfolioDetails(response.data.data)
           setIsSubmitted(true);
           setCalledOnce(true);
@@ -69,7 +73,7 @@ function AuthProvider({ children, token }) {
    
   return (
     <AuthContext.Provider
-      value={{ user, setUser, resetCredentials, setIsSubmitted, isSubmitted ,userPortfolioDetails,calledOnce,setCalledOnce}}
+      value={{ user, setUser, resetCredentials, setIsSubmitted, isSubmitted ,userPortfolioDetails,calledOnce,setCalledOnce,isPublished,setIsPublished}}
     >
       {loading || fetchingUserDetails ? <Loading /> : children}
     </AuthContext.Provider>

@@ -21,6 +21,7 @@ function PortfolioProvider({ children, token }) {
     setCalledOnce,
   } = useContext(AuthContext);
   const [projects, setProjects] = useState([]);
+  const [resumeTheme, setResumeTheme] = useState("theme_1");
   const [fullName, setFullname] = useState("");
   const [userDescription, setUserDescription] = useState("");
   const [userTitle, setUserTitle] = useState("");
@@ -313,6 +314,8 @@ function PortfolioProvider({ children, token }) {
         image,
         editForm,
         setEditForm,
+        setResumeTheme,
+        resumeTheme,
       }}
     >
       {pageLoading ? <Loading /> : children}

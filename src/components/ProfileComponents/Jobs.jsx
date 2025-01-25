@@ -82,18 +82,36 @@ function Jobs() {
   return (
     <div>
       {errors.jobExperiences && <p className="text-red-500 text-sm">{errors.jobExperiences}</p>}
-
+ {/* Add New Job Experience Button */}
+ <div
+        className="cursor-pointer p-5 bg-violet-500 hover:bg-violet-600 rounded-lg text-white text-center mt-6"
+        onClick={() => {
+          setNewJob({
+            companyName: "",
+            city: "",
+            state: "",
+            jobTitle: "",
+            jobDescription: "",
+            from: "",
+            to: "",
+          });
+          setEditingIndex(null);
+          setOpenJob(true);
+        }}
+      >
+        <PlusCircle size={18} className="inline-block mr-2" /> Add Job Experience
+      </div>
       {/* Job Cards */}
       <div className="space-y-6 mt-4">
         {jobExperiences.map((job, index) => (
           <div
             key={index}
-            className="p-6 bg-white shadow-lg rounded-lg border border-gray-300 flex flex-col space-y-4"
+            className="p-6 bg-white flex flex-col space-y-4"
           >
-            <h4 className="text-xl font-semibold">{job.companyName} - {job.jobTitle}</h4>
-            <p className="text-gray-700">{job.city}, {job.state}</p>
-            <p className="text-gray-700">{job.from} - {job.to}</p>
-            <p className="text-gray-700">{job.jobDescription}</p>
+            <h4 className="text-2xl font-semibold text-gray-700">{job.companyName} - {job.jobTitle}</h4>
+            <p className="text-gray-600">{job.city}, {job.state}</p>
+            <p className="text-gray-600">{job.from} to {job.to}</p>
+            <p className="text-gray-600">{job.jobDescription}</p>
 
             <div className="flex gap-4">
               <Button
@@ -119,25 +137,7 @@ function Jobs() {
         ))}
       </div>
 
-      {/* Add New Job Experience Button */}
-      <div
-        className="cursor-pointer p-4 bg-violet-600 hover:bg-violet-700 rounded-lg text-white text-center mt-6"
-        onClick={() => {
-          setNewJob({
-            companyName: "",
-            city: "",
-            state: "",
-            jobTitle: "",
-            jobDescription: "",
-            from: "",
-            to: "",
-          });
-          setEditingIndex(null);
-          setOpenJob(true);
-        }}
-      >
-        <PlusCircle size={18} className="inline-block mr-2" /> Add Job Experience
-      </div>
+     
 
       {/* Add/Edit Job Experience Dialog */}
       <Dialog open={openJob} onOpenChange={setOpenJob}>
@@ -154,7 +154,7 @@ function Jobs() {
             <div className="flex flex-col sm:flex-row sm:space-x-6">
               {/* Company Name */}
               <div className="flex-1">
-                <Label>Company Name <span className="text-red-500">*</span></Label>
+                <Label className="font-bold text-gray-700">Company Name <span className="text-red-500">*</span></Label>
                 <Input
                   placeholder="Enter company name"
                   value={newJob.companyName}
@@ -173,7 +173,7 @@ function Jobs() {
 
               {/* City */}
               <div className="flex-1">
-                <Label>City <span className="text-red-500">*</span></Label>
+                <Label className="font-bold text-gray-700">City <span className="text-red-500">*</span></Label>
                 <Input
                   placeholder="Enter city"
                   value={newJob.city}
@@ -192,7 +192,7 @@ function Jobs() {
 
               {/* State */}
               <div className="flex-1">
-                <Label>State <span className="text-red-500">*</span></Label>
+                <Label className="font-bold text-gray-700">State <span className="text-red-500">*</span></Label>
                 <Input
                   placeholder="Enter state"
                   value={newJob.state}
@@ -212,7 +212,7 @@ function Jobs() {
 
             {/* Job Title */}
             <div>
-              <Label>Job Title <span className="text-red-500">*</span></Label>
+              <Label className="font-bold text-gray-700">Job Title <span className="text-red-500">*</span></Label>
               <Input
                 placeholder="Enter job title"
                 value={newJob.jobTitle}
@@ -231,7 +231,7 @@ function Jobs() {
 
             {/* Job Description */}
             <div>
-              <Label>Job Description <span className="text-red-500">*</span></Label>
+              <Label className="font-bold text-gray-700">Job Description <span className="text-red-500">*</span></Label>
               <Textarea
                 placeholder="Enter job description"
                 value={newJob.jobDescription}
@@ -252,7 +252,7 @@ function Jobs() {
             <div className="flex space-x-6">
               {/* From */}
               <div className="flex-1">
-                <Label>From <span className="text-red-500">*</span></Label>
+                <Label className="font-bold text-gray-700">From <span className="text-red-500">*</span></Label>
                 <Input
                   type="date"
                   value={newJob.from}
@@ -271,7 +271,7 @@ function Jobs() {
 
               {/* To */}
               <div className="flex-1">
-                <Label>To <span className="text-red-500">*</span></Label>
+                <Label className="font-bold text-gray-700">To <span className="text-red-500">*</span></Label>
                 <Input
                   type="date"
                   value={newJob.to}

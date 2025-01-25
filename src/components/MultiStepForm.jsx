@@ -34,35 +34,34 @@ const MultiStepForm = () => {
   };
 
   return (
-    <form className="space-y-8" onSubmit={handleSubmit}>
-      {/* Edit Button Outside Fieldset */}
+    <form onSubmit={handleSubmit}>
 
       {isSubmitted ? (
         editForm ? (
-          <div className="flex justify-end w-full px-12 py-6">
+          <div className="fixed bottom-10 right-10 z-20">
             <Button
               type="button"
               onClick={handleEdit}
-              className="px-6 py-3 bg-yellow-500 h-14 w-28 text-white font-medium rounded-lg transition-all duration-300 hover:bg-yellow-700"
+              className="px-6 text-base py-3 bg-yellow-500 h-14 w-28 text-white font-medium rounded-lg transition-all duration-300 hover:bg-yellow-700"
             >
-              <Edit />
               Edit
+              <Edit />
             </Button>
           </div>
         ) : null
       ) : null}
 
-      <fieldset disabled={isSubmitted && editForm}>
+      <fieldset className="m-0 " disabled={isSubmitted && editForm}>
         <div className="flex flex-col min-h-screen w-full">
           {/* Title on Top Left (Dynamic Title) */}
-          <div className="w-full px-12 py-6">
-            <h2 className="text-4xl font-bold text-gray-800">
+          <div className="w-full p-6 ">
+            <h2 className="text-5xl font-bold text-gray-700">
               {steps[currentStep]}
             </h2>
           </div>
 
           {/* Form Container */}
-          <div className="flex flex-col items-center justify-center flex-grow bg-white shadow-xl rounded-none p-10">
+          <div className="flex flex-col items-center justify-center flex-grow bg-gray-50  rounded-none p-10">
             {/* Progress Bar */}
             <ProgressBar currentStep={currentStep} totalSteps={steps.length} />
 
@@ -77,7 +76,7 @@ const MultiStepForm = () => {
                 type="button"
                 onClick={handleBack}
                 disabled={currentStep === 0}
-                className={`w-40 px-8 py-3 rounded-lg text-white font-medium transition-all duration-300 
+                className={`w-40 px-8 py-6 rounded-lg text-white font-medium transition-all duration-300 
       ${
         currentStep === 0
           ? "bg-gray-400 cursor-not-allowed"
@@ -91,14 +90,14 @@ const MultiStepForm = () => {
                 <Button
                   type="button"
                   onClick={handleNext}
-                  className="w-40 px-8 py-3 bg-blue-600 text-white font-medium rounded-lg transition-all duration-300 hover:bg-blue-800"
+                  className="w-40 px-8 py-6 bg-blue-600 text-white font-medium rounded-lg transition-all duration-300 hover:bg-blue-800"
                 >
                   Next
                 </Button>
               ) : (
                 <Button
                   type="submit"
-                  className="w-40 px-8 py-3 bg-green-600 text-white font-medium rounded-lg transition-all duration-300 hover:bg-green-800"
+                  className="w-40 px-8 py-6 bg-green-600 text-white font-medium rounded-lg transition-all duration-300 hover:bg-green-800"
                 >
                   Submit
                 </Button>

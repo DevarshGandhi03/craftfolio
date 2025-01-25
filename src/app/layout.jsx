@@ -29,7 +29,6 @@ export default async function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
         <AuthProvider token={token}>
           <PortfolioProvider>{children}</PortfolioProvider>
         </AuthProvider>

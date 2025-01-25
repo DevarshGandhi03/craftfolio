@@ -2,7 +2,7 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
   const progressPercentage = ((currentStep + 1) / totalSteps) * 100;
 
   return (
-    <div className="w-full flex flex-col items-center space-y-4">
+    <div className="w-full flex flex-col items-center space-y-4 mb-5">
       {/* Progress Bar Container */}
       <div className="relative flex items-center w-full max-w-3xl h-1.5 bg-gray-200 rounded-full">
         {/* Progress Indicator */}

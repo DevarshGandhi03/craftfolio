@@ -20,7 +20,7 @@ function SocialLink() {
     <div className="space-y-8">
       {/* Skills Section */}
       <div className="space-y-3">
-        <Label className="flex">
+        <Label className="font-bold text-gray-700 flex">
           Skills
           <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
         </Label>
@@ -75,7 +75,7 @@ function SocialLink() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* GitHub */}
         <div>
-          <Label>
+          <Label className="font-bold text-gray-700">
             GitHub
             <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
           </Label>
@@ -95,7 +95,7 @@ function SocialLink() {
 
         {/* LinkedIn */}
         <div>
-          <Label>
+          <Label className="font-bold text-gray-700">
             LinkedIn
             <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
           </Label>
@@ -115,7 +115,7 @@ function SocialLink() {
 
         {/* Twitter */}
         <div>
-          <Label>
+          <Label className="font-bold text-gray-700">
             Twitter
             <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
           </Label>
@@ -135,7 +135,7 @@ function SocialLink() {
 
         {/* Instagram */}
         <div>
-          <Label>
+          <Label className="font-bold text-gray-700">
             Instagram
             <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
           </Label>

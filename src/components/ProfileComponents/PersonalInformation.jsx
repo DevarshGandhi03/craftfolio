@@ -6,6 +6,8 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import axios from "axios";
+import { Input } from "../ui/input";
+import { Delete, DeleteIcon, Trash, Trash2 } from "lucide-react";
 
 function PersonalInformation() {
   const {
@@ -30,6 +32,9 @@ function PersonalInformation() {
 
   const [previewUrl, setPreviewUrl] = useState();
 
+
+  const charCount = userDescription.length;
+
   if (image) {
     const fileReader = new FileReader();
     fileReader.onload = () => setPreviewUrl(fileReader.result);
@@ -51,15 +56,15 @@ function PersonalInformation() {
       {/* Full Name and Phone Number in a Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <Label>
+          <Label className="font-bold text-gray-700">
             Full Name <span className="text-red-500">*</span>
           </Label>
-          <input
+          <Input
             value={fullName}
             type="text"
             placeholder="John Doe"
             onChange={(e) => setFullname(e.target.value)}
-            className="mt-1 p-3 border w-full focus:ring-2 focus:ring-violet-500 text-base"
+            className="mt-1  border w-full focus:ring-2 focus:ring-violet-500 text-base"
           />
           {errors.fullName && (
             <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>
@@ -67,15 +72,15 @@ function PersonalInformation() {
         </div>
 
         <div>
-          <Label>
+          <Label className="font-bold text-gray-700">
             Phone Number <span className="text-red-500">*</span>
           </Label>
-          <input
+          <Input
             value={phoneNumber}
             type="tel"
             placeholder="Your phone number"
             onChange={(e) => setPhoneNumber(e.target.value)}
-            className="mt-1 p-3 border w-full focus:ring-2 focus:ring-violet-500 text-base"
+            className="mt-1 border w-full focus:ring-2 focus:ring-violet-500 text-base"
           />
           {errors.phoneNumber && (
             <p className="text-red-500 text-xs mt-1">{errors.phoneNumber}</p>
@@ -85,15 +90,15 @@ function PersonalInformation() {
 
       {/* Title Field */}
       <div>
-        <Label>
+        <Label className="font-bold text-gray-700">
           Title <span className="text-red-500">*</span>
         </Label>
-        <input
+        <Input
           type="text"
           value={userTitle}
           placeholder="Software Engineer"
           onChange={(e) => setUserTitle(e.target.value)}
-          className="mt-1 p-3 border w-full focus:ring-2 focus:ring-violet-500 text-base"
+          className="mt-1  border w-full focus:ring-2 focus:ring-violet-500 text-base"
         />
         {errors.userTitle && (
           <p className="text-red-500 text-xs mt-1">{errors.userTitle}</p>
@@ -102,8 +107,8 @@ function PersonalInformation() {
 
       {/* User Image with Preview and Upload */}
       <div>
-        <Label>
-          User Image <span className="text-red-500">*</span>
+        <Label className="font-bold text-gray-700">
+          Profile Photo <span className="text-red-500">*</span>
         </Label>
         {errors.userImage && (
           <p className="text-red-500 text-xs mt-1">{errors.userImage}</p>
@@ -129,7 +134,7 @@ function PersonalInformation() {
               onClick={() => handleRemoveUserImage(userImageId)}
               className="mt-2 bg-red-600 text-white px-3 py-1 text-xs rounded hover:bg-red-700"
             >
-              Delete Image
+              <Trash2 /> Delete Image
             </Button>
           </div>
         ) : (
@@ -162,15 +167,15 @@ function PersonalInformation() {
 
       {/* Description and About in a Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <Label>
+      <div>
+          <Label className="font-bold text-gray-700">
             Description<span className="text-red-500">*</span>
           </Label>
           <Textarea
             value={userDescription}
             placeholder="Brief description about yourself"
             onChange={(e) => setUserDescription(e.target.value)}
-            className="mt-1 p-3 border w-full focus:ring-2 focus:ring-violet-500 text-base"
+            className="mt-1 p-3 h-36 border w-full focus:ring-2 focus:ring-violet-500 text-base"
             style={{ borderRadius: "4px" }} // Added border radius adjustment
           />
           {errors.userDescription && (
@@ -181,14 +186,14 @@ function PersonalInformation() {
         </div>
 
         <div>
-          <Label>
+          <Label className="font-bold text-gray-700">
             About <span className="text-red-500">*</span>
           </Label>
           <Textarea
             value={about}
             placeholder="Tell us about yourself"
             onChange={(e) => setAbout(e.target.value)}
-            className="mt-1 p-3 border w-full focus:ring-2 focus:ring-violet-500 text-base"
+            className="mt-1 p-3 h-36 border w-full focus:ring-2 focus:ring-violet-500 text-base"
             style={{ borderRadius: "4px" }} // Added border radius adjustment
           />
           {errors.about && (

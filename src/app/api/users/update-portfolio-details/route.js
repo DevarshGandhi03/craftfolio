@@ -7,6 +7,7 @@ export async function POST(request) {
 
  try {
      const updatedPortfolioDetails = await request.json();
+     
    
      const portfolio_details = await Portfolio.findOne({
        _id: updatedPortfolioDetails.portfolioId,

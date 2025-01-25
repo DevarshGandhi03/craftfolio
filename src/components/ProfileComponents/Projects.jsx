@@ -13,7 +13,7 @@ import axios from "axios";
 import { PortfolioContext } from "@/context/portfolioContext";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { Trash2, PlusCircle, Edit2 } from "lucide-react"; // Added Edit icon
+import { Trash2, PlusCircle, Edit2, Edit } from "lucide-react"; // Added Edit icon
 import Link from "next/link";
 
 function Projects() {
@@ -108,13 +108,31 @@ function Projects() {
     <div className="space-y-6">
       {/* Section Title */}
       {errors.projects && <p className="text-red-500">{errors.projects}</p>}
-
+      {/* Clickable Area for Adding a Project */}
+      <div
+        className="cursor-pointer p-5 bg-violet-500 hover:bg-violet-600 rounded-lg text-white text-center mt-6"
+        onClick={() => {
+          setEditingIndex(null); // Reset editingIndex
+          setNewProject({
+            projectTitle: "",
+            projectImage: "",
+            projectTempImage: null,
+            projectDescription: "",
+            projectLiveLink: "",
+            projectImageId: "",
+            projectPrevImage: null,
+          });
+          setOpen(true);
+        }}
+      >
+        <PlusCircle size={18} className="inline-block mr-2" /> Add New Project
+      </div>
       {/* Project Cards */}
       <div className="flex flex-col space-y-6">
         {projects.map((project, index) => (
           <div
             key={index}
-            className="p-6 bg-white shadow-lg rounded-lg border border-gray-300 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6"
+            className="p-5 bg-white flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6"
           >
             {project.projectImage && (
               <div className="relative w-full md:w-48 h-48 md:h-auto">
@@ -135,17 +153,17 @@ function Projects() {
               </div>
             )}
             <div className="flex flex-col justify-between mt-4 md:mt-0">
-              <h4 className="text-xl font-bold text-gray-900">
+              <h4 className="text-2xl font-semibold text-gray-700">
                 {project.projectTitle}
               </h4>
-              <p className="text-gray-700 mt-2">{project.projectDescription}</p>
+              <p className="text-gray-500 mt-2">{project.projectDescription}</p>
               <Link
                 href={project.projectLiveLink}
                 className="text-violet-600 hover:text-violet-800 font-medium mt-3"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                View Project
+                Live Preview
               </Link>
               <div className="flex space-x-4 mt-4">
                 <Button
@@ -155,7 +173,7 @@ function Projects() {
                   className="flex items-center gap-2"
                   onClick={() => handleEditProject(index)}
                 >
-                  <Edit2 size={16} /> Edit
+                  <Edit size={16} /> Edit
                 </Button>
                 <Button
                   variant="destructive"
@@ -170,26 +188,6 @@ function Projects() {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Clickable Area for Adding a Project */}
-      <div
-        className="cursor-pointer p-4 bg-violet-600 hover:bg-violet-700 rounded-lg text-white text-center mt-6"
-        onClick={() => {
-          setEditingIndex(null); // Reset editingIndex
-          setNewProject({
-            projectTitle: "",
-            projectImage: "",
-            projectTempImage: null,
-            projectDescription: "",
-            projectLiveLink: "",
-            projectImageId: "",
-            projectPrevImage: null,
-          });
-          setOpen(true);
-        }}
-      >
-        <PlusCircle size={18} className="inline-block mr-2" /> Add New Project
       </div>
 
       {/* Add/Edit Project Dialog */}
@@ -207,7 +205,7 @@ function Projects() {
             <div className="flex flex-col sm:flex-row sm:space-x-6">
               {/* Project Title */}
               <div className="flex-1">
-                <Label>
+                <Label className="font-bold text-gray-700">
                   Project Title <span className="text-red-500">*</span>
                 </Label>
                 <Input
@@ -230,7 +228,7 @@ function Projects() {
 
               {/* Project Live Link */}
               <div className="flex-1">
-                <Label>
+                <Label className="font-bold text-gray-700">
                   Live Project Link <span className="text-red-500">*</span>
                 </Label>
                 <Input
@@ -254,7 +252,7 @@ function Projects() {
 
             {/* Project Image */}
             <div>
-              <Label>
+              <Label className="font-bold text-gray-700">
                 Project Image <span className="text-red-500">*</span>
               </Label>
               <div className="mt-2">
@@ -327,7 +325,7 @@ function Projects() {
 
             {/* Project Description */}
             <div>
-              <Label>
+              <Label className="font-bold text-gray-700">
                 Project Description <span className="text-red-500">*</span>
               </Label>
               <Textarea
