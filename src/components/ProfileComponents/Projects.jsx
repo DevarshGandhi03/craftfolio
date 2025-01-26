@@ -192,7 +192,7 @@ function Projects() {
 
       {/* Add/Edit Project Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-4xl space-y-6">
+        <DialogContent className="max-w-4xl space-y-6 p-10 overflow-y-auto  max-h-[90vh] scrollbar-hide">
           <DialogHeader>
             <DialogTitle className="text-violet-700 text-2xl font-semibold">
               {editingIndex !== null ? "Edit Project" : "Add Project"}

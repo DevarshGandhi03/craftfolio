@@ -13,10 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import { PlusCircle, Trash2, Edit2 } from "lucide-react"; // Icons for Add, Remove, and Edit buttons
 import { Label } from "../ui/label";
+import { Checkbox } from "../ui/checkbox";
 
 function Jobs() {
-  const { errors, jobExperiences, setJobExperiences } = useContext(PortfolioContext);
+  const { errors, jobExperiences, setJobExperiences } =
+    useContext(PortfolioContext);
   const [openJob, setOpenJob] = useState(false);
+  const [checked, setChecked] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null); // To track the job being edited
   const [jobErrors, setJobErrors] = useState({});
   const [newJob, setNewJob] = useState({
@@ -31,11 +34,13 @@ function Jobs() {
 
   const validateJob = () => {
     let errors = {};
-    if (!newJob.companyName.trim()) errors.companyName = "Company name is required.";
+    if (!newJob.companyName.trim())
+      errors.companyName = "Company name is required.";
     if (!newJob.city.trim()) errors.city = "City is required.";
     if (!newJob.state.trim()) errors.state = "State is required.";
     if (!newJob.jobTitle.trim()) errors.jobTitle = "Job title is required.";
-    if (!newJob.jobDescription.trim()) errors.jobDescription = "Job description is required.";
+    if (!newJob.jobDescription.trim())
+      errors.jobDescription = "Job description is required.";
     if (!newJob.from.trim()) errors.from = "Start date is required.";
     if (!newJob.to.trim()) errors.to = "End date is required.";
     setJobErrors(errors);
@@ -65,6 +70,7 @@ function Jobs() {
       });
       setJobErrors({});
       setOpenJob(false);
+      setChecked(false);
     }
   };
 
@@ -77,13 +83,18 @@ function Jobs() {
     setNewJob(jobExperiences[index]);
     setEditingIndex(index);
     setOpenJob(true);
+    if (jobExperiences[index].to === "Present") {
+      setChecked(true);
+    }
   };
 
   return (
     <div>
-      {errors.jobExperiences && <p className="text-red-500 text-sm">{errors.jobExperiences}</p>}
- {/* Add New Job Experience Button */}
- <div
+      {errors.jobExperiences && (
+        <p className="text-red-500 text-sm">{errors.jobExperiences}</p>
+      )}
+      {/* Add New Job Experience Button */}
+      <div
         className="cursor-pointer p-5 bg-violet-500 hover:bg-violet-600 rounded-lg text-white text-center mt-6"
         onClick={() => {
           setNewJob({
@@ -99,18 +110,22 @@ function Jobs() {
           setOpenJob(true);
         }}
       >
-        <PlusCircle size={18} className="inline-block mr-2" /> Add Job Experience
+        <PlusCircle size={18} className="inline-block mr-2" /> Add Job
+        Experience
       </div>
       {/* Job Cards */}
       <div className="space-y-6 mt-4">
         {jobExperiences.map((job, index) => (
-          <div
-            key={index}
-            className="p-6 bg-white flex flex-col space-y-4"
-          >
-            <h4 className="text-2xl font-semibold text-gray-700">{job.companyName} - {job.jobTitle}</h4>
-            <p className="text-gray-600">{job.city}, {job.state}</p>
-            <p className="text-gray-600">{job.from} to {job.to}</p>
+          <div key={index} className="p-6 bg-white flex flex-col space-y-4">
+            <h4 className="text-2xl font-semibold text-gray-700">
+              {job.companyName} - {job.jobTitle}
+            </h4>
+            <p className="text-gray-600">
+              {job.city}, {job.state}
+            </p>
+            <p className="text-gray-600">
+              {job.from} to {job.to}
+            </p>
             <p className="text-gray-600">{job.jobDescription}</p>
 
             <div className="flex gap-4">
@@ -137,14 +152,14 @@ function Jobs() {
         ))}
       </div>
 
-     
-
       {/* Add/Edit Job Experience Dialog */}
-      <Dialog open={openJob} onOpenChange={setOpenJob}>
-        <DialogContent className="max-w-4xl space-y-6">
+      <Dialog open={openJob} onOpenChange={setOpenJob} >
+        <DialogContent className="max-w-4xl p-10 max-h-[90vh] overflow-y-auto space-y-6 scrollbar-hide">
           <DialogHeader>
             <DialogTitle className="text-violet-700 text-2xl font-semibold">
-              {editingIndex !== null ? "Edit Job Experience" : "Add Job Experience"}
+              {editingIndex !== null
+                ? "Edit Job Experience"
+                : "Add Job Experience"}
             </DialogTitle>
           </DialogHeader>
 
@@ -154,7 +169,9 @@ function Jobs() {
             <div className="flex flex-col sm:flex-row sm:space-x-6">
               {/* Company Name */}
               <div className="flex-1">
-                <Label className="font-bold text-gray-700">Company Name <span className="text-red-500">*</span></Label>
+                <Label className="font-bold text-gray-700">
+                  Company Name <span className="text-red-500">*</span>
+                </Label>
                 <Input
                   placeholder="Enter company name"
                   value={newJob.companyName}
@@ -167,13 +184,17 @@ function Jobs() {
                   className="mt-2"
                 />
                 {jobErrors.companyName && (
-                  <p className="text-red-500 text-sm mt-1">{jobErrors.companyName}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {jobErrors.companyName}
+                  </p>
                 )}
               </div>
 
               {/* City */}
               <div className="flex-1">
-                <Label className="font-bold text-gray-700">City <span className="text-red-500">*</span></Label>
+                <Label className="font-bold text-gray-700">
+                  City <span className="text-red-500">*</span>
+                </Label>
                 <Input
                   placeholder="Enter city"
                   value={newJob.city}
@@ -192,7 +213,9 @@ function Jobs() {
 
               {/* State */}
               <div className="flex-1">
-                <Label className="font-bold text-gray-700">State <span className="text-red-500">*</span></Label>
+                <Label className="font-bold text-gray-700">
+                  State <span className="text-red-500">*</span>
+                </Label>
                 <Input
                   placeholder="Enter state"
                   value={newJob.state}
@@ -212,7 +235,9 @@ function Jobs() {
 
             {/* Job Title */}
             <div>
-              <Label className="font-bold text-gray-700">Job Title <span className="text-red-500">*</span></Label>
+              <Label className="font-bold text-gray-700">
+                Job Title <span className="text-red-500">*</span>
+              </Label>
               <Input
                 placeholder="Enter job title"
                 value={newJob.jobTitle}
@@ -225,13 +250,17 @@ function Jobs() {
                 className="mt-2"
               />
               {jobErrors.jobTitle && (
-                <p className="text-red-500 text-sm mt-1">{jobErrors.jobTitle}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {jobErrors.jobTitle}
+                </p>
               )}
             </div>
 
             {/* Job Description */}
             <div>
-              <Label className="font-bold text-gray-700">Job Description <span className="text-red-500">*</span></Label>
+              <Label className="font-bold text-gray-700">
+                Job Description <span className="text-red-500">*</span>
+              </Label>
               <Textarea
                 placeholder="Enter job description"
                 value={newJob.jobDescription}
@@ -244,7 +273,9 @@ function Jobs() {
                 className="mt-2"
               />
               {jobErrors.jobDescription && (
-                <p className="text-red-500 text-sm mt-1">{jobErrors.jobDescription}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {jobErrors.jobDescription}
+                </p>
               )}
             </div>
 
@@ -252,9 +283,11 @@ function Jobs() {
             <div className="flex space-x-6">
               {/* From */}
               <div className="flex-1">
-                <Label className="font-bold text-gray-700">From <span className="text-red-500">*</span></Label>
+                <Label className="font-bold text-gray-700">
+                  From <span className="text-red-500">*</span>
+                </Label>
                 <Input
-                  type="date"
+                  type="month"
                   value={newJob.from}
                   onChange={(e) =>
                     setNewJob((prev) => ({
@@ -271,9 +304,12 @@ function Jobs() {
 
               {/* To */}
               <div className="flex-1">
-                <Label className="font-bold text-gray-700">To <span className="text-red-500">*</span></Label>
+                <Label className="font-bold text-gray-700">
+                  To <span className="text-red-500">*</span>
+                </Label>
                 <Input
-                  type="date"
+                  type="month"
+                  disabled={checked}
                   value={newJob.to}
                   onChange={(e) =>
                     setNewJob((prev) => ({
@@ -286,12 +322,30 @@ function Jobs() {
                 {jobErrors.to && (
                   <p className="text-red-500 text-sm mt-1">{jobErrors.to}</p>
                 )}
+                <div className="flex-1 mt-2 p-2 justify-center items-center">
+                  <Label className="mr-3 font-bold text-gray-700">
+                    Present
+                  </Label>
+                  <Checkbox
+                    className="flex"
+                    checked={checked}
+                    onCheckedChange={(isChecked) => {
+                      setChecked(isChecked);
+                      setNewJob({
+                        ...newJob,
+                        to: isChecked ? "Present" : "",
+                      });
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
 
           <DialogFooter>
-            <Button onClick={handleAddOrEditJob}>{editingIndex !== null ? "Save Changes" : "Save"}</Button>
+            <Button onClick={handleAddOrEditJob}>
+              {editingIndex !== null ? "Save Changes" : "Save"}
+            </Button>
             <Button onClick={() => setOpenJob(false)}>Close</Button>
           </DialogFooter>
         </DialogContent>

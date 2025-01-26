@@ -72,7 +72,7 @@ function Messages() {
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
-                  <AlertDialogTitle className="hidden"></AlertDialogTitle>
+                  <AlertDialogTitle ></AlertDialogTitle>
                   <AlertDialogHeader>Delete Message</AlertDialogHeader>
                   <p>Are you sure you want to delete this message?</p>
                   <AlertDialogFooter>

@@ -12,9 +12,11 @@ import {
 import { Trash2, PlusCircle, Edit } from "lucide-react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { Checkbox } from "../ui/checkbox";
 
 function Education() {
   const [educationErrors, setEducationErrors] = useState({});
+  const [checked, setChecked] = useState(false);
   const [openEdu, setOpenEdu] = useState(false);
   const { errors, education, setEducation } = useContext(PortfolioContext);
   const [newEducation, setNewEducation] = useState({
@@ -54,6 +56,7 @@ function Education() {
       setEducationErrors({});
       setOpenEdu(false);
       setEditingIndex(null);
+      setChecked(false);
     }
   };
 
@@ -61,6 +64,9 @@ function Education() {
     setNewEducation(education[index]);
     setEditingIndex(index);
     setOpenEdu(true);
+    if (education[index].to === "Present") {
+      setChecked(true);
+    }
   };
 
   const handleRemoveEducation = (index) => {
@@ -94,47 +100,46 @@ function Education() {
       </div>
 
       <div className="flex flex-wrap gap-6">
-  {education.map((edu, index) => (
-    <div
-      key={index}
-      className="flex-1 min-w-[300px] max-w-[48%] bg-white p-6 flex flex-col justify-between"
-    >
-      <div className="flex flex-col mb-4">
-        <h4 className="text-2xl font-semibold text-gray-700">
-          {edu.instituteName}
-        </h4>
-        <p className="text-gray-700">{edu.degree}</p>
-        <p className="text-gray-500 mt-2">
-         {edu.from} to {edu.to}
-        </p>
+        {education.map((edu, index) => (
+          <div
+            key={index}
+            className="flex-1 min-w-[300px] max-w-[48%] bg-white p-6 flex flex-col justify-between"
+          >
+            <div className="flex flex-col mb-4">
+              <h4 className="text-2xl font-semibold text-gray-700">
+                {edu.instituteName}
+              </h4>
+              <p className="text-gray-700">{edu.degree}</p>
+              <p className="text-gray-500 mt-2">
+                {edu.from} to {edu.to}
+              </p>
+            </div>
+            <div className="flex gap-4 mt-4">
+              <Button
+                variant="secondary"
+                size="sm"
+                type="button"
+                className="flex items-center gap-2"
+                onClick={() => handleEditEducation(index)}
+              >
+                <Edit size={16} /> Edit
+              </Button>
+              <Button
+                variant="destructive"
+                size="sm"
+                type="button"
+                className="flex items-center gap-2"
+                onClick={() => handleRemoveEducation(index)}
+              >
+                <Trash2 size={16} /> Remove
+              </Button>
+            </div>
+          </div>
+        ))}
       </div>
-      <div className="flex gap-4 mt-4">
-        <Button
-          variant="secondary"
-          size="sm"
-          type="button"
-          className="flex items-center gap-2"
-          onClick={() => handleEditEducation(index)}
-        >
-          <Edit size={16} /> Edit
-        </Button>
-        <Button
-          variant="destructive"
-          size="sm"
-          type="button"
-          className="flex items-center gap-2"
-          onClick={() => handleRemoveEducation(index)}
-        >
-          <Trash2 size={16} /> Remove
-        </Button>
-      </div>
-    </div>
-  ))}
-</div>
 
-
-      <Dialog open={openEdu}>
-        <DialogContent className="max-w-4xl space-y-6">
+      <Dialog open={openEdu} onOpenChange={setOpenEdu}>
+        <DialogContent className="max-w-4xl p-10 max-h-[90vh] overflow-y-auto space-y-6 scrollbar-hide">
           <DialogHeader>
             <DialogTitle className="text-violet-700 text-2xl font-semibold">
               {editingIndex !== null ? "Edit Education" : "Add Education"}
@@ -170,10 +175,7 @@ function Education() {
               </div>
 
               <div className="flex-1">
-                <Label
-                  htmlFor="degree"
-                  className="font-bold text-gray-700"
-                >
+                <Label htmlFor="degree" className="font-bold text-gray-700">
                   Degree <span className="text-red-500">*</span>
                 </Label>
                 <Input
@@ -194,14 +196,17 @@ function Education() {
             </div>
 
             <div className="flex space-x-6">
-            <div className="flex-1">
-                <label htmlFor="from" className="block text-sm font-medium text-gray-700">
+              <div className="flex-1">
+                <Label
+                  htmlFor="from"
+                  className="block font-bold text-gray-700"
+                >
                   From <span className="text-red-500">*</span>
-                </label>
+                </Label>
                 <Input
                   id="from"
                   placeholder="From"
-                  type="date"
+                  type="month"
                   value={newEducation.from}
                   onChange={(e) =>
                     setNewEducation({ ...newEducation, from: e.target.value })
@@ -209,18 +214,24 @@ function Education() {
                   className="w-full mt-2"
                 />
                 {educationErrors.from && (
-                  <p className="text-red-500 text-xs mt-1">{educationErrors.from}</p>
+                  <p className="text-red-500 text-xs mt-1">
+                    {educationErrors.from}
+                  </p>
                 )}
               </div>
 
               <div className="flex-1">
-                <label htmlFor="to" className="block text-sm font-medium text-gray-700">
+                <Label
+                  htmlFor="to"
+                  className="block font-bold text-gray-700"
+                >
                   To <span className="text-red-500">*</span>
-                </label>
+                </Label>
                 <Input
+                  disabled={checked}
                   id="to"
                   placeholder="To"
-                  type="date"
+                  type="month"
                   value={newEducation.to}
                   onChange={(e) =>
                     setNewEducation({ ...newEducation, to: e.target.value })
@@ -228,8 +239,26 @@ function Education() {
                   className="w-full mt-2"
                 />
                 {educationErrors.to && (
-                  <p className="text-red-500 text-xs mt-1">{educationErrors.to}</p>
+                  <p className="text-red-500 text-xs mt-1">
+                    {educationErrors.to}
+                  </p>
                 )}
+                <div className="flex-1 mt-2 p-2 justify-center items-center">
+                  <Label className="mr-3 font-bold text-gray-700">
+                    Present
+                  </Label>
+                  <Checkbox
+                    className="flex"
+                    checked={checked}
+                    onCheckedChange={(isChecked) => {
+                      setChecked(isChecked);
+                      setNewEducation({
+                        ...newEducation,
+                        to: isChecked ? "Present" : "",
+                      });
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
