@@ -12,11 +12,15 @@ import { Button } from "@/components/ui/button";
 import React, { useContext, useEffect, useState } from "react";
 import { AlertDialogTitle } from "@radix-ui/react-alert-dialog";
 import axios from "axios";
+import Loading from "@/components/Loading";
+import { useRouter } from "next/navigation";
+import { toast } from "@/hooks/use-toast";
 
 function Messages() {
   const [messages, setMessages] = useState([]);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const { userPortfolioDetails, isSubmitted } = useContext(AuthContext);
+  const router= useRouter()
 
   function setUserMessages() {
     if (isSubmitted && userPortfolioDetails) {
@@ -37,8 +41,18 @@ function Messages() {
   useEffect(() => {
     setUserMessages();
   }, [isSubmitted]);
+  useEffect(() => {
+    if (!isSubmitted && userPortfolioDetails) {
+      router.push("/dashboard/profile")
+      toast({
+        title:"Kindly provide your personal information first.",
+        description:"To access this section, you will need to submit your personal information first."
+      })
+    }
+  }, [isSubmitted]);
 
   return (
+    isSubmitted?
     <div className="w-full p-6">
       <h2 className="text-5xl font-bold text-gray-700 mb-10">Messages</h2>
       <div >
@@ -110,7 +124,7 @@ function Messages() {
         </div>}
         
       </div>
-    </div>
+    </div>:<Loading/>
   );
 }
 

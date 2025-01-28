@@ -44,6 +44,7 @@ const PortfolioSchema = new mongoose.Schema({
       degree: String,
       from: String,
       to: String,
+      grade:String
     },
   ],
   about: {

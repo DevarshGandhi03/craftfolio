@@ -9,10 +9,7 @@ export async function POST(req) {
   
   
   // Extract the `prompt` from the body of the request
-  const  prompt  =`With given username and title generate a concise and compelling description highlighting the user’s role, key skills, and professional expertise. The description should be professional, showcasing the user’s qualifications, experience, and contributions in their field and start with hey.There should be minimum of 50 words
-          Username: ${res.prompt.fullName}
-          Professional Title: ${res.prompt.userTitle}
-          `;
+  const  prompt  =`Write a professional and engaging 'About' section for a portfolio website. The section should reflect the username ${res.prompt.fullName}and their professional title '${res.prompt.userTitle}.' Highlight their expertise, passion for the field, key accomplishments, and a glimpse into their personality or career aspirations. The tone should be approachable yet professional, making them stand out to potential employers or collaborators.And it should be a littel casual with minmum of 100 words`;
 
   // Ask Google Generative AI for a streaming completion given the prompt
   const response = await genAI

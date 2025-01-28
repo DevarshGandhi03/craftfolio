@@ -139,7 +139,7 @@ function Projects() {
                 <img
                   src={project.projectImage}
                   alt={project.projectTitle}
-                  className="w-full h-full object-cover rounded-md"
+                  className="h-32 w-48  object-cover rounded-md"
                 />
               </div>
             )}
@@ -148,7 +148,7 @@ function Projects() {
                 <img
                   src={project.projectPrevImage}
                   alt={project.projectPrevImage}
-                  className="w-full h-full object-cover rounded-md"
+                  className="h-32 w-48 object-cover rounded-md"
                 />
               </div>
             )}
@@ -191,8 +191,14 @@ function Projects() {
       </div>
 
       {/* Add/Edit Project Dialog */}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-4xl space-y-6 p-10 overflow-y-auto  max-h-[90vh] scrollbar-hide">
+      <Dialog
+        open={open}
+        onOpenChange={() => {
+          
+          setProjectErrors({});
+        }}
+      >
+        <DialogContent className="max-w-4xl space-y-6 p-8 overflow-y-auto  max-h-[90vh] scrollbar-hide">
           <DialogHeader>
             <DialogTitle className="text-violet-700 text-2xl font-semibold">
               {editingIndex !== null ? "Edit Project" : "Add Project"}
@@ -360,6 +366,7 @@ function Projects() {
               variant="outline"
               onClick={() => {
                 {
+                  setProjectErrors({});
                   editingIndex !== null
                     ? validateProject()
                       ? setOpen(false)

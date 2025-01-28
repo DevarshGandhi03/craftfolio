@@ -7,7 +7,10 @@ import { Textarea } from "../ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import axios from "axios";
 import { Input } from "../ui/input";
-import { Delete, DeleteIcon, Trash, Trash2 } from "lucide-react";
+import { Sparkle, SparkleIcon, Sparkles, Trash2 } from "lucide-react";
+import { useCompletion } from "ai/react";
+import { useEffect } from "react";
+import { title } from "process";
 
 function PersonalInformation() {
   const {
@@ -32,16 +35,69 @@ function PersonalInformation() {
 
   const [previewUrl, setPreviewUrl] = useState();
 
-
-  const charCount = userDescription.length;
+  const { completion, complete, isLoading } = useCompletion({
+    api: "/api/users/suggest-description", // Ensure this matches your backend route
+  });
+  const {
+    completion: aboutCompletion,
+    complete: aboutComplete,
+    isLoading: isAboutLoading,
+  } = useCompletion({
+    api: "/api/users/suggest-about", // Ensure this matches your backend route
+  });
 
   if (image) {
     const fileReader = new FileReader();
     fileReader.onload = () => setPreviewUrl(fileReader.result);
     fileReader.readAsDataURL(image);
   }
+  const handleGenDescSubmit = (e) => {
+    e.preventDefault();
+    if (userTitle && fullName) {
+      complete({
+        fullName,
+        userTitle,
+      });
+    } else {
+      toast({
+        title: "Missing Information! Fullname and Title required.",
 
-  async function handleRemoveUserImage(publicId) {
+        variant: "destructive",
+      });
+      return;
+    }
+  };
+  const handleGenAboutSubmit = (e) => {
+    e.preventDefault();
+    if (userTitle && fullName) {
+      aboutComplete({
+        fullName,
+        userTitle,
+      });
+    } else {
+      toast({
+        title: "Missing Information! Fullname and Title required.",
+        variant: "destructive",
+      });
+      return;
+    }
+  };
+  useEffect(() => {
+    if (completion) {
+      setUserDescription(completion);
+    }
+  }, [completion]);
+  useEffect(() => {
+    if (aboutCompletion) {
+      setAbout(aboutCompletion);
+    }
+  }, [aboutCompletion]);
+
+  async function handleRemoveUserImage() {
+    setUserImage(null);
+    setImage(null);
+  }
+  async function handleRemoveImage(publicId) {
     const response = await axios.post("/api/users/remove-file", {
       public_id: publicId,
     });
@@ -131,7 +187,7 @@ function PersonalInformation() {
             />
             <Button
               type="button"
-              onClick={() => handleRemoveUserImage(userImageId)}
+              onClick={() => handleRemoveUserImage()}
               className="mt-2 bg-red-600 text-white px-3 py-1 text-xs rounded hover:bg-red-700"
             >
               <Trash2 /> Delete Image
@@ -151,7 +207,8 @@ function PersonalInformation() {
               type="file"
               accept="image/*"
               className="hidden"
-              onChange={(event) => {
+              onChange={async (event) => {
+                await handleRemoveImage(userImageId);
                 const file = event.target.files[0];
                 if (file) {
                   const fileReader = new FileReader();
@@ -166,23 +223,29 @@ function PersonalInformation() {
       </div>
 
       {/* Description and About in a Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-          <Label className="font-bold text-gray-700">
-            Description<span className="text-red-500">*</span>
+      <div className="flex flex-col justify-center gap-y-5 mt-1">
+        <div>
+          <Label className="font-bold text-gray-700 ">
+            Description<span className="text-red-500 ">*</span>
           </Label>
           <Textarea
             value={userDescription}
             placeholder="Brief description about yourself"
             onChange={(e) => setUserDescription(e.target.value)}
-            className="mt-1 p-3 h-36 border w-full focus:ring-2 focus:ring-violet-500 text-base"
-            style={{ borderRadius: "4px" }} // Added border radius adjustment
+            className="mt-1 p-3 h-36 border w-full focus:ring-2 focus:ring-violet-500 text-base scrollbar-hide" // Added border radius adjustment
           />
           {errors.userDescription && (
             <p className="text-red-500 text-xs mt-1">
               {errors.userDescription}
             </p>
           )}
+          <Button
+            className="mt-3"
+            disabled={isLoading}
+            onClick={handleGenDescSubmit}
+          >
+            {isLoading ? "Generating..." : "Generate"} <Sparkles />
+          </Button>
         </div>
 
         <div>
@@ -193,12 +256,18 @@ function PersonalInformation() {
             value={about}
             placeholder="Tell us about yourself"
             onChange={(e) => setAbout(e.target.value)}
-            className="mt-1 p-3 h-36 border w-full focus:ring-2 focus:ring-violet-500 text-base"
-            style={{ borderRadius: "4px" }} // Added border radius adjustment
+            className="mt-1 scrollbar-hide p-3 h-36 border w-full focus:ring-2 focus:ring-violet-500 text-base"
           />
           {errors.about && (
             <p className="text-red-500 text-xs mt-1">{errors.about}</p>
           )}
+          <Button
+            className="mt-3"
+            disabled={isAboutLoading}
+            onClick={handleGenAboutSubmit}
+          >
+            {isAboutLoading ? "Generating..." : "Generate"} <Sparkles />
+          </Button>
         </div>
       </div>
     </div>

@@ -1,13 +1,17 @@
 "use client";
+import Loading from "@/components/Loading";
 import { Button } from "@/components/ui/button";
+import { AuthContext } from "@/context/authContext";
 import { PortfolioContext } from "@/context/portfolioContext";
+import { toast } from "@/hooks/use-toast";
 import { Download } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export default function Portfolio() {
   const { resumeTheme, setResumeTheme } = useContext(PortfolioContext);
-  const router = useRouter()
+  const router = useRouter();
+  const { isSubmitted ,userPortfolioDetails} = useContext(AuthContext);
 
   const themes = [
     { id: "theme_1", name: "Theme 1", imgSrc: "" },
@@ -18,8 +22,19 @@ export default function Portfolio() {
   const handleThemeChange = (id) => {
     setResumeTheme(id);
   };
+  useEffect(() => {
+    if (!isSubmitted && userPortfolioDetails) {
+      router.push("/dashboard/profile");
+      toast({
+        title: "Kindly provide your personal information first.",
+        description:
+          "To access this section, you will need to submit your personal information first.",
+      });
+    }
+  }, [isSubmitted]);
 
   return (
+    isSubmitted?
     <div>
       {/* Header Section */}
       <div className="w-full p-6">
@@ -31,7 +46,7 @@ export default function Portfolio() {
         <div className="flex flex-col gap-2 mb-5">
           <h2 className="text-2xl font-semibold text-gray-800">Theme</h2>
           <p className="text-sm text-gray-500">
-          Personalize your resume by selecting a theme you love.
+            Personalize your resume by selecting a theme you love.
           </p>
           <hr />
         </div>
@@ -63,12 +78,17 @@ export default function Portfolio() {
 
         {/* Download Button */}
         <div className="mt-4">
-          <Button className="w-52 flex items-center gap-2" onClick={()=>resumeTheme?router.replace("/dashboard/resume/download"):null}>
+          <Button
+            className="w-52 flex items-center gap-2"
+            onClick={() =>
+              resumeTheme ? router.replace("/dashboard/resume/download") : null
+            }
+          >
             <Download />
             Download Resume
           </Button>
         </div>
       </div>
-    </div>
+    </div>:<Loading/>
   );
 }

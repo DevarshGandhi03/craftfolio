@@ -1,7 +1,6 @@
 "use client";
 
 import Loading from "@/components/Loading";
-
 import { AuthContext } from "@/context/authContext";
 import { toast } from "@/hooks/use-toast";
 import axios from "axios";
@@ -43,6 +42,7 @@ function PortfolioProvider({ children, token }) {
     twitter: "",
     instagram: "",
   });
+  const router = useRouter();
   function setUserPortfolioDetails() {
     if (isSubmitted && userPortfolioDetails) {
       setProjects(userPortfolioDetails.projects);
@@ -166,10 +166,6 @@ function PortfolioProvider({ children, token }) {
       setUserImage(response.data.data.url);
       setUserImageId(response.data.data.public_id);
       setImage(null);
-
-      toast({
-        title: "Image uploaded successfully!",
-      });
     } catch (error) {
       toast({
         title: "Failed to upload user image.",
@@ -214,18 +210,24 @@ function PortfolioProvider({ children, token }) {
         skills,
         education,
         about,
-        resume: "sdfdsfsdf",
+        resume: "",
         github: socialLinks.github,
         linkedin: socialLinks.linkedin,
         instagram: socialLinks.instagram,
         twitter: socialLinks.twitter,
         phoneNo: phoneNumber,
       });
+      toast({
+        title: "Success",
+        description: "Your details have been submitted successfully.",
+        icon: "✅", // Adds a success icon for better context
+        className: "bg-green-600 text-white", // Subtle and professional green shade
+      });
+
       setCalledOnce(true);
       setIsSubmitted(true);
       setPageLoading(false);
-
-      url.refresh();
+      router.push("/dashboard/portfolio")
     }
   }
   async function updatePortfolio() {
@@ -249,6 +251,12 @@ function PortfolioProvider({ children, token }) {
         twitter: socialLinks.twitter,
         phoneNo: phoneNumber,
       });
+      toast({
+        title: "Success",
+        description: "Your details have been updated successfully.",
+        className: "bg-green-600 text-white",
+      });
+
       setPageLoading(false);
       url.refresh();
       setImageLoading(true);

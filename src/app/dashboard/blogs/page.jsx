@@ -15,6 +15,9 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import axios from "axios";
 import { AuthContext } from "@/context/authContext";
 import { Link, Unlink } from "lucide-react";
+import Loading from "@/components/Loading";
+import { useRouter } from "next/navigation";
+import { toast } from "@/hooks/use-toast";
 
 export default function HashnodeConnect() {
   const [username, setUsername] = useState("");
@@ -23,6 +26,7 @@ export default function HashnodeConnect() {
   const [isConnected, setIsConected] = useState(false);
   const [error, setError] = useState(null);
   const { userPortfolioDetails, isSubmitted } = useContext(AuthContext);
+  const router= useRouter()
 
   async function setUserName() {
     if (isSubmitted && userPortfolioDetails.hashnodeUsername) {
@@ -52,6 +56,17 @@ export default function HashnodeConnect() {
   }
   useEffect(() => {
     setUserName();
+  }, [isSubmitted]);
+
+  useEffect(() => {
+    if (!isSubmitted && userPortfolioDetails) {
+      router.push("/dashboard/profile");
+      toast({
+        title: "Kindly provide your personal information first.",
+        description:
+          "To access this section, you will need to submit your personal information first.",
+      });
+    }
   }, [isSubmitted]);
 
   useEffect(() => {
@@ -103,6 +118,7 @@ export default function HashnodeConnect() {
   };
 
   return (
+    isSubmitted?
     <div className="p-6 max-w-4xl mx-auto flex flex-col gap-y-6">
       <div className="w-full">
         <h2 className="text-5xl font-bold text-gray-700">Blogs</h2>
@@ -212,6 +228,6 @@ export default function HashnodeConnect() {
           </p>
         )}
       </div>
-    </div>
+    </div>:<Loading/>
   );
 }

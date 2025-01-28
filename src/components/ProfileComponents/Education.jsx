@@ -24,6 +24,7 @@ function Education() {
     degree: "",
     from: "",
     to: "",
+    grade: "",
   });
   const [editingIndex, setEditingIndex] = useState(null);
 
@@ -52,6 +53,7 @@ function Education() {
         degree: "",
         from: "",
         to: "",
+        grade: "",
       });
       setEducationErrors({});
       setOpenEdu(false);
@@ -81,6 +83,7 @@ function Education() {
       degree: "",
       from: "",
       to: "",
+      grade: "",
     });
     setEditingIndex(null);
   };
@@ -113,6 +116,7 @@ function Education() {
               <p className="text-gray-500 mt-2">
                 {edu.from} to {edu.to}
               </p>
+              <p className="text-gray-500 mt-2">Grade: {edu.grade}</p>
             </div>
             <div className="flex gap-4 mt-4">
               <Button
@@ -138,8 +142,13 @@ function Education() {
         ))}
       </div>
 
-      <Dialog open={openEdu} onOpenChange={setOpenEdu}>
-        <DialogContent className="max-w-4xl p-10 max-h-[90vh] overflow-y-auto space-y-6 scrollbar-hide">
+      <Dialog
+        open={openEdu}
+        onOpenChange={() => {
+          setEducationErrors({});
+        }}
+      >
+        <DialogContent className="max-w-4xl p-8 max-h-[90vh] overflow-y-auto space-y-6 scrollbar-hide">
           <DialogHeader>
             <DialogTitle className="text-violet-700 text-2xl font-semibold">
               {editingIndex !== null ? "Edit Education" : "Add Education"}
@@ -197,10 +206,7 @@ function Education() {
 
             <div className="flex space-x-6">
               <div className="flex-1">
-                <Label
-                  htmlFor="from"
-                  className="block font-bold text-gray-700"
-                >
+                <Label htmlFor="from" className="block font-bold text-gray-700">
                   From <span className="text-red-500">*</span>
                 </Label>
                 <Input
@@ -221,10 +227,7 @@ function Education() {
               </div>
 
               <div className="flex-1">
-                <Label
-                  htmlFor="to"
-                  className="block font-bold text-gray-700"
-                >
+                <Label htmlFor="to" className="block font-bold text-gray-700">
                   To <span className="text-red-500">*</span>
                 </Label>
                 <Input
@@ -261,13 +264,36 @@ function Education() {
                 </div>
               </div>
             </div>
+
+            <div>
+              <Label htmlFor="grade" className="font-bold text-gray-700">
+                Grade 
+              </Label>
+              <Input
+                id="grade"
+                placeholder="Grade"
+                value={newEducation.grade}
+                onChange={(e) =>
+                  setNewEducation({ ...newEducation, grade: e.target.value })
+                }
+                className="w-full mt-2"
+              />
+             
+            </div>
           </div>
 
           <DialogFooter>
             <Button onClick={handleAddEducation}>
               {editingIndex !== null ? "Update" : "Save"}
             </Button>
-            <Button onClick={handleCloseDialog}>Close</Button>
+            <Button
+              onClick={() => {
+                setEducationErrors({});
+                handleCloseDialog();
+              }}
+            >
+              Close
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

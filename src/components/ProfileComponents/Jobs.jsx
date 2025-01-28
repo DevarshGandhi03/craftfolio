@@ -153,8 +153,13 @@ function Jobs() {
       </div>
 
       {/* Add/Edit Job Experience Dialog */}
-      <Dialog open={openJob} onOpenChange={setOpenJob} >
-        <DialogContent className="max-w-4xl p-10 max-h-[90vh] overflow-y-auto space-y-6 scrollbar-hide">
+      <Dialog
+        open={openJob}
+        onOpenChange={() => {
+          setJobErrors({});
+        }}
+      >
+        <DialogContent className="max-w-4xl p-8 max-h-[90vh] overflow-y-auto space-y-6 scrollbar-hide">
           <DialogHeader>
             <DialogTitle className="text-violet-700 text-2xl font-semibold">
               {editingIndex !== null
@@ -346,7 +351,14 @@ function Jobs() {
             <Button onClick={handleAddOrEditJob}>
               {editingIndex !== null ? "Save Changes" : "Save"}
             </Button>
-            <Button onClick={() => setOpenJob(false)}>Close</Button>
+            <Button
+              onClick={() => {
+                setOpenJob(false);
+                setJobErrors({});
+              }}
+            >
+              Close
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

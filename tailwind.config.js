@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 const config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",

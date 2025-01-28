@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -118,4 +119,53 @@ header {
 .theme-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.maven{
+  font-family: "Maven Pro", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+@layer utilities {
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: theme("colors.gray.400") theme("colors.gray.100");
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: theme("colors.gray.100");
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: theme("colors.gray.400");
+    border-radius: 4px;
+    border: 2px solid theme("colors.gray.100");
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: theme("colors.gray.500");
+  }
+
+  /* Dark mode styles */
+  .dark .custom-scrollbar {
+    scrollbar-color: theme("colors.gray.600") theme("colors.gray.800");
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: theme("colors.gray.800");
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: theme("colors.gray.600");
+    border: 2px solid theme("colors.gray.800");
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: theme("colors.gray.500");
+  }
 }
