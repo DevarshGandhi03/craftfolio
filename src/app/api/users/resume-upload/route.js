@@ -32,7 +32,7 @@ export const POST = async (req) => {
     return apiResponse({
       message: "Resume uploaded !",
       statusCode: 200,
-      data:{ url:response.url,publicId:response.public_id},
+      data:{ url:response.secure_url,publicId:response.public_id},
       success:true
 
     });

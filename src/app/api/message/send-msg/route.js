@@ -4,12 +4,13 @@ import { sendVerificationEmail } from "@/helpers/mailer";
 import { SendMailMsg, sendMsgEmail } from "@/helpers/sendMsg";
 import Portfolio from "@/models/portfolioModel";
 import User from "@/models/userModel";
-import { data } from "autoprefixer";
 
 export async function POST(request) {
   try {
     const { username, sendersName, sendersEmail, sendersMessage } =
       await request.json();
+      console.log(username,sendersEmail);
+      
 
     const user = await User.findOne({ username });
 

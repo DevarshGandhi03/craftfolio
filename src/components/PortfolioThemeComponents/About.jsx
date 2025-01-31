@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { FloatingDock } from "../ui/floating-dock";
 import { IconBrandGithub, IconBrandX, IconHome } from "@tabler/icons-react";
 
-function About() {
-  const description = `As Devarsh, a seasoned React.js Developer, my passion for web development fuels my pursuit of excellence. I'm highly skilled in crafting responsive, interactive, and user-centric applications that meet the demands of the modern web. My expertise extends from state management and component architecture to performance optimization and cross-platform development.As Devarsh, a seasoned React.js Developer, my passion for web development fuels my pursuit of excellence. I'm highly skilled in crafting responsive, interactive, and user-centric applications that meet the demands of the modern web. My expertise extends from state management and component architecture to performance optimization and cross-platform developmentAs Devarsh, a seasoned React.js Developer, my passion for web development fuels my pursuit of excellence. I'm highly skilled in crafting responsive, interactive, and user-centric applications that meet the demands of the modern web. My expertise extends from state management and component architecture to performance optimization and cross-platform development`;
+function About({ portfolioDetails }) {
+  const description = portfolioDetails.about;
 
   const truncateText = (text, wordLimit) => {
     const wordsArray = text.split(" ");
@@ -17,40 +17,7 @@ function About() {
     return text;
   };
 
-  const educationTimeline = [
-    {
-      from: "September 2018",
-      to: "May 2022",
-      instituteName: "University of Technology",
-      degree: "Bachelor of Science in Computer Science",
-      grade: "3.8 GPA",
-    },
-    {
-      from: "June 2022",
-      to: "August 2022",
-      instituteName: "Tech Academy",
-      degree: "Full Stack Web Development Bootcamp",
-      grade: "98%",
-    },
-    {
-      from: "January 2023",
-      to: "Present",
-      instituteName: "Online Learning Platform",
-      degree: "Various Professional Certifications",
-    },
-    {
-      from: "January 2023",
-      to: "Present",
-      instituteName: "Online Learning Platform",
-      degree: "Various Professional Certifications",
-    },
-    {
-      from: "January 2023",
-      to: "Present",
-      instituteName: "Online Learning Platform",
-      degree: "Various Professional Certifications",
-    },
-  ];
+  const educationTimeline = portfolioDetails.education;
 
   return (
     <div className=" px-6 lg:px-16 flex flex-col justify-start items-center  lg:items-stretch  lg:mx-4 py-12  min-h-[90vh] max-h-[95vh]">
@@ -82,8 +49,16 @@ function About() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex justify-start items-center space-x-2 flex-row mt-6"
           >
-            <Button
+          {portfolioDetails.resume &&   <Button
               type="button"
+              onClick={() => {
+                const link = document.createElement("a");
+                link.href = portfolioDetails.resume; // Update with your actual file path
+                link.download = "Resume.pdf"; // Name of the file when downloaded
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
               className="flex items-center gap-2 p-6 bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-500 text-white rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
             >
               <p className="text-base">Resume</p>
@@ -94,7 +69,8 @@ function About() {
               >
                 <Download />
               </motion.div>
-            </Button>
+            </Button>}
+         
           </motion.div>
         </div>
 

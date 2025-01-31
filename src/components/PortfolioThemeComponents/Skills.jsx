@@ -3,17 +3,8 @@
 import { motion } from "framer-motion";
 import { LucideCheckCircle2 } from "lucide-react";
 
-export default function Skills() {
-  const skills = [
-    "JavaScript",
-    "React",
-    "Node.js",
-    "SQL",
-    "Tailwind CSS",
-    "Git & GitHub",
-    "Problem Solving",
-    "Team Collaboration",
-  ];
+export default function Skills({portfolioDetails}) {
+  const skills = portfolioDetails.skills;
 
   // Animation Variants
   const containerVariants = {

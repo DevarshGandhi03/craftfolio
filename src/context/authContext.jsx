@@ -69,7 +69,6 @@ function AuthProvider({ children, token }) {
     getPortfolioDetails();
   }, [isSubmitted, user]);
 
-   console.log(userPortfolioDetails);
    
   return (
     <AuthContext.Provider

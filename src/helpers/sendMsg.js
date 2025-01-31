@@ -82,7 +82,6 @@ export async function sendMsgEmail(
             <p><strong>Email Address:</strong> ${messageObj.sendersEmail}</p>
             <p><strong>Message: ${messageObj.sendersMessage}</strong></p>
 
-            <p>Best regards,<br>
         </div>
         <div class="footer">
             <p>&copy; 2025 CraftFolio. All rights reserved.</p>

@@ -2,41 +2,8 @@
 
 import { IconEye } from "@tabler/icons-react";
 
-export default function Projects() {
-  const projects = [
-    {
-      projectTitle: "Aceternity",
-      projectImage:
-        "http://res.cloudinary.com/dnt5vk7qk/image/upload/v1738073563/vydd6zlfggzvscn0qz9o.png", // Replace with actual image URL
-      projectDescription:
-        "A design and development studio that focuses on building quality apps.",
-      projectLiveLink: "#", // Replace with actual link
-    },
-    {
-      projectTitle: "Algochurn",
-      projectImage:
-        "http://res.cloudinary.com/dnt5vk7qk/image/upload/v1738073563/vydd6zlfggzvscn0qz9o.png", // Replace with actual link
-      projectDescription:
-        "Practice for technical interviews with hands-on coding challenges.",
-      projectLiveLink: "#", // Replace with actual link
-    },
-    {
-      projectTitle: "Algochurn",
-      projectImage:
-        "http://res.cloudinary.com/dnt5vk7qk/image/upload/v1738073563/vydd6zlfggzvscn0qz9o.png", // Replace with actual link
-      projectDescription:
-        "Practice for technical interviews with hands-on coding challenges.",
-      projectLiveLink: "#", // Replace with actual link
-    },
-    {
-      projectTitle: "Algochurn",
-      projectImage:
-        "http://res.cloudinary.com/dnt5vk7qk/image/upload/v1738073563/vydd6zlfggzvscn0qz9o.png", // Replace with actual link
-      projectDescription:
-        "Practice for technical interviews with hands-on coding challenges.",
-      projectLiveLink: "#", // Replace with actual link
-    },
-  ];
+export default function Projects({portfolioDetails}) {
+  const projects =portfolioDetails.projects
 
   return (
     <div className="w-full px-6  md:px-20 my-12 mx-auto py-10 flex flex-col justify-center items-center md:items-start">

@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 import User from "./userModel";
 
 const PortfolioSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId,User },
+  userId: { type: mongoose.Schema.Types.ObjectId, User },
+  userName: String,
   fullName: {
     type: String,
     trim: true,
@@ -35,7 +36,6 @@ const PortfolioSchema = new mongoose.Schema({
       projectDescription: String,
       projectLiveLink: String,
       projectImageId: String,
-      
     },
   ],
   education: [
@@ -44,7 +44,7 @@ const PortfolioSchema = new mongoose.Schema({
       degree: String,
       from: String,
       to: String,
-      grade:String
+      grade: String,
     },
   ],
   about: {

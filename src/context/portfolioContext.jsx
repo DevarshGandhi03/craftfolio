@@ -199,6 +199,7 @@ function PortfolioProvider({ children, token }) {
   async function uploadPortfolio() {
     if (!imageLoading && !projectLoading) {
       const response = await axios.post("/api/users/user-portfolio-details", {
+        userName:user.username,
         userId: user._id,
         fullName,
         projects,
@@ -210,7 +211,6 @@ function PortfolioProvider({ children, token }) {
         skills,
         education,
         about,
-        resume: "",
         github: socialLinks.github,
         linkedin: socialLinks.linkedin,
         instagram: socialLinks.instagram,
@@ -244,7 +244,6 @@ function PortfolioProvider({ children, token }) {
         skills,
         education,
         about,
-        resume: "sdfdsfsdf",
         github: socialLinks.github,
         linkedin: socialLinks.linkedin,
         instagram: socialLinks.instagram,

@@ -8,9 +8,11 @@ export async function POST(request) {
 
   try {
     const {
+      userName,
       userId,
       fullName,
-      userImage,userImageId,
+      userImage,
+      userImageId,
       userTitle,
       userDescription,
       projects,
@@ -25,8 +27,6 @@ export async function POST(request) {
       resume,
       education,
     } = await request.json();
-
-    
 
     const user = await User.findOne({ _id: userId });
     const userPortfolioDetails = await Portfolio.findOne({ userId });
@@ -103,7 +103,7 @@ export async function POST(request) {
         }
       }
     }
-    
+
     if (jobExperiences) {
       for (let i = 0; i < jobExperiences.length; i++) {
         if (
@@ -150,11 +150,11 @@ export async function POST(request) {
         }
       }
     }
-   
 
     const portfolioDetails = new Portfolio({
       userImageId,
       userId,
+      userName,
       fullName,
       userImage,
       userTitle,

@@ -53,14 +53,14 @@ export const Timeline = ({ data }) => {
                 <div className="h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 p-2" />
               </div>
               <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-neutral-500 dark:text-neutral-500">
-                {item.title}
+                {item.jobTitle}
               </h3>
             </div>
 
             {/* Timeline Content */}
             <div className="relative pl-20 pr-4 md:pl-4 w-full">
               <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500">
-                {item.title}
+                {item.jobTitle}
               </h3>
               <div className="">
                 <h3 className="text-emerald-500 font-bold dark:text-neutral-300 text-xl md:text-xl">
@@ -68,7 +68,7 @@ export const Timeline = ({ data }) => {
                 </h3>
 
                 <p className="text-neutral-600 dark:text-neutral-300 text-sm md:text-base">
-                  {item.dates}
+                  {item.from} to {item.to}
                 </p>
                 <p className="text-neutral-600 dark:text-neutral-300 text-sm">
                   {item.city}, {item.state}
@@ -76,7 +76,7 @@ export const Timeline = ({ data }) => {
               </div>
               <div>
                 <ul className="list-inside text-gray-600 dark:text-neutral-200 text-sm md:text-sm font-normal mb-4">
-                  {item.content.split(".").map((bullet, i) =>
+                  {item.jobDescription.split(".").map((bullet, i) =>
                     bullet.trim() ? (
                       <li key={i}>
                         <LucideCheckCircle2

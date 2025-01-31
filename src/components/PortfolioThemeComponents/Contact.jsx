@@ -1,14 +1,44 @@
+import { toast } from "@/hooks/use-toast";
+import axios from "axios";
+import { Loader2, Loader2Icon } from "lucide-react";
 import { useState } from "react";
 
-export default function Contact() {
+export default function Contact({ portfolioDetails }) {
+  const [Loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
-    console.log("Form submitted", { name, email, message });
-    // Add form submission logic here
+    try {
+      if (message && email && name) {
+        const response = await axios.post("/api/message/send-msg", {
+          username: portfolioDetails.userName,
+          sendersName: name,
+          sendersEmail: email,
+          sendersMessage: message,
+        });
+        if (response.data.success) {
+          toast({
+            title: "Message Sent!",
+            className: "bg-green-600 text-white",
+          });
+        }
+      }
+    } catch (err) {
+      toast({
+        varient: "destructive",
+        title: "Message not sent !",
+        description: "Please try again after sometime.",
+      });
+    } finally {
+      setEmail("");
+      setMessage("");
+      setName("");
+      setLoading(false);
+    }
   };
 
   return (
@@ -26,12 +56,14 @@ export default function Contact() {
         <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
           <input
             type="text"
+            required
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full md:w-1/2 p-4 bg-gray-100 rounded-lg border border-gray-300 placeholder-gray-500 focus:ring focus:ring-blue-300 focus:border-blue-500 transition shadow-sm"
             placeholder="Your Name"
           />
           <input
+            required
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -41,6 +73,7 @@ export default function Contact() {
         </div>
 
         <textarea
+          required
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className="w-full p-4 bg-gray-100 rounded-lg border border-gray-300 placeholder-gray-500 focus:ring focus:ring-blue-300 focus:border-blue-500 transition shadow-sm"
@@ -50,9 +83,17 @@ export default function Contact() {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-600 transition shadow-md"
+          disabled={Loading} // Prevent multiple clicks
+          className="w-full flex items-center justify-center gap-2 bg-blue-500 text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-600 transition shadow-md disabled:opacity-75"
         >
-          Send Message
+          {Loading ? (
+            <div className="flex items-center gap-2">
+              <Loader2 className="w-5 h-5 animate-spin" />
+              <span>Please Wait</span>
+            </div>
+          ) : (
+            "Send Message"
+          )}
         </button>
       </form>
     </div>
