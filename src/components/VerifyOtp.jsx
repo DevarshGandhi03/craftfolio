@@ -21,7 +21,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "./ui/input-otp";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import {
   Dialog,
@@ -45,9 +45,19 @@ const FormSchema = z.object({
   }),
 });
 
-export function VerifyOtp({ apiEndpoint, email, open,routerReplace,setOpen}) {
+export function VerifyOtp({
+  resendApiEndpoint,
+  apiEndpoint,
+  email,
+  open,
+  routerReplace,
+  setOpen,
+}) {
   const [loading, setLoading] = useState(false);
-  const {setUser}=useContext(AuthContext)
+
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendTimer, setResendTimer] = useState(60);
+  const { setUser } = useContext(AuthContext);
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -68,6 +78,26 @@ export function VerifyOtp({ apiEndpoint, email, open,routerReplace,setOpen}) {
   const handelCloseChange = () => {
     setOpen(false);
   };
+  const handleResendOtp = async () => {
+    setResendLoading(true);
+    try {
+      const response = await axios.post("/api/users/" + resendApiEndpoint, {
+        email: email,
+      });
+      toast({
+        title: response.data.message,
+      });
+      setResendTimer(60);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: error.response.data.message,
+      });
+    } finally {
+      setResendLoading(false);
+    }
+  };
 
   async function onSubmit(data) {
     setLoading(true);
@@ -80,13 +110,12 @@ export function VerifyOtp({ apiEndpoint, email, open,routerReplace,setOpen}) {
       toast({
         title: response.data.message,
       });
-      
-      if ( response.data.data) {
+
+      if (response.data.data) {
         setUser(response.data.data);
       }
       router.replace(routerReplace);
     } catch (error) {
-
       toast({
         variant: "destructive",
         title: error.response.data.message,
@@ -95,16 +124,20 @@ export function VerifyOtp({ apiEndpoint, email, open,routerReplace,setOpen}) {
       setLoading(false);
     }
   }
+  useEffect(() => {
+    let timer;
+    if (resendTimer > 0) {
+      timer = setTimeout(() => setResendTimer(resendTimer - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [resendTimer]);
 
   return (
     <Dialog open={open}>
-      <DialogContent className="sm:max-w-md flex justify-center items-center flex-col">
+      <DialogContent className="sm:max-w-md flex justify-center mx-4 p-10 flex-col">
         <DialogTitle>One-Time Password</DialogTitle>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-2/3 space-y-6"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3">
             <FormField
               control={form.control}
               name="otp"
@@ -139,16 +172,43 @@ export function VerifyOtp({ apiEndpoint, email, open,routerReplace,setOpen}) {
               )}
             />
 
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                "Submit"
-              )}
-            </Button>
+            <div className="flex flex-col mt-2">
+              {resendTimer > 0 ? (
+                <p className="text-gray-900 text-[0.8rem]">
+                  Resend OTP in{" "}
+                  <span className="text-blue-500">{resendTimer}s</span>
+                </p>
+              ) : null}
+              <div className="mt-2 flex">
+                <Button type="submit" className="p-5 mr-2" disabled={loading}>
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Please wait
+                    </>
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+                {resendTimer > 0 ? null : (
+                  <Button
+                    variant="outline"
+                    onClick={handleResendOtp}
+                    className="p-5"
+                    disabled={resendLoading}
+                  >
+                    {resendLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Sending OTP...
+                      </>
+                    ) : (
+                      "Resend OTP"
+                    )}
+                  </Button>
+                )}
+              </div>
+            </div>
           </form>
         </Form>
       </DialogContent>

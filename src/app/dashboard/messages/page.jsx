@@ -42,7 +42,7 @@ function Messages() {
     setUserMessages();
   }, [isSubmitted]);
   useEffect(() => {
-    if (!isSubmitted && userPortfolioDetails) {
+    if (!isSubmitted && userPortfolioDetails==null) {
       router.push("/dashboard/profile")
       toast({
         title:"Kindly provide your personal information first.",

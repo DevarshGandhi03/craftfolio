@@ -9,6 +9,7 @@ import Project from "./Project";
 import Skills from "./Skills";
 import Contact from "./Contact";
 import { FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import Link from "next/link";
 
 function Portfolio_1({ portfolioDetails }) {
   const [activeSection, setActiveSection] = useState("home");
@@ -82,6 +83,14 @@ function Portfolio_1({ portfolioDetails }) {
                 ></span>
               </a>
             ))}
+            <Link
+              href={`/portfolio/blogs/${portfolioDetails.userName}`}
+              className="relative text-gray-600 text-lg hover:text-gray-900 transition duration-150 ease-in-out group cursor-pointer"
+              passHref
+            >
+              Blog
+              <span className="absolute left-0 bottom-0 h-[2px] bg-gray-900 transition-all duration-300 w-0 group-hover:w-full"></span>
+            </Link>
           </div>
 
           <div className="md:hidden">
@@ -116,6 +125,15 @@ function Portfolio_1({ portfolioDetails }) {
               {link.label}
             </a>
           ))}
+          {portfolioDetails.hashnodeUsername && (
+            <Link
+              href={`/portfolio/blogs/${portfolioDetails.userName}`}
+              className="block text-gray-700 hover:text-gray-900 hover:bg-gray-100 px-4 py-2 rounded-md transition duration-200 ease-in-out text-lg"
+              passHref
+            >
+              Blogs
+            </Link>
+          )}
         </div>
       </div>
       <div className="fixed bottom-8 md:block hidden right-6 z-40">
@@ -178,7 +196,9 @@ function Portfolio_1({ portfolioDetails }) {
       </div>
       {sections.map((section) => (
         <section key={section.id} id={section.id} className="lg:pt-14">
-          {section.id === "home" && <PortfolioHome portfolioDetails={portfolioDetails} />}
+          {section.id === "home" && (
+            <PortfolioHome portfolioDetails={portfolioDetails} />
+          )}
           {section.id === "about" && (
             <About portfolioDetails={portfolioDetails} />
           )}

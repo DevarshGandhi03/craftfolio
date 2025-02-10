@@ -23,13 +23,13 @@ export async function POST(request) {
         statusCode: 400,
       });
     }
-    // if (user?.resendVerifyOtpExpiry > Date.now()) {
-    //     return apiResponse({
-    //       message: "Email already sent please try again after 1 minutes",
-    //       statusCode: 400,
-    //       success: false,
-    //     });
-    //   }
+    if (user?.resendVerifyOtpExpiry > Date.now()) {
+        return apiResponse({
+          message: "OTP already sent please try again after 1 minutes",
+          statusCode: 400,
+          success: false,
+        });
+      }
 
     const verifyOtpExpiry = Date.now() + 300000;
     const resendVerifyOtpExpiry = Date.now() + 100000;

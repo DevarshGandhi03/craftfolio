@@ -6,9 +6,9 @@ import { AuthContext } from "@/context/authContext";
 import { toast } from "@/hooks/use-toast";
 import axios from "axios";
 import { Loader2, Upload, Trash2 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { title } from "process";
 import { use, useContext, useEffect, useState } from "react";
 
 export default function Portfolio() {
@@ -26,23 +26,27 @@ export default function Portfolio() {
   const [resumeFileId, setResumeFileId] = useState(null);
   const [resumeFileUrl, setResumeFileUrl] = useState(null);
   const [userName, setUserName] = useState(null);
-  const router= useRouter()
+  const router = useRouter();
 
   function setUserDetails() {
     if (isSubmitted && userPortfolioDetails) {
       setResumeFileId(userPortfolioDetails.resumeId);
       setResumeFileUrl(userPortfolioDetails.resume);
       setUserName(user.username);
-      setTheme(userPortfolioDetails.portfolioTheme)
+      setTheme(userPortfolioDetails.portfolioTheme);
     }
   }
   useEffect(() => {
-    if (!isSubmitted && userPortfolioDetails) {
-      router.push("/dashboard/profile")
+
+    if (!isSubmitted && userPortfolioDetails == null) {
+      console.log("reached");
+
+      router.push("/dashboard/profile");
       toast({
-        title:"Kindly provide your personal information first.",
-        description:"To access this section, you will need to submit your personal information first."
-      })
+        title: "Kindly provide your personal information first.",
+        description:
+          "To access this section, you will need to submit your personal information first.",
+      });
     }
   }, [isSubmitted]);
   useEffect(() => {
@@ -121,160 +125,158 @@ export default function Portfolio() {
     }
   };
 
-  return (
-    isSubmitted? <div>
-    <div className="w-full p-6 dark">
-      <h2 className="text-5xl font-bold text-gray-700">Portfolio Website</h2>
-    </div>
-    <div className="pl-6 mt-5">
-      <div className="flex flex-col gap-2 mb-5">
-        <h2 className="text-2xl font-semibold text-gray-800">Appearance</h2>
-        <p className="text-sm text-gray-500">
-          Customize the appearance of the your portfolio website.
-        </p>
-        <hr />
+  return isSubmitted ? (
+    <div>
+      <div className="w-full p-6 dark">
+        <h2 className="text-5xl font-bold text-gray-700">Portfolio Website</h2>
       </div>
-      <div className="flex gap-x-6">
-        <div
-          id="theme_1"
-          className={`w-64 h-48 border-2 rounded-lg shadow-sm bg-gray-100 p-4 ${
-            theme === "theme_1" ? "border-purple-600" : "border-gray-300"
-          }`}
-          onClick={handleThemeChange}
-        >
-          <div className="flex flex-col gap-2">
-            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-            <div className="h-4 bg-gray-300 rounded w-full"></div>
-            <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+      <div className="pl-6 mt-5">
+        <div className="flex flex-col gap-2 mb-5">
+          <h2 className="text-2xl font-semibold text-gray-800">Appearance</h2>
+          <p className="text-sm text-gray-500">
+            Customize the appearance of the your portfolio website.
+          </p>
+          <hr />
+        </div>
+        <div className="flex gap-x-6">
+          <div
+            id="theme_1"
+            className={`w-64 h-48 border-2 rounded-lg shadow-sm bg-gray-100 p-4 ${
+              theme === "theme_1" ? "border-purple-600" : "border-gray-300"
+            }`}
+            onClick={handleThemeChange}
+          >
+            <div className="mt-4">
+              <p className="text-center text-sm font-medium">Theme 1</p>
+            </div>
           </div>
-          <div className="mt-4">
-            <p className="text-center text-sm font-medium">Theme 1</p>
+          <div
+            id="theme_2"
+            className={`w-64 h-48 border-2 rounded-lg shadow-sm bg-gray-100 p-4 ${
+              theme === "theme_2" ? "border-purple-600" : "border-gray-300"
+            }`}
+            onClick={handleThemeChange}
+          >
+            <div className="flex flex-col gap-2">
+              <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+              <div className="h-4 bg-gray-300 rounded w-full"></div>
+              <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+            </div>
+            <div className="mt-4">
+              <p className="text-center text-sm font-medium">Theme 2</p>
+            </div>
+          </div>
+          <div
+            id="theme_3"
+            className={`w-64 h-48 border-2 rounded-lg shadow-sm bg-gray-100 p-4 ${
+              theme === "theme_3" ? "border-purple-600" : "border-gray-300"
+            }`}
+            onClick={handleThemeChange}
+          >
+            <div className="flex flex-col gap-2">
+              <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+              <div className="h-4 bg-gray-300 rounded w-full"></div>
+              <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+            </div>
+            <div className="mt-4">
+              <p className="text-center text-sm font-medium">Theme 3</p>
+            </div>
           </div>
         </div>
-        <div
-          id="theme_2"
-          className={`w-64 h-48 border-2 rounded-lg shadow-sm bg-gray-100 p-4 ${
-            theme === "theme_2" ? "border-purple-600" : "border-gray-300"
-          }`}
-          onClick={handleThemeChange}
-        >
-          <div className="flex flex-col gap-2">
-            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-            <div className="h-4 bg-gray-300 rounded w-full"></div>
-            <div className="h-4 bg-gray-300 rounded w-5/6"></div>
-          </div>
-          <div className="mt-4">
-            <p className="text-center text-sm font-medium">Theme 2</p>
-          </div>
-        </div>
-        <div
-          id="theme_3"
-          className={`w-64 h-48 border-2 rounded-lg shadow-sm bg-gray-100 p-4 ${
-            theme === "theme_3" ? "border-purple-600" : "border-gray-300"
-          }`}
-          onClick={handleThemeChange}
-        >
-          <div className="flex flex-col gap-2">
-            <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-            <div className="h-4 bg-gray-300 rounded w-full"></div>
-            <div className="h-4 bg-gray-300 rounded w-5/6"></div>
-          </div>
-          <div className="mt-4">
-            <p className="text-center text-sm font-medium">Theme 3</p>
-          </div>
+        <div className="mt-4 flex flex-col gap-y-2">
+          <Button
+            className="w-52"
+            onClick={updatePortfolioTheme}
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <Loader2 />
+                Please wait
+              </>
+            ) : (
+              <>{isPublished ? "Update theme" : "Generate Website"}</>
+            )}
+            <Upload />
+          </Button>
+          {isPublished ? (
+            <div className="text-sm text-gray-800">
+              Public URL-
+              <Link href={window.location.origin + "/portfolio/" + userName}>
+                {window.location.origin + "/portfolio/" + userName}
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
-      <div className="mt-4 flex flex-col gap-y-2">
-        <Button
-          className="w-52"
-          onClick={updatePortfolioTheme}
-          disabled={loading}
-        >
-          {loading ? (
-            <>
-              <Loader2 />
-              Please wait
-            </>
-          ) : (
-            <>{isPublished ? "Update theme" : "Generate Website"}</>
-          )}
-          <Upload />
-        </Button>
-        {isPublished ? (
-          <div className="text-sm text-gray-800">
-            Public URL-
-            <Link href={window.location.origin + "/public/" + userName}>
-              {window.location.origin + "/public/" + userName}
-            </Link>
-          </div>
-        ) : null}
-      </div>
-    </div>
-    <div className="pl-6 mt-5">
-      <div className="flex flex-col gap-2 mb-5">
-        <h2 className="text-2xl font-semibold text-gray-800">Upload Resume</h2>
-        <p className="text-sm text-gray-500">
-          Upload your latest resume here to showcase it on your portfolio
-          website.
-        </p>
-        <hr />
-      </div>
-      <div>
-        {resumeFileUrl ? (
-          <div className="flex flex-col gap-y-2">
-            <p className="text-sm text-gray-800 mt-2">
-              Resume uploaded:{" "}
-              <a
-                href={resumeFileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline"
+      <div className="pl-6 mt-5">
+        <div className="flex flex-col gap-2 mb-5">
+          <h2 className="text-2xl font-semibold text-gray-800">
+            Upload Resume
+          </h2>
+          <p className="text-sm text-gray-500">
+            Upload your latest resume here to showcase it on your portfolio
+            website.
+          </p>
+          <hr />
+        </div>
+        <div>
+          {resumeFileUrl ? (
+            <div className="flex flex-col gap-y-2">
+              <p className="text-sm text-gray-800 mt-2">
+                Resume uploaded:{" "}
+                <a
+                  href={resumeFileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 underline"
+                >
+                  View Resume
+                </a>
+              </p>
+              <Button
+                variant="outline"
+                className="flex items-center w-52 gap-x-2 text-red-600"
+                onClick={handleResumeDelete}
               >
-                View Resume
-              </a>
-            </p>
-            <Button
-              variant="outline"
-              className="flex items-center w-52 gap-x-2 text-red-600"
-              onClick={handleResumeDelete}
-            >
-              <Trash2 className="w-4 h-4" />
-              Delete Resume
-            </Button>
-          </div>
-        ) : (
-          <>
-            <Button
-              variant="outline"
-              className="flex items-center gap-x-2"
-              disabled={resumeLoading}
-              onClick={() => {
-                document.getElementById("resume-upload").click();
-              }}
-            >
-              {resumeLoading ? (
-                <>
-                  <Loader2 /> Uploading...
-                </>
-              ) : (
-                <>
-                  <Upload className="w-4 h-4" />
-                  Upload Resume
-                </>
-              )}
-            </Button>
-            <Input
-              id="resume-upload"
-              type="file"
-              accept=".pdf,.doc,.docx"
-              className="hidden"
-              onChange={handleResumeUpload}
-            />
-          </>
-        )}
+                <Trash2 className="w-4 h-4" />
+                Delete Resume
+              </Button>
+            </div>
+          ) : (
+            <>
+              <Button
+                variant="outline"
+                className="flex items-center gap-x-2"
+                disabled={resumeLoading}
+                onClick={() => {
+                  document.getElementById("resume-upload").click();
+                }}
+              >
+                {resumeLoading ? (
+                  <>
+                    <Loader2 /> Uploading...
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-4 h-4" />
+                    Upload Resume
+                  </>
+                )}
+              </Button>
+              <Input
+                id="resume-upload"
+                type="file"
+                accept=".pdf,.doc,.docx"
+                className="hidden"
+                onChange={handleResumeUpload}
+              />
+            </>
+          )}
+        </div>
       </div>
     </div>
-  </div>:<Loading/>
-   
+  ) : (
+    <Loading />
   );
 }

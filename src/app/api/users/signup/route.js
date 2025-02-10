@@ -7,7 +7,7 @@ export async function POST(request) {
   await connectToDb();
   try {
     const { email } = await request.json();
-    
+
     if (!email) {
       return apiResponse({
         message: "Please enter your email.",
@@ -20,25 +20,32 @@ export async function POST(request) {
     const user = await User.findOne({ email });
 
     if (user) {
-      if (user?.resendVerifyOtpExpiry > Date.now()) {
-        return apiResponse({
-          message: "Email already sent please try again after 1 minutes",
-          statusCode: 400,
-          success: false,
-        });
-      }
       if (user.isVerified) {
         return apiResponse({
           message: "Email already exist.",
           statusCode: 400,
         });
       } else {
+        if (user?.resendVerifyOtpExpiry > Date.now()) {
+          return apiResponse({
+            message: "OTP already sent please try again after 1 minutes",
+            statusCode: 400,
+            success: false,
+          });
+        }
         user.verifyOtp = otp;
         user.verifyOtpExpiry = Date.now() + 300000;
         user.resendVerifyOtpExpiry = Date.now() + 100000;
         await user.save();
       }
     } else {
+      if (user?.resendVerifyOtpExpiry > Date.now()) {
+        return apiResponse({
+          message: "OTP already sent please try again after 1 minutes",
+          statusCode: 400,
+          success: false,
+        });
+      }
       const verifyOtpExpiry = Date.now() + 300000;
       const resendVerifyOtpExpiry = Date.now() + 100000;
       const username = email.split("@")[0];
