@@ -21,7 +21,7 @@ export const POST = async (req) => {
 
   const buffer = Buffer.from(await file.arrayBuffer());
   const filename = file.name.replaceAll(" ", "_");
-  const filePath = path.join(process.cwd(), "tmp", filename);
+  const filePath = path.join("/tmp", filename);
   //   console.log(filePath);
 
   try {
