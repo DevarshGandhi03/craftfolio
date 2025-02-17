@@ -83,7 +83,8 @@ export default function SettingsLayout({ children }) {
         {/* Logo */}
         <div className="flex items-center">
           <ScrollText size={35} />
-          <p className="ml-2 text-2xl font-semibold">CraftFolio</p>
+          
+          <p className="ml-2 text-2xl font-semibold">CraftFolio </p>
         </div>
 
         {/* Mobile Menu Button */}

@@ -37,7 +37,9 @@ function Portfolio() {
   return fetchingUserDetails ? (
     <Loading />
   ) : isAvailable ? (
-    <Portfolio_1 portfolioDetails={userPortfolioDetails} />
+    userPortfolioDetails.portfolioTheme === "theme_1" && (
+      <Portfolio_1 portfolioDetails={userPortfolioDetails} />
+    )
   ) : (
     <NotFound />
   );

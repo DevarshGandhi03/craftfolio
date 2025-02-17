@@ -9,7 +9,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 export const PortfolioContext = React.createContext(null);
 
-function PortfolioProvider({ children, token }) {
+function PortfolioProvider({ children}) {
   const url = useRouter();
   const {
     user,

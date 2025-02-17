@@ -262,7 +262,7 @@ function PersonalInformation() {
             <p className="text-red-500 text-xs mt-1">{errors.about}</p>
           )}
           <Button
-            className="mt-3"
+            className="mt-3 "
             disabled={isAboutLoading}
             onClick={handleGenAboutSubmit}
           >

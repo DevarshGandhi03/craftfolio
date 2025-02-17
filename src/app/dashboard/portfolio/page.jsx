@@ -37,7 +37,6 @@ export default function Portfolio() {
     }
   }
   useEffect(() => {
-
     if (!isSubmitted && userPortfolioDetails == null) {
       console.log("reached");
 
@@ -141,57 +140,35 @@ export default function Portfolio() {
         <div className="flex gap-x-6">
           <div
             id="theme_1"
-            className={`w-64 h-48 border-2 rounded-lg shadow-sm bg-gray-100 p-4 ${
+            className={`w-64 overflow-hidden h-[10.2rem] border-2 rounded-lg shadow-sm bg-gray-100  ${
               theme === "theme_1" ? "border-purple-600" : "border-gray-300"
             }`}
             onClick={handleThemeChange}
           >
-            <div className="mt-4">
-              <p className="text-center text-sm font-medium">Theme 1</p>
-            </div>
+            <iframe
+              src="http://localhost:3000/portfolio/devarsh600"
+              className="h-48 w-64 pointer-events-none"
+              style={{
+                width: "1280px", // Desktop width inside iframe
+                height: "800px", // Desktop height inside iframe
+                transform: "scale(0.2)", // Scale down to fit preview
+                transformOrigin: "top left",
+                border: "none",
+              }}
+              tabIndex="-1"
+            ></iframe>
           </div>
-          <div
-            id="theme_2"
-            className={`w-64 h-48 border-2 rounded-lg shadow-sm bg-gray-100 p-4 ${
-              theme === "theme_2" ? "border-purple-600" : "border-gray-300"
-            }`}
-            onClick={handleThemeChange}
-          >
-            <div className="flex flex-col gap-2">
-              <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-300 rounded w-full"></div>
-              <div className="h-4 bg-gray-300 rounded w-5/6"></div>
-            </div>
-            <div className="mt-4">
-              <p className="text-center text-sm font-medium">Theme 2</p>
-            </div>
-          </div>
-          <div
-            id="theme_3"
-            className={`w-64 h-48 border-2 rounded-lg shadow-sm bg-gray-100 p-4 ${
-              theme === "theme_3" ? "border-purple-600" : "border-gray-300"
-            }`}
-            onClick={handleThemeChange}
-          >
-            <div className="flex flex-col gap-2">
-              <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-300 rounded w-full"></div>
-              <div className="h-4 bg-gray-300 rounded w-5/6"></div>
-            </div>
-            <div className="mt-4">
-              <p className="text-center text-sm font-medium">Theme 3</p>
-            </div>
-          </div>
+          
         </div>
         <div className="mt-4 flex flex-col gap-y-2">
           <Button
-            className="w-52"
+            className="w-52 "
             onClick={updatePortfolioTheme}
             disabled={loading}
           >
             {loading ? (
               <>
-                <Loader2 />
+                <Loader2 className="animate-spin" />
                 Please wait
               </>
             ) : (
@@ -202,7 +179,7 @@ export default function Portfolio() {
           {isPublished ? (
             <div className="text-sm text-gray-800">
               Public URL-
-              <Link href={window.location.origin + "/portfolio/" + userName}>
+              <Link className=" text-blue-600" href={window.location.origin + "/portfolio/" + userName}>
                 {window.location.origin + "/portfolio/" + userName}
               </Link>
             </div>
@@ -247,7 +224,7 @@ export default function Portfolio() {
             <>
               <Button
                 variant="outline"
-                className="flex items-center gap-x-2"
+                className="flex items-center gap-x-2 "
                 disabled={resumeLoading}
                 onClick={() => {
                   document.getElementById("resume-upload").click();
@@ -255,7 +232,7 @@ export default function Portfolio() {
               >
                 {resumeLoading ? (
                   <>
-                    <Loader2 /> Uploading...
+                    <Loader2 className="animate-spin" /> Uploading...
                   </>
                 ) : (
                   <>

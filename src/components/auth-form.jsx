@@ -72,7 +72,7 @@ export function AuthForm({ className, ...props }) {
         <div className="absolute inset-0 flex justify-center items-center z-[-1] md:hidden">
           <SignupLoading loop={loading} play={loading} />
         </div>
-        <div className="bg-white bg-opacity-80 relative z-10 w-full md:w-auto">
+        <div className="bg-white bg-opacity-85 relative z-10 w-full md:w-auto">
           <Form {...form}>
             <form
               className="flex flex-col justify-center items-center w-full max-w-sm md:max-w-md lg:max-w-lg p-4"
@@ -136,7 +136,7 @@ export function AuthForm({ className, ...props }) {
                     OR
                   </span>
                 </div>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-4 lg:grid-cols-2">
                   <Button variant="outline" className="w-full" disabled>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                       <path

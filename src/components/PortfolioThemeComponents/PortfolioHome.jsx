@@ -34,7 +34,7 @@ function PortfolioHome({ portfolioDetails }) {
                 Hi There,
               </h3>
               <h2 className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-5xl md:text-6xl lg:text-8xl font-extrabold tracking-tight leading-tight">
-                I'm {portfolioDetails.fullName}
+                I'm {portfolioDetails.fullName.split(" ")[0]}
               </h2>
               <div className="text-2xl md:text-3xl font-light text-neutral-700 dark:text-neutral-300">
                 I Am A{" "}

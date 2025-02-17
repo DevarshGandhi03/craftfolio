@@ -134,7 +134,7 @@ export function VerifyOtp({
 
   return (
     <Dialog open={open}>
-      <DialogContent className="sm:max-w-md flex justify-center mx-4 p-10 flex-col">
+      <DialogContent className="sm:max-w-md flex justify-center p-8 flex-col">
         <DialogTitle>One-Time Password</DialogTitle>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3">
