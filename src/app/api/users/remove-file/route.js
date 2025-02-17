@@ -1,5 +1,5 @@
 import { apiResponse } from "@/helpers/apiResponse";
-import { deleteMediaFromCloudinary } from "@/helpers/cloudinary"
+import { deleteMediaFromCloudinary } from "@/helpers/cloudinary";
 
 export async function POST(request){
     const {public_id}=await request.json()
