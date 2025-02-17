@@ -208,7 +208,7 @@ function PersonalInformation() {
               accept="image/*"
               className="hidden"
               onChange={async (event) => {
-                await handleRemoveImage(userImageId);
+                userImageId && (await handleRemoveImage(userImageId));
                 const file = event.target.files[0];
                 if (file) {
                   const fileReader = new FileReader();
