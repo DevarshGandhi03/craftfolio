@@ -21,7 +21,7 @@ export const POST = async (req) => {
 
   const buffer = Buffer.from(await file.arrayBuffer());
   const filename = file.name.replaceAll(" ", "_");
-  const filePath = path.join(process.cwd(), "public/uploads", filename);
+  const filePath = path.join(process.cwd(), "tmp", filename);
   //   console.log(filePath);
 
   try {
@@ -43,7 +43,6 @@ export const POST = async (req) => {
         error: result.error,
       });
     }
-    // console.log("This image is supported!");
     const response = await uploadOnCloudinary(filePath);
 
     return apiResponse({
