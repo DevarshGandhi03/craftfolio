@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { AuthContext } from "@/context/authContext";
 import axios from "axios";
 import { ScrollText, Menu, X } from "lucide-react";

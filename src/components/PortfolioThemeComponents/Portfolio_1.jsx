@@ -18,12 +18,12 @@ function Portfolio_1({ portfolioDetails }) {
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
-    window.document.documentElement.style.scrollBehavior = "smooth";
+    document.documentElement.style.scrollBehavior = "smooth";
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = window.document.querySelectorAll("section");
+      const sections = document.querySelectorAll("section");
       let current = "home";
       sections.forEach((section) => {
         const sectionTop = section.offsetTop;
