@@ -32,7 +32,7 @@ export default function Portfolio() {
       setResumeFileId(userPortfolioDetails.resumeId);
       setResumeFileUrl(userPortfolioDetails.resume);
       setUserName(user.username);
-      setTheme(userPortfolioDetails.portfolioTheme || "theme_1");
+      setTheme(userPortfolioDetails.portfolioTheme );
     }
   }
   useEffect(() => {
