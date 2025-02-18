@@ -6,7 +6,6 @@ import { AuthContext } from "@/context/authContext";
 import { toast } from "@/hooks/use-toast";
 import axios from "axios";
 import { Loader2, Upload, Trash2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { use, useContext, useEffect, useState } from "react";
@@ -33,7 +32,7 @@ export default function Portfolio() {
       setResumeFileId(userPortfolioDetails.resumeId);
       setResumeFileUrl(userPortfolioDetails.resume);
       setUserName(user.username);
-      setTheme(userPortfolioDetails.portfolioTheme);
+      setTheme(userPortfolioDetails.portfolioTheme  || "theme_1");
     }
   }
   useEffect(() => {
@@ -229,7 +228,7 @@ export default function Portfolio() {
                 className="flex items-center gap-x-2 "
                 disabled={resumeLoading}
                 onClick={() => {
-                  document.getElementById("resume-upload").click();
+                  window.document.getElementById("resume-upload").click();
                 }}
               >
                 {resumeLoading ? (
