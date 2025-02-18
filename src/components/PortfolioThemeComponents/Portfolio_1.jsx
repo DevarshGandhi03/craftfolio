@@ -202,9 +202,10 @@ function Portfolio_1({ portfolioDetails }) {
           {section.id === "about" && (
             <About portfolioDetails={portfolioDetails} />
           )}
-          {section.id === "experience" && portfolioDetails.jobExperiences && (
+          {section.id === "experience" &&
+          portfolioDetails.jobExperiences.lenght !== 0 ? (
             <Experience portfolioDetails={portfolioDetails} />
-          )}
+          ) : null}
           {section.id === "projects" && (
             <Project portfolioDetails={portfolioDetails} />
           )}
