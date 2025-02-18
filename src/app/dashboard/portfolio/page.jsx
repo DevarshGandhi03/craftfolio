@@ -37,7 +37,7 @@ export default function Portfolio() {
     }
   }
   useEffect(() => {
-    if (!isSubmitted && userPortfolioDetails == null) {
+    if (!isSubmitted && userPortfolioDetails === false) {
       console.log("reached");
 
       router.push("/dashboard/profile");
@@ -47,7 +47,7 @@ export default function Portfolio() {
           "To access this section, you will need to submit your personal information first.",
       });
     }
-  }, [isSubmitted]);
+  }, []);
   useEffect(() => {
     setUserDetails();
   }, [isSubmitted]);
@@ -158,7 +158,6 @@ export default function Portfolio() {
               tabIndex="-1"
             ></iframe>
           </div>
-          
         </div>
         <div className="mt-4 flex flex-col gap-y-2">
           <Button
@@ -179,7 +178,10 @@ export default function Portfolio() {
           {isPublished ? (
             <div className="text-sm text-gray-800">
               Public URL-
-              <Link className=" text-blue-600" href={window.location.origin + "/portfolio/" + userName}>
+              <Link
+                className=" text-blue-600"
+                href={window.location.origin + "/portfolio/" + userName}
+              >
                 {window.location.origin + "/portfolio/" + userName}
               </Link>
             </div>

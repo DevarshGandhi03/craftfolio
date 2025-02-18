@@ -15,7 +15,6 @@ function AuthProvider({ children, token }) {
   const [calledOnce, setCalledOnce] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
 
-
   async function getPortfolioDetails() {
     if (user) {
       try {
@@ -24,21 +23,22 @@ function AuthProvider({ children, token }) {
             "/api/users/get-portfolio-details?id=" +
             user._id
         );
-        
+
         if (response.data.success) {
           if (response.data.data.isPublished) {
-            setIsPublished(true)
+            setIsPublished(true);
           }
-          setUserPortfolioDetails(response.data.data)
+          setUserPortfolioDetails(response.data.data);
           setIsSubmitted(true);
           setCalledOnce(true);
           setFetchingUserDetails(false);
         }
       } catch (error) {
+        setUserPortfolioDetails(false)
         setFetchingUserDetails(false);
       }
-    }else{
-      setFetchingUserDetails(false)
+    } else {
+      setFetchingUserDetails(false);
     }
   }
 
@@ -69,10 +69,20 @@ function AuthProvider({ children, token }) {
     getPortfolioDetails();
   }, [isSubmitted, user]);
 
-   
   return (
     <AuthContext.Provider
-      value={{ user, setUser, resetCredentials, setIsSubmitted, isSubmitted ,userPortfolioDetails,calledOnce,setCalledOnce,isPublished,setIsPublished}}
+      value={{
+        user,
+        setUser,
+        resetCredentials,
+        setIsSubmitted,
+        isSubmitted,
+        userPortfolioDetails,
+        calledOnce,
+        setCalledOnce,
+        isPublished,
+        setIsPublished,
+      }}
     >
       {loading || fetchingUserDetails ? <Loading /> : children}
     </AuthContext.Provider>

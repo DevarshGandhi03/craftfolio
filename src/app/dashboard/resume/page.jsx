@@ -23,7 +23,9 @@ export default function Portfolio() {
     setResumeTheme(id);
   };
   useEffect(() => {
-    if (!isSubmitted && userPortfolioDetails==null) {
+    if (!isSubmitted && userPortfolioDetails === false) {
+      console.log("reached");
+
       router.push("/dashboard/profile");
       toast({
         title: "Kindly provide your personal information first.",
@@ -31,7 +33,7 @@ export default function Portfolio() {
           "To access this section, you will need to submit your personal information first.",
       });
     }
-  }, [isSubmitted,userPortfolioDetails]);
+  }, []);
 
   return (
     isSubmitted?
