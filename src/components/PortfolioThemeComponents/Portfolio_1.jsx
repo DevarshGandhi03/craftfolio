@@ -195,7 +195,7 @@ function Portfolio_1({ portfolioDetails }) {
         </div>
       </div>
       {sections.map((section) => (
-        <section key={section.id} id={section.id} className="lg:pt-14">
+        <section key={section.id} id={section.id}>
           {section.id === "home" && (
             <PortfolioHome portfolioDetails={portfolioDetails} />
           )}
