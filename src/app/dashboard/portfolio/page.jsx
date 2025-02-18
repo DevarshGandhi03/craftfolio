@@ -24,6 +24,7 @@ export default function Portfolio() {
   const [resumeFile, setResumeFile] = useState(null);
   const [resumeFileId, setResumeFileId] = useState(null);
   const [resumeFileUrl, setResumeFileUrl] = useState(null);
+  const [clientSide, setClientSide] = useState(false);
   const [userName, setUserName] = useState(null);
   const router = useRouter();
 
@@ -32,9 +33,12 @@ export default function Portfolio() {
       setResumeFileId(userPortfolioDetails.resumeId);
       setResumeFileUrl(userPortfolioDetails.resume);
       setUserName(user.username);
-      setTheme(userPortfolioDetails.portfolioTheme  || "theme_1");
+      setTheme(userPortfolioDetails.portfolioTheme || "theme_1");
     }
   }
+  useEffect(() => {
+    setClientSide(true); // Ensures client-side execution only after mount
+  }, []);
   useEffect(() => {
     if (!isSubmitted && userPortfolioDetails === false) {
       console.log("reached");
@@ -144,18 +148,20 @@ export default function Portfolio() {
             }`}
             onClick={handleThemeChange}
           >
-            <iframe
-              src="https://craftfolio-rouge.vercel.app/portfolio/devarsh600"
-              className="h-48 w-64 pointer-events-none"
-              style={{
-                width: "1280px", // Desktop width inside iframe
-                height: "800px", // Desktop height inside iframe
-                transform: "scale(0.2)", // Scale down to fit preview
-                transformOrigin: "top left",
-                border: "none",
-              }}
-              tabIndex="-1"
-            ></iframe>
+            {clientSide && (
+              <iframe
+                src="https://craftfolio-rouge.vercel.app/portfolio/devarsh600"
+                className="h-48 w-64 pointer-events-none"
+                style={{
+                  width: "1280px",
+                  height: "800px",
+                  transform: "scale(0.2)",
+                  transformOrigin: "top left",
+                  border: "none",
+                }}
+                tabIndex="-1"
+              ></iframe>
+            )}
           </div>
         </div>
         <div className="mt-4 flex flex-col gap-y-2">
