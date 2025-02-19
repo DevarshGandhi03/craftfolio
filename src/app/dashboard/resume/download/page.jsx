@@ -1,6 +1,5 @@
 "use client";
 import { AuthContext } from "@/context/authContext";
-import html2pdf from "html2pdf.js";
 import { Mail, Phone, PhoneCall } from "lucide-react";
 import React, { useContext } from "react";
 
@@ -8,11 +7,9 @@ function Page() {
   const { userPortfolioDetails, user } = useContext(AuthContext);
 
   const handlePrint = () => {
-    const element = document.getElementById("printable-content");
-    html2pdf().from(element).save("Resume.pdf");
+    const element = window.document.getElementById("printable-content");
   };
   function formatDate(dateString) {
-    // Ensure the input is a valid string
     if (
       !dateString ||
       typeof dateString !== "string" ||
@@ -20,16 +17,11 @@ function Page() {
     ) {
       throw new Error("Invalid date format. Expected yyyy-MM");
     }
-
-    // Extract year and month
     const [year, month] = dateString.split("-").map(Number);
-
-    // Ensure the month is valid (01-12)
     if (month < 1 || month > 12) {
       throw new Error("Invalid month value");
     }
 
-    // Array of month names
     const monthNames = [
       "January",
       "February",
@@ -44,8 +36,6 @@ function Page() {
       "November",
       "December",
     ];
-
-    // Format and return the date as "Month Year"
     return `${monthNames[month - 1]} ${year}`;
   }
 

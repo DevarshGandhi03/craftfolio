@@ -8,7 +8,7 @@ import axios from "axios";
 import { Loader2, Upload, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { use, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Portfolio() {
   const [theme, setTheme] = useState("theme_1");
@@ -28,11 +28,11 @@ export default function Portfolio() {
   const router = useRouter();
 
   function setUserDetails() {
-    if (isSubmitted && userPortfolioDetails) {
+    if (user&&isSubmitted && userPortfolioDetails) {
       setResumeFileId(userPortfolioDetails.resumeId);
       setResumeFileUrl(userPortfolioDetails.resume);
       setUserName(user.username);
-      setTheme(userPortfolioDetails.portfolioTheme ||"theme_1");
+      setTheme(userPortfolioDetails.portfolioTheme || "theme_1");
     }
   }
   useEffect(() => {
