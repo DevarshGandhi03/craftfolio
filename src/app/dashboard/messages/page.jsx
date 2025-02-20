@@ -44,8 +44,6 @@ function Messages() {
 
   useEffect(() => {
     if (!isSubmitted && userPortfolioDetails === false) {
-      console.log("reached");
-
       router.push("/dashboard/profile");
       toast({
         title: "Kindly provide your personal information first.",
@@ -53,7 +51,7 @@ function Messages() {
           "To access this section, you will need to submit your personal information first.",
       });
     }
-  }, []);
+  }, [userPortfolioDetails, isSubmitted]);
 
   return isSubmitted ? (
     <div className="w-full p-6">

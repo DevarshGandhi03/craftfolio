@@ -24,8 +24,6 @@ export default function Portfolio() {
   };
   useEffect(() => {
     if (!isSubmitted && userPortfolioDetails === false) {
-      console.log("reached");
-
       router.push("/dashboard/profile");
       toast({
         title: "Kindly provide your personal information first.",
@@ -33,7 +31,7 @@ export default function Portfolio() {
           "To access this section, you will need to submit your personal information first.",
       });
     }
-  }, []);
+  }, [userPortfolioDetails, isSubmitted]);
 
   return (
     isSubmitted?

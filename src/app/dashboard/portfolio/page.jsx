@@ -44,7 +44,7 @@ export default function Portfolio() {
           "To access this section, you will need to submit your personal information first.",
       });
     }
-  }, []);
+  }, [userPortfolioDetails, isSubmitted]);
   useEffect(() => {
     setUserDetails();
   }, [isSubmitted]);
