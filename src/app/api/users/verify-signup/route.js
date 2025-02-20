@@ -42,6 +42,7 @@ export async function POST(request) {
       success: true,
       message: "Account created successfully",
       statusCode: 200,
+      data: user,
       headers: headers,
     });
   } else if (!(user.verifyOtpExpiry > Date.now())) {
