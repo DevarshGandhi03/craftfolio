@@ -20,21 +20,20 @@ export const POST = async (req) => {
 
   const buffer = Buffer.from(await file.arrayBuffer());
   const filename = file.name.replaceAll(" ", "_");
-  const filePath = path.join(process.cwd(), "public/uploads", filename);
-  //   console.log(filePath);
+  const filePath = path.join("/tmp", filename);
+ 
 
   try {
     await writeFile(filePath, buffer);
-    
+
     // console.log("This image is supported!");
     const response = await uploadOnCloudinary(filePath);
 
     return apiResponse({
       message: "Resume uploaded !",
       statusCode: 200,
-      data:{ url:response.secure_url,publicId:response.public_id},
-      success:true
-
+      data: { url: response.secure_url, publicId: response.public_id },
+      success: true,
     });
   } catch (error) {
     console.log("Error occured ", error);
