@@ -28,7 +28,7 @@ export default function Portfolio() {
   const router = useRouter();
 
   function setUserDetails() {
-    if (user&&isSubmitted && userPortfolioDetails) {
+    if (isSubmitted && userPortfolioDetails) {
       setResumeFileId(userPortfolioDetails.resumeId);
       setResumeFileUrl(userPortfolioDetails.resume);
       setUserName(user.username);

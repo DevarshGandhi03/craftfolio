@@ -1,6 +1,5 @@
 "use client";
 import Loading from "@/components/Loading";
-import { Skeleton } from "@/components/ui/skeleton";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -34,7 +33,7 @@ function AuthProvider({ children, token }) {
           setFetchingUserDetails(false);
         }
       } catch (error) {
-        setUserPortfolioDetails(false)
+        setUserPortfolioDetails(false);
         setFetchingUserDetails(false);
       }
     } else {
