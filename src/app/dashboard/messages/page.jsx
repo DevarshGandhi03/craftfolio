@@ -19,7 +19,7 @@ import { toast } from "@/hooks/use-toast";
 function Messages() {
   const [messages, setMessages] = useState([]);
   const [deleteIndex, setDeleteIndex] = useState(null);
-  const { userPortfolioDetails, isSubmitted } = useContext(AuthContext);
+  const { userPortfolioDetails, isSubmitted,getPortfolioDetails } = useContext(AuthContext);
   const router = useRouter();
 
   function setUserMessages() {
@@ -37,6 +37,7 @@ function Messages() {
       portfolioId: userPortfolioDetails._id,
       contactMessages: msgArr,
     });
+    getPortfolioDetails()
   }
   useEffect(() => {
     setUserMessages();

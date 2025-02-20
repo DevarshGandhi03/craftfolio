@@ -81,7 +81,7 @@ export default function Portfolio() {
 
       try {
         const response = await axios.post(
-          `http://localhost:3000/api/users/resume-upload`,
+          `/api/users/resume-upload`,
           formData
         );
 

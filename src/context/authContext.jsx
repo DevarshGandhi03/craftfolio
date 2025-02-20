@@ -80,7 +80,7 @@ function AuthProvider({ children, token }) {
         calledOnce,
         setCalledOnce,
         isPublished,
-        setIsPublished,
+        setIsPublished,getPortfolioDetails
       }}
     >
       {loading || fetchingUserDetails ? <Loading /> : children}
