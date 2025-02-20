@@ -1,14 +1,15 @@
 "use client";
 import { AuthContext } from "@/context/authContext";
-import { Mail, Phone, PhoneCall } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import React, { useContext } from "react";
 
 function Page() {
   const { userPortfolioDetails, user } = useContext(AuthContext);
 
   const handlePrint = () => {
-    const element = window.document.getElementById("printable-content");
+    window.print();
   };
+ 
   function formatDate(dateString) {
     if (
       !dateString ||
@@ -45,7 +46,7 @@ function Page() {
       <div>
         <button
           onClick={handlePrint}
-          className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+          className="bg-blue-500 no-print text-white px-4 py-2 rounded mb-4"
         >
           Download as PDF
         </button>
@@ -71,11 +72,11 @@ function Page() {
             </div>
           </div>
 
-          <div className="border-b-4 border-gray-300 py-4">
+          <div className="border-b-4 border-gray-300 py-3">
             <p className="text-sm">{userPortfolioDetails.userDescription}</p>
           </div>
 
-          <div className="border-b-4 border-gray-300 py-4">
+          <div className="border-b-4 border-gray-300 py-3">
             <h1 className="text-xl uppercase text-gray-700">Experience</h1>
             {userPortfolioDetails.jobExperiences.map((exp, index) => (
               <div key={index} className="mt-2">
@@ -94,7 +95,7 @@ function Page() {
             ))}
           </div>
 
-          <div className="border-b-4 border-gray-300 py-4">
+          <div className="border-b-4 border-gray-300 py-3">
             <h1 className="text-xl uppercase text-gray-700">Projects</h1>
             {userPortfolioDetails.projects.map((project, index) => (
               <div key={index} className="mt-2">
@@ -114,7 +115,7 @@ function Page() {
             ))}
           </div>
 
-          <div className="border-b-4 border-gray-300 py-4">
+          <div className="border-b-4 border-gray-300 py-3">
             <h1 className="text-xl uppercase text-gray-700">Education</h1>
             {userPortfolioDetails.education.map((edu, index) => (
               <div key={index} className="mt-2">
@@ -131,7 +132,7 @@ function Page() {
             ))}
           </div>
 
-          <div className="py-4">
+          <div className="py-3">
             <h1 className="text-xl uppercase text-gray-700">Skills</h1>
             <p className="text-sm text-gray-600 mt-2">
               {userPortfolioDetails.skills.join(", ")}

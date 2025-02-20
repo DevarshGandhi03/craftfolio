@@ -35,9 +35,10 @@ export default function SettingsLayout({ children }) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* === Sidebar for Desktop (Always Visible) === */}
-      <aside className="hidden md:flex w-72 p-6 bg-[#884DEE] text-white flex-col max-h-screen sticky top-0">
+    <div className="min-h-screen bg-gray-50 flex ">
+     <div className="no-print min-h-screen flex bg-gray-50 ">
+       {/* === Sidebar for Desktop (Always Visible) === */}
+       <aside className="hidden md:flex w-72 p-6 bg-[#884DEE] text-white flex-col max-h-screen sticky top-0">
         {/* Logo */}
         <div className="flex items-center mt-4 mb-8">
           <ScrollText size={45} className="text-white" />
@@ -139,6 +140,7 @@ export default function SettingsLayout({ children }) {
 
         
       </div>
+     </div>
 
       {/* === Page Content === */}
       <main className="flex-1">

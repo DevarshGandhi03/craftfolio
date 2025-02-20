@@ -1,6 +1,7 @@
 import connectToDb from "@/db/db";
 import { apiResponse } from "@/helpers/apiResponse";
 import User from "@/models/userModel";
+import jwt from "jsonwebtoken";
 
 export async function POST(request) {
   await connectToDb();
@@ -11,7 +12,7 @@ export async function POST(request) {
 
   if (!user) {
     return apiResponse({
-      success:false,
+      success: false,
       message: "User not found.",
       statusCode: 400,
     });
@@ -19,12 +20,29 @@ export async function POST(request) {
 
   if (user.verifyOtp === otp && user.verifyOtpExpiry > Date.now()) {
     user.isVerified = true;
-    user.resendVerifyOtpExpiry=undefined;
+    user.resendVerifyOtpExpiry = undefined;
     await user.save();
+    const accessToken = jwt.sign(
+            {
+              _id: user._id,
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+          );
+    
+          const expires = new Date();
+          expires.setTime(expires.getTime() + 7 * 24 * 60 * 60 * 1000);
+    
+          const headers = new Headers();
+          headers.append(
+            "Set-Cookie",
+            `token=${accessToken}; Path=/; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`
+          );
     return apiResponse({
       success: true,
-      message: "Account verified successfully",
+      message: "Account created successfully",
       statusCode: 200,
+      headers: headers,
     });
   } else if (!(user.verifyOtpExpiry > Date.now())) {
     // Code has expired

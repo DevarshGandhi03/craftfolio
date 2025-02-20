@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -77,6 +77,24 @@
   }
 }
 
+@media print {
+  .no-print {
+    display: none;
+  }
+  .printable-content {
+    display: block;
+  }
+  body{
+    margin: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+@page {
+  size: auto;
+  margin: 0mm;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -102,7 +120,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;  /* Position it fixed so it overlays the entire screen */
+  position: fixed; /* Position it fixed so it overlays the entire screen */
   top: 0;
   left: 0;
   right: 0;
@@ -113,14 +131,14 @@ header {
 }
 
 .lottie-container {
-  width: 300px;  /* Increase the size of the animation */
+  width: 300px; /* Increase the size of the animation */
   height: 300px; /* Increase the size of the animation */
 }
 .theme-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.maven{
+.maven {
   font-family: "Maven Pro", serif;
   font-optical-sizing: auto;
   font-weight: 500;
