@@ -1,7 +1,9 @@
 "use client";
 import { AuthContext } from "@/context/authContext";
-import { Mail, Phone } from "lucide-react";
+import { Linkedin, LucideCheckCircle2, Mail, Phone } from "lucide-react";
 import React, { useContext } from "react";
+
+import { FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 function Page() {
   const { userPortfolioDetails, user } = useContext(AuthContext);
@@ -9,7 +11,7 @@ function Page() {
   const handlePrint = () => {
     window.print();
   };
- 
+
   function formatDate(dateString) {
     if (
       !dateString ||
@@ -53,10 +55,10 @@ function Page() {
         <div className="max-w-3xl mx-auto bg-white p-2" id="printable-content">
           <div className=" flex justify-between border-b-4 border-gray-300 pb-4">
             <div>
-              <h1 className="text-4xl font-bold uppercase text-gray-700">
+              <h1 className="text-5xl font-bold uppercase text-gray-800">
                 {userPortfolioDetails.fullName.split(" ")[0]}
               </h1>
-              <h2 className="text-2xl uppercase text-black">
+              <h2 className="text-3xl uppercase text-black">
                 {userPortfolioDetails?.fullName?.split(" ")[1]}
               </h2>
             </div>
@@ -69,6 +71,16 @@ function Page() {
                 {<Mail size={15} />}
                 <a href={`mailto:${user.email}`}>&nbsp;{user.email}</a>
               </p>
+              {userPortfolioDetails.linkedin &&<p className="flex justify-center items-center">
+                {<FaLinkedin  />}
+                <a href={userPortfolioDetails.linkedin}>&nbsp;Linkedin</a>
+              </p>}
+              {userPortfolioDetails.github &&<p className="flex justify-center items-center">
+                {<FaGithub  />}
+                <a href={userPortfolioDetails.github}>&nbsp;Github</a>
+              </p>}
+              
+              
             </div>
           </div>
 
@@ -77,10 +89,10 @@ function Page() {
           </div>
 
           <div className="border-b-4 border-gray-300 py-3">
-            <h1 className="text-xl uppercase text-gray-700">Experience</h1>
+            <h1 className="text-xl uppercase font-semibold">Experience</h1>
             {userPortfolioDetails.jobExperiences.map((exp, index) => (
               <div key={index} className="mt-2">
-                <h2 className="text-lg uppercase text-black font-semibold">
+                <h2 className="text-base uppercase text-black font-semibold">
                   {exp.jobTitle}
                 </h2>
                 <h3 className="text-sm text-gray-600">
@@ -90,16 +102,28 @@ function Page() {
                   {exp.from ? formatDate(exp.from) : "N/A"} -{" "}
                   {exp.to === "Present" ? "Present" : formatDate(exp.to)}
                 </h4>
-                <p className="text-sm">{exp.jobDescription}</p>
+                <ul className="list-inside text-sm">
+                  {exp.jobDescription.split(".").map((bullet, i) =>
+                    bullet.trim() ? (
+                      <li key={i}>
+                        <LucideCheckCircle2
+                          className="inline mr-1 text-gray-600 font-bold"
+                          size={10}
+                        />
+                        {bullet.trim()}.
+                      </li>
+                    ) : null
+                  )}
+                </ul>
               </div>
             ))}
           </div>
 
           <div className="border-b-4 border-gray-300 py-3">
-            <h1 className="text-xl uppercase text-gray-700">Projects</h1>
+            <h1 className="text-xl uppercase font-semibold">Projects</h1>
             {userPortfolioDetails.projects.map((project, index) => (
               <div key={index} className="mt-2">
-                <h2 className="text-lg uppercase text-black font-semibold">
+                <h2 className="text-base uppercase text-black font-semibold">
                   {project.projectTitle}
                 </h2>
                 <a
@@ -110,16 +134,28 @@ function Page() {
                 >
                   {project.projectLiveLink}
                 </a>
-                <p className="text-sm">{project.projectDescription}</p>
+                <ul className="list-inside text-sm">
+                  {project.projectDescription.split(".").map((bullet, i) =>
+                    bullet.trim() ? (
+                      <li key={i}>
+                        <LucideCheckCircle2
+                          className="inline mr-1 text-gray-600 font-bold"
+                          size={10}
+                        />
+                        {bullet.trim()}.
+                      </li>
+                    ) : null
+                  )}
+                </ul>
               </div>
             ))}
           </div>
 
           <div className="border-b-4 border-gray-300 py-3">
-            <h1 className="text-xl uppercase text-gray-700">Education</h1>
+            <h1 className="text-xl uppercase font-semibold">Education</h1>
             {userPortfolioDetails.education.map((edu, index) => (
               <div key={index} className="mt-2">
-                <h2 className="text-lg uppercase text-black font-semibold">
+                <h2 className="text-base uppercase text-black font-semibold">
                   {edu.degree}
                 </h2>
                 <h3 className="text-sm text-gray-600">{edu.instituteName}</h3>
@@ -133,8 +169,8 @@ function Page() {
           </div>
 
           <div className="py-3">
-            <h1 className="text-xl uppercase text-gray-700">Skills</h1>
-            <p className="text-sm text-gray-600 mt-2">
+            <h1 className="text-xl uppercase font-semibold">Skills</h1>
+            <p className="text-sm text-gray-700 mt-2">
               {userPortfolioDetails.skills.join(", ")}
             </p>
           </div>
