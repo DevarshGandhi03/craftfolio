@@ -84,7 +84,8 @@ export default function Portfolio() {
           `/api/users/resume-upload`,
           formData
         );
-
+        console.log(response.data);
+        
         if (response.data.success) {
           const res = await axios.post("/api/users/update-portfolio-details", {
             portfolioId: userPortfolioDetails._id,
