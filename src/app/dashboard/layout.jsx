@@ -144,7 +144,7 @@ export default function SettingsLayout({ children }) {
 
       {/* === Page Content === */}
       <main className="flex-1">
-        <div className="bg-white p-6 min-h-screen">{children}</div>
+        <div className="bg-white p-6 min-h-screen mainComp">{children}</div>
       </main>
     </div>
   );

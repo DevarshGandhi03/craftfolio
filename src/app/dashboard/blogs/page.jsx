@@ -25,7 +25,7 @@ export default function HashnodeConnect() {
   const [loading, setLoading] = useState(false);
   const [isConnected, setIsConected] = useState(false);
   const [error, setError] = useState(null);
-  const { userPortfolioDetails, isSubmitted } = useContext(AuthContext);
+  const { userPortfolioDetails, isSubmitted,getPortfolioDetails } = useContext(AuthContext);
   const router= useRouter()
 
   async function setUserName() {
@@ -85,6 +85,7 @@ export default function HashnodeConnect() {
         portfolioId: userPortfolioDetails._id,
         hashnodeUsername: "",
       });
+      getPortfolioDetails()
     } catch (err) {
       setError(err.message);
     } finally {

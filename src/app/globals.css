@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -84,11 +85,36 @@
   .printable-content {
     display: block;
   }
-  body{
+  
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
     margin: 0;
     box-shadow: none;
     padding: 0;
   }
+  .mainComp{
+    padding: 0px !important;
+  }
+  .skillLi{
+    margin-right: 3px;
+  }
+  .hDiv{
+    height: 100vh;
+  }
+  .theme_1{
+    padding: 35px;
+  }
+  .theme_3{
+    padding: 40px 60px;
+    background-color: #F2F2F2;
+  }
+}
+.theme_2{
+  font-family: "Questrial", serif;
+  font-weight: 400;
+  font-style: normal;
+ 
 }
 @page {
   size: auto;

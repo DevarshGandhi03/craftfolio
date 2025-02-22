@@ -5,18 +5,23 @@ import { AuthContext } from "@/context/authContext";
 import { PortfolioContext } from "@/context/portfolioContext";
 import { toast } from "@/hooks/use-toast";
 import { Download } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
+import Theme_1 from "../../../../public/Assets/Theme_1.jpg";
+import Theme_2 from "../../../../public/Assets/Theme_2.jpg";
+import Theme_3 from "../../../../public/Assets/Theme_3.jpg";
+
 
 export default function Portfolio() {
   const { resumeTheme, setResumeTheme } = useContext(PortfolioContext);
   const router = useRouter();
-  const { isSubmitted ,userPortfolioDetails} = useContext(AuthContext);
+  const { isSubmitted, userPortfolioDetails } = useContext(AuthContext);
 
   const themes = [
-    { id: "theme_1", name: "Theme 1", imgSrc: "" },
-    { id: "theme_2", name: "Theme 2", imgSrc: "" },
-    { id: "theme_3", name: "Theme 3", imgSrc: "" },
+    { id: "theme_1", name: "Theme 1", imgSrc:  Theme_1  },
+    { id: "theme_2", name: "Theme 2", imgSrc: Theme_2  },
+    { id: "theme_3", name: "Theme 3", imgSrc:  Theme_3  },
   ];
 
   const handleThemeChange = (id) => {
@@ -33,8 +38,7 @@ export default function Portfolio() {
     }
   }, [userPortfolioDetails, isSubmitted]);
 
-  return (
-    isSubmitted?
+  return isSubmitted ? (
     <div>
       {/* Header Section */}
       <div className="w-full p-6">
@@ -57,7 +61,7 @@ export default function Portfolio() {
             <div
               key={theme.id}
               id={theme.id}
-              className={`w-64 h-48 border-2 rounded-lg shadow-sm bg-gray-100 p-4 cursor-pointer ${
+              className={` border-2 rounded-lg shadow-sm   cursor-pointer ${
                 resumeTheme === theme.id
                   ? "border-purple-600"
                   : "border-gray-300"
@@ -65,12 +69,7 @@ export default function Portfolio() {
               onClick={() => handleThemeChange(theme.id)}
             >
               <div className="flex flex-col gap-2">
-                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-                <div className="h-4 bg-gray-300 rounded w-full"></div>
-                <div className="h-4 bg-gray-300 rounded w-5/6"></div>
-              </div>
-              <div className="mt-4">
-                <p className="text-center text-sm font-medium">{theme.name}</p>
+                <Image src={theme.imgSrc} alt={theme.imgSrc} height={250}/>
               </div>
             </div>
           ))}
@@ -89,6 +88,8 @@ export default function Portfolio() {
           </Button>
         </div>
       </div>
-    </div>:<Loading/>
+    </div>
+  ) : (
+    <Loading />
   );
 }

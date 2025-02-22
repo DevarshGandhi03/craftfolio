@@ -52,7 +52,7 @@ export function AuthForm({ className, ...props }) {
   return (
     <div
       className={cn(
-        "flex flex-col lg:flex-row justify-center items-center mt-14 p-4",
+        "flex flex-col lg:flex-row justify-center items-center md:mt-14 mt-5 p-4",
         className
       )}
       {...props}
@@ -68,11 +68,11 @@ export function AuthForm({ className, ...props }) {
         />
       ) : null}
 
-      <div className="w-full lg:w-3/6 md:w-7/12 flex justify-center">
-        <div className="absolute inset-0 flex justify-center items-center z-[-1] md:hidden">
-          <SignupLoading loop={loading} play={loading} />
+      <div className="w-full lg:w-3/6 flex-col md:flex-row md:w-7/12 flex justify-center">
+        <div className="flex justify-center items-center m-5  md:hidden">
+          <img src="https://frontends.udemycdn.com/components/auth/mobile-illustration-x2.webp" />
         </div>
-        <div className="bg-white bg-opacity-85 relative z-10 w-full md:w-auto">
+        <div className="bg-white  w-full md:w-auto">
           <Form {...form}>
             <form
               className="flex flex-col justify-center items-center w-full max-w-sm md:max-w-md lg:max-w-lg p-4"
@@ -83,11 +83,7 @@ export function AuthForm({ className, ...props }) {
                   <Link
                     href="/"
                     className="flex flex-col items-center gap-2 font-medium"
-                  >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-md">
-                      <ScrollText size={40} />
-                    </div>
-                  </Link>
+                  ></Link>
                   <h1 className="text-2xl text-gray-900 md:text-3xl font-bold text-center">
                     Welcome to CraftFolio
                   </h1>
@@ -162,7 +158,7 @@ export function AuthForm({ className, ...props }) {
         </div>
       </div>
       <div className="hidden md:flex lg:w-3/6 items-center justify-center">
-        <SignupLoading loop={loading} play={loading} />
+        <SignupLoading />
       </div>
     </div>
   );

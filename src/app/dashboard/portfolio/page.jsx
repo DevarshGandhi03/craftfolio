@@ -18,6 +18,7 @@ export default function Portfolio() {
     isPublished,
     setIsPublished,
     isSubmitted,
+    getPortfolioDetails,
   } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [resumeLoading, setResumeLoading] = useState(false);
@@ -61,6 +62,7 @@ export default function Portfolio() {
         setIsPublished(true);
       }
       setLoading(false);
+      getPortfolioDetails();
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -80,10 +82,7 @@ export default function Portfolio() {
       formData.append("file", file);
 
       try {
-        const response = await axios.post(
-          `/api/users/resume-upload`,
-          formData
-        );
+        const response = await axios.post(`/api/users/resume-upload`, formData);
 
         if (response.data.success) {
           const res = await axios.post("/api/users/update-portfolio-details", {
@@ -93,6 +92,7 @@ export default function Portfolio() {
           });
           setResumeFileId(response.data.data.publicId);
           setResumeFileUrl(response.data.data.url);
+          getPortfolioDetails()
         }
       } catch (error) {
         console.error("Failed to upload resume.");
