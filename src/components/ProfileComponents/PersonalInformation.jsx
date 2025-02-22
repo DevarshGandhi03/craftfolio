@@ -163,7 +163,7 @@ function PersonalInformation() {
         <Input
           type="text"
           value={userTitle}
-          placeholder="Software Engineer"
+          placeholder="Software Engineer, Backend Developer"
           onChange={(e) => setUserTitle(e.target.value)}
           className="mt-1  border w-full focus:ring-2 focus:ring-violet-500 text-base"
         />
