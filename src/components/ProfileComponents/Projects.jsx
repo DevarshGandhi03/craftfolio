@@ -128,14 +128,15 @@ function Projects() {
         <PlusCircle size={18} className="inline-block mr-2" /> Add New Project
       </div>
       {/* Project Cards */}
-      <div className="flex flex-col space-y-6">
+     <div className="flex justify-center items-center">
+     <div className="flex flex-col space-y-6">
         {projects.map((project, index) => (
           <div
             key={index}
-            className="p-5 bg-white flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6"
+            className="p-5 max-w-[80vw] md:max-w-screen bg-white flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6"
           >
             {project.projectImage && (
-              <div className="relative w-full md:w-48 h-48 md:h-auto">
+              <div className="relative w-full md:w-48  md:h-auto">
                 <img
                   src={project.projectImage}
                   alt={project.projectTitle}
@@ -156,7 +157,8 @@ function Projects() {
               <h4 className="text-2xl font-semibold text-gray-700">
                 {project.projectTitle}
               </h4>
-              <p className="text-gray-500 mt-2">{project.projectDescription}</p>
+              <p className="text-gray-500 mt-2 break-words">{project.projectDescription}</p>
+              
               <Link
                 href={project.projectLiveLink}
                 className="text-violet-600 hover:text-violet-800 font-medium mt-3"
@@ -189,18 +191,18 @@ function Projects() {
           </div>
         ))}
       </div>
+     </div>
 
       {/* Add/Edit Project Dialog */}
       <Dialog
         open={open}
         onOpenChange={() => {
-          
           setProjectErrors({});
         }}
       >
-        <DialogContent className="max-w-4xl space-y-6 p-8 overflow-y-auto  max-h-[90vh] scrollbar-hide">
+        <DialogContent className="max-w-4xl space-y-6 p-6 sm:p-8 overflow-y-auto max-h-[90vh] scrollbar-hide">
           <DialogHeader>
-            <DialogTitle className="text-violet-700 text-2xl font-semibold">
+            <DialogTitle className="text-violet-700 text-2xl font-semibold text-center sm:text-left">
               {editingIndex !== null ? "Edit Project" : "Add Project"}
             </DialogTitle>
           </DialogHeader>
@@ -208,7 +210,7 @@ function Projects() {
           {/* Form Inputs */}
           <div className="space-y-6">
             {/* First row of fields: Project Title and Live Link */}
-            <div className="flex flex-col sm:flex-row sm:space-x-6">
+            <div className="flex flex-col sm:flex-row sm:space-x-6 space-y-4 sm:space-y-0">
               {/* Project Title */}
               <div className="flex-1">
                 <Label className="font-bold text-gray-700">
@@ -223,7 +225,7 @@ function Projects() {
                       projectTitle: e.target.value,
                     }))
                   }
-                  className="mt-2"
+                  className="mt-2 w-full"
                 />
                 {projectErrors.projectTitle && (
                   <p className="text-red-500 text-xs mt-1">
@@ -246,7 +248,7 @@ function Projects() {
                       projectLiveLink: e.target.value,
                     }))
                   }
-                  className="mt-2"
+                  className="mt-2 w-full"
                 />
                 {projectErrors.projectLiveLink && (
                   <p className="text-red-500 text-xs mt-1">
@@ -263,7 +265,7 @@ function Projects() {
               </Label>
               <div className="mt-2">
                 {newProject.projectPrevImage && (
-                  <div className="relative w-full md:w-48 h-48 md:h-auto">
+                  <div className="relative w-full sm:w-48 h-48 sm:h-auto">
                     <img
                       src={newProject.projectPrevImage}
                       alt={newProject.projectPrevImage}
@@ -343,8 +345,11 @@ function Projects() {
                     projectDescription: e.target.value,
                   }))
                 }
-                className="mt-2"
+                className="mt-2 w-full"
               />
+              <p className="text-gray-400 text-xs mt-1 text-center ">
+                Note: Sentences ending with a full stop will be displayed as bullet points on the portfolio website and resume.
+              </p>
               {projectErrors.projectDescription && (
                 <p className="text-red-500 text-xs mt-1">
                   {projectErrors.projectDescription}
@@ -354,9 +359,9 @@ function Projects() {
           </div>
 
           {/* Dialog Footer */}
-          <DialogFooter className="space-x-4">
+          <DialogFooter className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
             <Button
-              className="bg-violet-600 hover:bg-violet-700"
+              className="bg-violet-600 hover:bg-violet-700 w-full sm:w-auto"
               onClick={handleAddProject}
             >
               {editingIndex !== null ? "Update" : "Save"}
@@ -364,15 +369,14 @@ function Projects() {
 
             <Button
               variant="outline"
+              className="w-full sm:w-auto"
               onClick={() => {
-                {
-                  setProjectErrors({});
-                  editingIndex !== null
-                    ? validateProject()
-                      ? setOpen(false)
-                      : setOpen(true)
-                    : setOpen(false);
-                }
+                setProjectErrors({});
+                editingIndex !== null
+                  ? validateProject()
+                    ? setOpen(false)
+                    : setOpen(true)
+                  : setOpen(false);
               }}
             >
               Cancel

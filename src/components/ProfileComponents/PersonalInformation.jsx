@@ -106,6 +106,12 @@ function PersonalInformation() {
       setImage(null);
     }
   }
+  async function phoneNoValidation(event) {
+    const value = event.target.value;
+    if (/[^0-9]/.test(value)) {
+      event.target.value = value.replace(/[^0-9]/g, "");
+    }
+  }
 
   return (
     <div className="space-y-4">
@@ -135,7 +141,12 @@ function PersonalInformation() {
             value={phoneNumber}
             type="tel"
             placeholder="Your phone number"
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            onChange={(e) => {
+              phoneNoValidation(e);
+              e.target.value.length <= 10
+                ? setPhoneNumber(e.target.value)
+                : null;
+            }}
             className="mt-1 border w-full focus:ring-2 focus:ring-violet-500 text-base"
           />
           {errors.phoneNumber && (
@@ -156,6 +167,7 @@ function PersonalInformation() {
           onChange={(e) => setUserTitle(e.target.value)}
           className="mt-1  border w-full focus:ring-2 focus:ring-violet-500 text-base"
         />
+        <p className="text-gray-400 text-xs mt-1">Note: The words separated by commas will be displayed with a typewriter effect on your portfolio website.</p>
         {errors.userTitle && (
           <p className="text-red-500 text-xs mt-1">{errors.userTitle}</p>
         )}

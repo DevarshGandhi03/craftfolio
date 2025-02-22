@@ -9,7 +9,7 @@ export async function POST(req) {
   
   
   // Extract the `prompt` from the body of the request
-  const  prompt  =`Write a professional and engaging 'About' section for a portfolio website. The section should reflect the username ${res.prompt.fullName}and their professional title '${res.prompt.userTitle}.' Highlight their expertise, passion for the field, key accomplishments, and a glimpse into their personality or career aspirations. The tone should be approachable yet professional, making them stand out to potential employers or collaborators.And it should be a littel casual with minmum of 100 words`;
+  const  prompt  =`Write a professional and engaging 'About' section for a portfolio website. The section should reflect the username ${res.prompt.fullName}and their professional title '${res.prompt.userTitle}.' Highlight their expertise, passion for the field, key accomplishments, and a glimpse into their personality or career aspirations. The tone should be approachable yet professional, making them stand out to potential employers or collaborators.And it should be a littel casual with minmum of 100 words. And it should not start with *About*`;
 
   // Ask Google Generative AI for a streaming completion given the prompt
   const response = await genAI

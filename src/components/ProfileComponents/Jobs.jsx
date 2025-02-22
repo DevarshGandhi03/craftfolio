@@ -89,13 +89,13 @@ function Jobs() {
   };
 
   return (
-    <div>
+    <div className="max-w-[85vw]">
       {errors.jobExperiences && (
         <p className="text-red-500 text-sm">{errors.jobExperiences}</p>
       )}
       {/* Add New Job Experience Button */}
       <div
-        className="cursor-pointer p-5 bg-violet-500 hover:bg-violet-600 rounded-lg text-white text-center mt-6"
+        className="cursor-pointer p-5  bg-violet-500 hover:bg-violet-600 rounded-lg text-white text-center mt-6"
         onClick={() => {
           setNewJob({
             companyName: "",
@@ -126,7 +126,7 @@ function Jobs() {
             <p className="text-gray-600">
               {job.from} to {job.to}
             </p>
-            <p className="text-gray-600">{job.jobDescription}</p>
+            <p className="text-gray-600 break-words">{job.jobDescription}</p>
 
             <div className="flex gap-4">
               <Button
@@ -275,17 +275,19 @@ function Jobs() {
                     jobDescription: e.target.value,
                   }))
                 }
-                className="mt-2"
+                className="mt-2 "
               />
+              <p className="text-gray-400 text-xs mt-1">Note: Sentences ending with a full stop will be displayed as bullet points on the resume.</p>
               {jobErrors.jobDescription && (
                 <p className="text-red-500 text-sm mt-1">
                   {jobErrors.jobDescription}
                 </p>
               )}
+              
             </div>
 
             {/* Start and End Dates */}
-            <div className="flex space-x-6">
+            <div className="flex md:space-x-6 flex-col md:flex-row">
               {/* From */}
               <div className="flex-1">
                 <Label className="font-bold text-gray-700">
@@ -347,8 +349,8 @@ function Jobs() {
             </div>
           </div>
 
-          <DialogFooter>
-            <Button onClick={handleAddOrEditJob}>
+          <DialogFooter className="flex flex-row md:justify-end ">
+            <Button onClick={handleAddOrEditJob} className="mr-4 md:m-0">
               {editingIndex !== null ? "Save Changes" : "Save"}
             </Button>
             <Button

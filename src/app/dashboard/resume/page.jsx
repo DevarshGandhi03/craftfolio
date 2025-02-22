@@ -41,7 +41,7 @@ export default function Portfolio() {
   return isSubmitted ? (
     <div>
       {/* Header Section */}
-      <div className="w-full p-6 pl-0 mt-8">
+      <div className="w-full md:p-6 pl-0 mt-8">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-700">Resume</h2>
       </div>
 

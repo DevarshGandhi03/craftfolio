@@ -77,12 +77,11 @@ function SocialLink() {
         <div>
           <Label className="font-bold text-gray-700">
             GitHub
-            <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
           </Label>
           <Input
             id="github"
             value={socialLinks.github}
-            placeholder="GitHub Profile URL"
+            placeholder="https://github.com/username"
             onChange={(e) =>
               setSocialLinks({ ...socialLinks, github: e.target.value })
             }
@@ -97,12 +96,11 @@ function SocialLink() {
         <div>
           <Label className="font-bold text-gray-700">
             LinkedIn
-            <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
           </Label>
           <Input
             id="linkedin"
             value={socialLinks.linkedin}
-            placeholder="LinkedIn Profile URL"
+            placeholder="https://www.linkedin.com/username"
             onChange={(e) =>
               setSocialLinks({ ...socialLinks, linkedin: e.target.value })
             }
@@ -117,12 +115,11 @@ function SocialLink() {
         <div>
           <Label className="font-bold text-gray-700">
             Twitter
-            <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
           </Label>
           <Input
             id="twitter"
             value={socialLinks.twitter}
-            placeholder="Twitter Profile URL"
+            placeholder="https://x.com/username"
             onChange={(e) =>
               setSocialLinks({ ...socialLinks, twitter: e.target.value })
             }
@@ -137,12 +134,11 @@ function SocialLink() {
         <div>
           <Label className="font-bold text-gray-700">
             Instagram
-            <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
           </Label>
           <Input
             id="instagram"
             value={socialLinks.instagram}
-            placeholder="Instagram Profile URL"
+            placeholder="https://instagram.com/username"
             onChange={(e) =>
               setSocialLinks({ ...socialLinks, instagram: e.target.value })
             }

@@ -121,7 +121,7 @@ export default function HashnodeConnect() {
   return (
     isSubmitted?
     <div className="md:p-6 pt-6 max-w-4xl mx-auto flex flex-col gap-y-6">
-      <div className="w-full mt-5 md:mt-0 ">
+      <div className="w-full mt-6 ">
         <h2 className="md:text-5xl text-3xl font-bold text-gray-700">Blogs</h2>
       </div>
       <div className=" ">

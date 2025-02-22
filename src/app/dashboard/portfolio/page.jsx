@@ -123,7 +123,7 @@ export default function Portfolio() {
 
   return isSubmitted ? (
     <div>
-      <div className="w-full p-6 pl-0 mt-8">
+      <div className="w-full md:p-6 pl-0 mt-8">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-700">Portfolio Website</h2>
       </div>
       <div className="md:pl-6 pl-0 md:mt-5 mt-0">

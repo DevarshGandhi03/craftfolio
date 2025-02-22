@@ -102,7 +102,7 @@ function Education() {
         <span className="inline-block text-lg font-medium">Add Education</span>
       </div>
 
-      <div className="flex flex-wrap gap-6">
+      <div className="flex flex-wrap gap-6 justify-center">
         {education.map((edu, index) => (
           <div
             key={index}
@@ -287,6 +287,7 @@ function Education() {
               {editingIndex !== null ? "Update" : "Save"}
             </Button>
             <Button
+            className="mb-2 md:m-0"
               onClick={() => {
                 setEducationErrors({});
                 handleCloseDialog();
