@@ -123,10 +123,10 @@ export default function Portfolio() {
 
   return isSubmitted ? (
     <div>
-      <div className="w-full p-6 dark">
-        <h2 className="text-5xl font-bold text-gray-700">Portfolio Website</h2>
+      <div className="w-full p-6 pl-0 mt-8">
+        <h2 className="text-3xl md:text-5xl font-bold text-gray-700">Portfolio Website</h2>
       </div>
-      <div className="pl-6 mt-5">
+      <div className="md:pl-6 pl-0 md:mt-5 mt-0">
         <div className="flex flex-col gap-2 mb-5">
           <h2 className="text-2xl font-semibold text-gray-800">Appearance</h2>
           <p className="text-sm text-gray-500">
@@ -185,7 +185,7 @@ export default function Portfolio() {
           ) : null}
         </div>
       </div>
-      <div className="pl-6 mt-5">
+      <div className="md:pl-6 pl-0 mt-5 ">
         <div className="flex flex-col gap-2 mb-5">
           <h2 className="text-2xl font-semibold text-gray-800">
             Upload Resume

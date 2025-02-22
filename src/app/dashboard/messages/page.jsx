@@ -55,10 +55,10 @@ function Messages() {
   }, [userPortfolioDetails, isSubmitted]);
 
   return isSubmitted ? (
-    <div className="w-full p-6">
-      <h2 className="text-5xl font-bold text-gray-700 mb-10">Messages</h2>
+    <div className="w-full md:p-6 pt-6 mt-5 md:mt-0 ">
+      <h2 className="md:text-5xl text-3xl  font-bold text-gray-700 ">Messages</h2>
       <div>
-        <div className="flex flex-col gap-2 mb-6">
+        <div className="flex flex-col gap-2 mb-6 md:mt-10 mt-5">
           <h2 className="text-2xl font-semibold text-gray-800">
             Contact Messages
           </h2>
