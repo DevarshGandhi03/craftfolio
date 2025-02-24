@@ -30,7 +30,7 @@ function PortfolioHome({ portfolioDetails }) {
         <div>
           <BackgroundLines className="flex items-center justify-center w-full flex-col px-6 py-6 md:py-12">
             <div className="text-center  md:text-left lg:space-y-7 space-y-3">
-              <h3 className="text-3xl mt-15 md:mt-0 font-medium text-neutral-800 dark:text-neutral-300">
+              <h3 className="text-3xl mt-14 md:mt-0 font-medium text-neutral-800 dark:text-neutral-300">
                 Hi There,
               </h3>
               <h2 className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-5xl md:text-6xl lg:text-8xl font-extrabold tracking-tight leading-tight">
