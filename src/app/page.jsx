@@ -80,7 +80,10 @@ function Home() {
               <MdOutlineRocketLaunch />
             </Button>
           </Link>
-          <a href="https://github.com/DevarshGandhi03/craftfolio" target="_blank">
+          <a
+            href="https://github.com/DevarshGandhi03/craftfolio"
+            target="_blank"
+          >
             <Button
               className="p-4 flex items-center space-x-2"
               variant="outline"
@@ -135,7 +138,7 @@ function Home() {
       </div>
       <div className="md:mt-12 mt-5 bg-white  md:p-8 p-6 w-full  mx-auto">
         <h2 className="md:text-4xl text-3xl font-bold mb-8 text-gray-800 text-center md:text-start ">
-        Our Newest Members 🚀
+          Our Newest Members 🚀
         </h2>
         <div>
           <div className="flex  justify-center flex-col items-center ">
@@ -169,63 +172,65 @@ function Home() {
                       <p className="text-sm text-gray-600 mt-1">
                         {truncateWords(user.userDescription, 50)}
                       </p>
-                      <Link href={`https://craftfolio-rouge.vercel.app/portfolio/${user.userName}`}>
-                      <Button className="mt-4 w-40 px-4 py-2   font-semibold rounded-lg  flex items-center gap-2">
-                        View <ArrowRight size={18} />
-                      </Button></Link>
+                      <Link
+                        href={`https://craftfolio-rouge.vercel.app/portfolio/${user.userName}`}
+                      >
+                        <Button className="mt-4 w-40 px-4 py-2   font-semibold rounded-lg  flex items-center gap-2">
+                          View <ArrowRight size={18} />
+                        </Button>
+                      </Link>
                     </div>
                   </div>
-                ) 
+                )
             )}
           </div>
         </div>
       </div>
       <footer className="bg-gray-900 text-white mt-20 py-8 border-t border-gray-800">
-      <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-        {/* Left Section - Logo & Description */}
-        <div className="text-center md:text-left">
-          <h2 className="text-2xl font-bold text-white">CraftFolio</h2>
-          <p className="text-gray-400 mt-2 text-sm">
-            Showcase your skills, experience, and achievements with ease.
-          </p>
+        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+          {/* Left Section - Logo & Description */}
+          <div className="text-center md:text-left">
+            <h2 className="text-2xl font-bold text-white">CraftFolio</h2>
+            <p className="text-gray-400 mt-2 text-sm">
+              Showcase your skills, experience, and achievements with ease.
+            </p>
+          </div>
+
+          {/* Middle Section - Navigation Links & Socials */}
+          <div className="flex gap-6 text-sm md:text-base mt-4 md:mt-0 items-center">
+            <Link
+              href={user ? "/dashboard/profile" : "/signup"}
+              className="text-gray-300 hover:text-white transition"
+            >
+              Create Account
+            </Link>
+            <a
+              href="https://www.linkedin.com/in/devarsh-gandhi-733826224/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-white transition flex items-center gap-1"
+            >
+              <FaLinkedin className="w-5 h-5" />
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/DevarshGandhi03/craftfolio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-white transition flex items-center gap-1"
+            >
+              <FaGithub className="w-5 h-5" />
+              GitHub
+            </a>
+          </div>
         </div>
 
-        {/* Middle Section - Navigation Links & Socials */}
-        <div className="flex gap-6 text-sm md:text-base mt-4 md:mt-0 items-center">
-          <Link
-            href={user ? "/dashboard/profile" : "/signup"}
-            className="text-gray-300 hover:text-white transition"
-          >
-            Create Account
-          </Link>
-          <a
-            href="https://www.linkedin.com/in/devarsh-gandhi-733826224/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-white transition flex items-center gap-1"
-          >
-            <FaLinkedin className="w-5 h-5" />
-            LinkedIn
-          </a>
-          <a
-            href="https://github.com/DevarshGandhi03/craftfolio"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-white transition flex items-center gap-1"
-          >
-            <FaGithub className="w-5 h-5" />
-            GitHub
-          </a>
+        {/* Bottom Section - Copyright */}
+        <div className="text-center flex flex-col justify-center items-center text-gray-500 text-sm mt-6 border-t border-gray-700 pt-4">
+          © {new Date().getFullYear()} CraftFolio. All rights reserved.
+          <p className="mt-2">Built by Devarsh Gandhi.</p>
         </div>
-      </div>
-
-      {/* Bottom Section - Copyright */}
-      <div className="text-center flex flex-col justify-center items-center text-gray-500 text-sm mt-6 border-t border-gray-700 pt-4">
-        © {new Date().getFullYear()} CraftFolio. All rights reserved.
-        <p className="mt-2">Built by Devarsh Gandhi.</p>
-      </div>
-    </footer>
- 
+      </footer>
     </div>
   );
 }
