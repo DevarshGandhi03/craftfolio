@@ -90,7 +90,7 @@ function Education() {
 
   return (
     <div className="space-y-6">
-      {errors.education && <p className="text-red-500">{errors.education}</p>}
+      {errors.education && <p className="text-red-500 text-xs">{errors.education}</p>}
       <div
         className="cursor-pointer p-5 bg-violet-500 hover:bg-violet-600 rounded-lg text-white text-center mt-6"
         onClick={() => {
@@ -101,6 +101,7 @@ function Education() {
         <PlusCircle size={18} className="inline-block mr-2" />
         <span className="inline-block text-lg font-medium">Add Education</span>
       </div>
+      <p className="text-gray-400 text-xs">Note: Minimum one education detail required.</p>
 
       <div className="flex flex-wrap gap-6 justify-center">
         {education.map((edu, index) => (

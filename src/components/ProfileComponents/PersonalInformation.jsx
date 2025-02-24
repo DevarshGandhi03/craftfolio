@@ -238,7 +238,7 @@ function PersonalInformation() {
       <div className="flex flex-col justify-center gap-y-5 mt-1">
         <div>
           <Label className="font-bold text-gray-700 ">
-            Description<span className="text-red-500 ">*</span>
+            Description <span className="text-red-500 ">*</span>
           </Label>
           <Textarea
             value={userDescription}

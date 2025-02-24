@@ -107,7 +107,10 @@ function Projects() {
   return (
     <div className="space-y-6">
       {/* Section Title */}
-      {errors.projects && <p className="text-red-500">{errors.projects}</p>}
+
+      {errors.projects && (
+        <p className="text-red-500 text-xs">{errors.projects}</p>
+      )}
       {/* Clickable Area for Adding a Project */}
       <div
         className="cursor-pointer p-5 bg-violet-500 hover:bg-violet-600 rounded-lg text-white text-center mt-6"
@@ -127,71 +130,76 @@ function Projects() {
       >
         <PlusCircle size={18} className="inline-block mr-2" /> Add New Project
       </div>
+      <p className="text-gray-400 text-xs">
+        Note: Minimum one project required.
+      </p>
       {/* Project Cards */}
-     <div className="flex justify-center items-center">
-     <div className="flex flex-col space-y-6">
-        {projects.map((project, index) => (
-          <div
-            key={index}
-            className="p-5 max-w-[80vw] md:max-w-screen bg-white flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6"
-          >
-            {project.projectImage && (
-              <div className="relative w-full md:w-48  md:h-auto">
-                <img
-                  src={project.projectImage}
-                  alt={project.projectTitle}
-                  className="h-32 w-48  object-cover rounded-md"
-                />
-              </div>
-            )}
-            {project.projectPrevImage && (
-              <div className="relative w-full md:w-48 h-48 md:h-auto">
-                <img
-                  src={project.projectPrevImage}
-                  alt={project.projectPrevImage}
-                  className="h-32 w-48 object-cover rounded-md"
-                />
-              </div>
-            )}
-            <div className="flex flex-col justify-between mt-4 md:mt-0">
-              <h4 className="text-2xl font-semibold text-gray-700">
-                {project.projectTitle}
-              </h4>
-              <p className="text-gray-500 mt-2 break-words">{project.projectDescription}</p>
-              
-              <Link
-                href={project.projectLiveLink}
-                className="text-violet-600 hover:text-violet-800 font-medium mt-3"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Live Preview
-              </Link>
-              <div className="flex space-x-4 mt-4">
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  type="button"
-                  className="flex items-center gap-2"
-                  onClick={() => handleEditProject(index)}
+      <div className="flex justify-center items-center">
+        <div className="flex flex-col space-y-6">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="p-5 max-w-[80vw] md:max-w-screen bg-white flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6"
+            >
+              {project.projectImage && (
+                <div className="relative w-full md:w-48  md:h-auto">
+                  <img
+                    src={project.projectImage}
+                    alt={project.projectTitle}
+                    className="h-32 w-48  object-cover rounded-md"
+                  />
+                </div>
+              )}
+              {project.projectPrevImage && (
+                <div className="relative w-full md:w-48 h-48 md:h-auto">
+                  <img
+                    src={project.projectPrevImage}
+                    alt={project.projectPrevImage}
+                    className="h-32 w-48 object-cover rounded-md"
+                  />
+                </div>
+              )}
+              <div className="flex flex-col justify-between mt-4 md:mt-0">
+                <h4 className="text-2xl font-semibold text-gray-700">
+                  {project.projectTitle}
+                </h4>
+                <p className="text-gray-500 mt-2 break-words">
+                  {project.projectDescription}
+                </p>
+
+                <Link
+                  href={project.projectLiveLink}
+                  className="text-violet-600 hover:text-violet-800 font-medium mt-3"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <Edit size={16} /> Edit
-                </Button>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  type="button"
-                  className="flex items-center gap-2"
-                  onClick={() => handleRemoveProject(index)}
-                >
-                  <Trash2 size={16} /> Remove
-                </Button>
+                  Live Preview
+                </Link>
+                <div className="flex space-x-4 mt-4">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    type="button"
+                    className="flex items-center gap-2"
+                    onClick={() => handleEditProject(index)}
+                  >
+                    <Edit size={16} /> Edit
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    type="button"
+                    className="flex items-center gap-2"
+                    onClick={() => handleRemoveProject(index)}
+                  >
+                    <Trash2 size={16} /> Remove
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-     </div>
 
       {/* Add/Edit Project Dialog */}
       <Dialog
@@ -348,7 +356,8 @@ function Projects() {
                 className="mt-2 w-full"
               />
               <p className="text-gray-400 text-xs mt-1 text-center ">
-                Note: Sentences ending with a full stop will be displayed as bullet points on the portfolio website and resume.
+                Note: Sentences ending with a full stop will be displayed as
+                bullet points on the portfolio website and resume.
               </p>
               {projectErrors.projectDescription && (
                 <p className="text-red-500 text-xs mt-1">

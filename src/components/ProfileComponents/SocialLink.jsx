@@ -19,65 +19,66 @@ function SocialLink() {
   return (
     <div className="space-y-8">
       {/* Skills Section */}
-      <div className="space-y-3">
-        <Label className="font-bold text-gray-700 flex">
-          Skills
-          <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
-        </Label>
-        {errors.skills && (
-          <p className="text-red-500 text-xs mt-1">{errors.skills}</p> // Smaller error text
-        )}
-        <div className="flex space-x-4">
-          <Input
-            value={skill}
-            id="skills"
-            placeholder="Enter a skill"
-            onChange={(e) => setSkill(e.target.value)}
-            className="flex-grow"
-          />
-          <Button
-            type="button"
-            onClick={() => {
-              if (skill.length > 1) {
-                setSkills([...skills, skill]);
-                setSkill(""); // Clear input field after adding
-              }
-            }}
-            className="whitespace-nowrap"
-          >
-            Add
-          </Button>
-        </div>
-
-        {/* Display Skills as Badges */}
-        <div className="mt-4 flex flex-wrap gap-3">
-          {skills.map((skill, index) => (
-            <div
-              key={index}
-              className="flex items-center bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm"
+    
+        <div className="space-y-3">
+          <Label className="font-bold text-gray-700 flex">
+            Skills
+            <span className="text-red-500 ml-1">*</span> {/* Red asterisk */}
+          </Label>
+          {errors.skills && (
+            <p className="text-red-500 text-xs mt-1">{errors.skills}</p> // Smaller error text
+          )}
+          <div className="flex space-x-4">
+            <Input
+              value={skill}
+              id="skills"
+              placeholder="Enter a skill"
+              onChange={(e) => setSkill(e.target.value)}
+              className="flex-grow"
+            />
+            <Button
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                if (skill.length > 1) {
+                  setSkills([...skills, skill]);
+                  setSkill(""); // Clear input field after adding
+                }
+              }}
+              className="whitespace-nowrap"
             >
-              {skill}
-              <Button
-                type="button"
-                onClick={() => removeSkill(index)}
-                className="ml-2 w-5 h-8 rounded-full transition duration-200 ease-in-out"
-                aria-label="Remove skill"
+              Add
+            </Button>
+          </div>
+
+          {/* Display Skills as Badges */}
+          <div className="mt-4 flex flex-wrap gap-3">
+            {skills.map((skill, index) => (
+              <div
+                key={index}
+                className="flex items-center bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm"
               >
-                <TrashIcon />
-              </Button>
-            </div>
-          ))}
+                {skill}
+                <Button
+                  type="button"
+                  onClick={() => removeSkill(index)}
+                  className="ml-2 w-5 h-8 rounded-full transition duration-200 ease-in-out"
+                  aria-label="Remove skill"
+                >
+                  <TrashIcon />
+                </Button>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      
 
       {/* Social Links Section */}
       <h3 className="text-lg font-semibold">Social Links</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* GitHub */}
         <div>
-          <Label className="font-bold text-gray-700">
-            GitHub
-          </Label>
+          <Label className="font-bold text-gray-700">GitHub</Label>
           <Input
             id="github"
             value={socialLinks.github}
@@ -94,9 +95,7 @@ function SocialLink() {
 
         {/* LinkedIn */}
         <div>
-          <Label className="font-bold text-gray-700">
-            LinkedIn
-          </Label>
+          <Label className="font-bold text-gray-700">LinkedIn</Label>
           <Input
             id="linkedin"
             value={socialLinks.linkedin}
@@ -113,9 +112,7 @@ function SocialLink() {
 
         {/* Twitter */}
         <div>
-          <Label className="font-bold text-gray-700">
-            Twitter
-          </Label>
+          <Label className="font-bold text-gray-700">Twitter</Label>
           <Input
             id="twitter"
             value={socialLinks.twitter}
@@ -132,9 +129,7 @@ function SocialLink() {
 
         {/* Instagram */}
         <div>
-          <Label className="font-bold text-gray-700">
-            Instagram
-          </Label>
+          <Label className="font-bold text-gray-700">Instagram</Label>
           <Input
             id="instagram"
             value={socialLinks.instagram}
