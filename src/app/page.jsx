@@ -138,7 +138,7 @@ function Home() {
         Our Newest Members 🚀
         </h2>
         <div>
-          <div className="flex  justify-center items-center ">
+          <div className="flex  justify-center flex-col items-center ">
             {portfolios.map(
               (user, index) =>
                 user.isPublished && (
