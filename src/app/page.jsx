@@ -169,9 +169,10 @@ function Home() {
                       <p className="text-sm text-gray-600 mt-1">
                         {truncateWords(user.userDescription, 50)}
                       </p>
+                      <Link href={`https://craftfolio-rouge.vercel.app/portfolio/${user.userName}`}>
                       <Button className="mt-4 w-40 px-4 py-2   font-semibold rounded-lg  flex items-center gap-2">
                         View <ArrowRight size={18} />
-                      </Button>
+                      </Button></Link>
                     </div>
                   </div>
                 ) 
