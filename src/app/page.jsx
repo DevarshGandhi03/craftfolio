@@ -75,7 +75,7 @@ function Home() {
         </h2>
         <div className="flex flex-col md:flex-row items-center mt-8 space-y-4 md:space-y-0 md:space-x-4">
           <Link href={user ? "/dashboard/profile" : "/signup"}>
-            <Button className="p-4 flex items-center ">
+            <Button className="p-4 flex items-center min-w-48 ">
               <span>{user ? "Go to Dashboard" : "Get Started"}</span>
               <MdOutlineRocketLaunch />
             </Button>
@@ -85,7 +85,7 @@ function Home() {
             target="_blank"
           >
             <Button
-              className="p-4 flex items-center space-x-2"
+              className="p-4 flex items-center max-w-48 space-x-2"
               variant="outline"
             >
               <FaGithub />
