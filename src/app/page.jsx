@@ -85,7 +85,7 @@ function Home() {
             target="_blank"
           >
             <Button
-              className="p-4 flex items-center max-w-48 space-x-2"
+              className="p-4 flex items-center min-w-48 max-w-48 space-x-2"
               variant="outline"
             >
               <FaGithub />
