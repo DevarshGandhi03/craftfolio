@@ -25,7 +25,7 @@ export const Timeline = ({ data }) => {
 
   return (
     <div
-      className="w-full md:mt-20  mt-[25rem] bg-white maven dark:bg-neutral-950  md:px-10"
+      className="w-full md:mt-20  mt-[13rem] bg-white maven dark:bg-neutral-950  md:px-10"
       ref={containerRef}
     >
       <div className="max-w-7xl px-4 md:px-8 lg:px-10 flex justify-center items-center flex-col md:block">
@@ -75,7 +75,7 @@ export const Timeline = ({ data }) => {
                 </p>
               </div>
               <div>
-                <ul className="list-inside text-gray-600 dark:text-neutral-200 text-sm md:text-sm font-normal mb-4">
+                <ul className="list-inside text-gray-600 dark:text-neutral-200 text-sm md:text-sm font-normal mb-4 break-words">
                   {item.jobDescription.split(".").map((bullet, i) =>
                     bullet.trim() ? (
                       <li key={i}>

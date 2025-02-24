@@ -9,6 +9,8 @@ import { Loader2, Upload, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
+import Lootie from "lottie-react";
+import AuthLoading from "../../../../public/CommingSoon.json";
 
 export default function Portfolio() {
   const [theme, setTheme] = useState("theme_1");
@@ -20,6 +22,7 @@ export default function Portfolio() {
     isSubmitted,
     getPortfolioDetails,
   } = useContext(AuthContext);
+  const [scale, setScale] = useState(0.2);
   const [loading, setLoading] = useState(false);
   const [resumeLoading, setResumeLoading] = useState(false);
   const [resumeFile, setResumeFile] = useState(null);
@@ -36,6 +39,13 @@ export default function Portfolio() {
       setTheme(userPortfolioDetails.portfolioTheme || "theme_1");
     }
   }
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      setScale(0.25);
+    } else {
+      setScale(0.2);
+    }
+  }, []);
   useEffect(() => {
     if (!isSubmitted && userPortfolioDetails === false) {
       router.push("/dashboard/profile");
@@ -92,7 +102,7 @@ export default function Portfolio() {
           });
           setResumeFileId(response.data.data.publicId);
           setResumeFileUrl(response.data.data.url);
-          getPortfolioDetails()
+          getPortfolioDetails();
         }
       } catch (error) {
         console.error("Failed to upload resume.");
@@ -123,10 +133,12 @@ export default function Portfolio() {
 
   return isSubmitted ? (
     <div>
-      <div className="w-full md:p-6 pl-0 mt-8">
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-700">Portfolio Website</h2>
+      <div className="w-full md:p-6 pl-0 md:mt-8 mt-16">
+        <h2 className="text-3xl md:text-5xl  font-bold text-gray-700">
+          Portfolio Website
+        </h2>
       </div>
-      <div className="md:pl-6 pl-0 md:mt-5 mt-0">
+      <div className="md:pl-6 pl-0 md:mt-5 mt-3">
         <div className="flex flex-col gap-2 mb-5">
           <h2 className="text-2xl font-semibold text-gray-800">Appearance</h2>
           <p className="text-sm text-gray-500">
@@ -134,26 +146,36 @@ export default function Portfolio() {
           </p>
           <hr />
         </div>
-        <div className="flex gap-x-6">
+        <div className="flex gap-x-6 flex-col md:flex-row justify-start items-center">
           <div
             id="theme_1"
-            className={`w-64 overflow-hidden h-[10.2rem] border-2 rounded-lg shadow-sm bg-gray-100  ${
+            className={`md:w-64 w-80  overflow-hidden md:h-[10.2rem] h-[12.5rem]  border-2 rounded-lg shadow-sm bg-gray-100  ${
               theme === "theme_1" ? "border-purple-600" : "border-gray-300"
             }`}
             onClick={handleThemeChange}
           >
             <iframe
               src="https://craftfolio-rouge.vercel.app/portfolio/devarsh600"
-              className="h-48 w-64 pointer-events-none"
+              className="h-48 w-64  pointer-events-none "
               style={{
                 width: "1280px", // Desktop width inside iframe
                 height: "800px", // Desktop height inside iframe
-                transform: "scale(0.2)", // Scale down to fit preview
+                transform: `scale(${scale})`, // Scale down to fit preview
                 transformOrigin: "top left",
                 border: "none",
               }}
               tabIndex="-1"
             ></iframe>
+          </div>
+          <div
+            className={`md:w-64 w-80 flex justify-center items-center  mt-5 md:mt-0 overflow-hidden md:h-[10.2rem] h-[12.5rem]  border-2 rounded-lg shadow-sm bg-gray-100`}
+          >
+            <Lootie
+              className="md:w-full w-80 "
+              animationData={AuthLoading}
+              loop={true}
+              autoplay={true}
+            />
           </div>
         </div>
         <div className="mt-4 flex flex-col gap-y-2">
