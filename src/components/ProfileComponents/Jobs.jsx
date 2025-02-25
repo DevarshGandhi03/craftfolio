@@ -277,7 +277,8 @@ function Jobs() {
                 }
                 className="mt-2 "
               />
-              <p className="text-gray-400 text-xs mt-1">Note: Sentences ending with a full stop will be displayed as bullet points on the resume.</p>
+              <p className="text-gray-400 text-xs mt-1">Note: Sentences ending with a full stop will be displayed as
+              bullet points on the portfolio website and resume.</p>
               {jobErrors.jobDescription && (
                 <p className="text-red-500 text-sm mt-1">
                   {jobErrors.jobDescription}

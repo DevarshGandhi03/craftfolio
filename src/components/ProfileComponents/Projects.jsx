@@ -355,9 +355,9 @@ function Projects() {
                 }
                 className="mt-2 w-full"
               />
-              <p className="text-gray-400 text-xs mt-1 text-center ">
+              <p className="text-gray-400 text-xs mt-1 ">
                 Note: Sentences ending with a full stop will be displayed as
-                bullet points on the portfolio website and resume.
+                bullet points on the resume.
               </p>
               {projectErrors.projectDescription && (
                 <p className="text-red-500 text-xs mt-1">
