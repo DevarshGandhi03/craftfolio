@@ -85,6 +85,7 @@ export default function HashnodeConnect() {
         portfolioId: userPortfolioDetails._id,
         hashnodeUsername: "",
       });
+      getPortfolioDetails();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -110,6 +111,7 @@ export default function HashnodeConnect() {
         hashnodeUsername: username,
       });
       fetchPosts();
+      getPortfolioDetails();
     } catch (err) {
       setError(err.message);
     } finally {
