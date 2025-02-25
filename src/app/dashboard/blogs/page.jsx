@@ -85,7 +85,6 @@ export default function HashnodeConnect() {
         portfolioId: userPortfolioDetails._id,
         hashnodeUsername: "",
       });
-      getPortfolioDetails()
     } catch (err) {
       setError(err.message);
     } finally {
