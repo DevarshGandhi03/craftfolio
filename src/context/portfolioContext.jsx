@@ -9,7 +9,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 export const PortfolioContext = React.createContext(null);
 
-function PortfolioProvider({ children}) {
+function PortfolioProvider({ children }) {
   const url = useRouter();
   const {
     user,
@@ -27,6 +27,7 @@ function PortfolioProvider({ children}) {
   const [about, setAbout] = useState("");
   const [education, setEducation] = useState([]);
   const [jobExperiences, setJobExperiences] = useState([]);
+  const [currentStep, setCurrentStep] = useState(0);
   const [skills, setSkills] = useState([]);
   const [userImageId, setUserImageId] = useState("");
   const [userImage, setUserImage] = useState("");
@@ -70,43 +71,54 @@ function PortfolioProvider({ children}) {
     }
   }
   const [errors, setErrors] = useState({});
-  const validateForm = () => {
+  const validateForm = (steps) => {
     const validationErrors = {};
-    if (!fullName.trim()) validationErrors.fullName = "Full Name is required.";
-    if (!userTitle.trim())
-      validationErrors.userTitle = "User Title is required.";
-    if (!userDescription.trim())
-      validationErrors.userDescription = "User Description is required.";
-    if (
-      !(
-        (image && (typeof image === "string" ? isValidURL(image) : true)) ||
-        (userImage &&
-          (typeof userImage === "string" ? isValidURL(userImage) : true))
-      )
-    ) {
-      validationErrors.userImage = "A valid user image is required.";
+    if (steps == 0) {
+      if (!fullName.trim())
+        validationErrors.fullName = "Full Name is required.";
+      if (!userTitle.trim())
+        validationErrors.userTitle = "User Title is required.";
+      if (!userDescription.trim())
+        validationErrors.userDescription = "User Description is required.";
+      if (
+        !(
+          (image && (typeof image === "string" ? isValidURL(image) : true)) ||
+          (userImage &&
+            (typeof userImage === "string" ? isValidURL(userImage) : true))
+        )
+      ) {
+        validationErrors.userImage = "A valid user image is required.";
+      }
+      if (!about.trim()) validationErrors.about = "About section is required.";
+      if (!phoneNumber.toString().trim())
+        validationErrors.phoneNumber = "Phone number is required.";
+      else if (!/^\d{10}$/.test(phoneNumber))
+        validationErrors.phoneNumber = "Phone number must be 10 digits.";
     }
-    if (!about.trim()) validationErrors.about = "About section is required.";
-    if (skills.length === 0)
-      validationErrors.skills = "Please add at least one skill.";
-    if (!phoneNumber.toString().trim())
-      validationErrors.phoneNumber = "Phone number is required.";
-    else if (!/^\d{10}$/.test(phoneNumber))
-      validationErrors.phoneNumber = "Phone number must be 10 digits.";
+    if (steps == 4) {
+      if (skills.length === 0)
+        validationErrors.skills = "Please add at least one skill.";
 
-    if (socialLinks.github && !isValidURL(socialLinks.github))
-      validationErrors.github = "Invalid GitHub URL.";
-    if (socialLinks.linkedin && !isValidURL(socialLinks.linkedin))
-      validationErrors.linkedin = "Invalid LinkedIn URL.";
-    if (socialLinks.twitter && !isValidURL(socialLinks.twitter))
-      validationErrors.twitter = "Invalid Twitter URL.";
-    if (socialLinks.instagram && !isValidURL(socialLinks.instagram))
-      validationErrors.instagram = "Invalid Instagram URL.";
+      if (socialLinks.github && !isValidURL(socialLinks.github))
+        validationErrors.github = "Invalid GitHub URL.";
+      if (socialLinks.linkedin && !isValidURL(socialLinks.linkedin))
+        validationErrors.linkedin = "Invalid LinkedIn URL.";
+      if (socialLinks.twitter && !isValidURL(socialLinks.twitter))
+        validationErrors.twitter = "Invalid Twitter URL.";
+      if (socialLinks.instagram && !isValidURL(socialLinks.instagram))
+        validationErrors.instagram = "Invalid Instagram URL.";
+    }
+    if (steps == 1) {
+      if (projects.length === 0)
+        validationErrors.projects = "Please add at least one project.";
+    }
 
-    if (projects.length === 0)
-      validationErrors.projects = "Please add at least one project.";
-    if (education.length === 0)
-      validationErrors.education = "Please add at least one education detail.";
+    if (steps == 2) {
+      if (projects.length === 0)
+        if (education.length === 0)
+          validationErrors.education =
+            "Please add at least one education detail.";
+    }
 
     setErrors(validationErrors);
     return Object.keys(validationErrors).length === 0;
@@ -199,7 +211,7 @@ function PortfolioProvider({ children}) {
   async function uploadPortfolio() {
     if (!imageLoading && !projectLoading) {
       const response = await axios.post("/api/users/user-portfolio-details", {
-        userName:user.username,
+        userName: user.username,
         userId: user._id,
         fullName,
         projects,
@@ -227,7 +239,8 @@ function PortfolioProvider({ children}) {
       setCalledOnce(true);
       setIsSubmitted(true);
       setPageLoading(false);
-      router.push("/dashboard/portfolio")
+      setCurrentStep(0)
+      router.push("/dashboard/portfolio");
     }
   }
   async function updatePortfolio() {
@@ -261,12 +274,13 @@ function PortfolioProvider({ children}) {
       setImageLoading(true);
       setEditForm(true);
       setProjectLoading(true);
+      setCurrentStep(0)
     }
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!validateForm()) {
+    if (!validateForm(4)) {
       toast({
         title: "Please enter all required fields.",
         variant: "destructive",
@@ -322,7 +336,7 @@ function PortfolioProvider({ children}) {
         editForm,
         setEditForm,
         setResumeTheme,
-        resumeTheme,
+        resumeTheme,currentStep, setCurrentStep
       }}
     >
       {pageLoading ? <Loading /> : children}

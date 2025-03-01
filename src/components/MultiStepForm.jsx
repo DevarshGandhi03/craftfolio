@@ -8,8 +8,7 @@ import { AuthContext } from "@/context/authContext";
 import { Edit } from "lucide-react";
 
 const MultiStepForm = () => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const { handleSubmit, editForm, setEditForm } = useContext(PortfolioContext);
+  const { handleSubmit, editForm, setEditForm,currentStep, setCurrentStep,validateForm } = useContext(PortfolioContext);
   const { isSubmitted } = useContext(AuthContext);
 
   const steps = [
@@ -21,8 +20,10 @@ const MultiStepForm = () => {
   ];
 
   const handleNext = (e) => {
-    e.preventDefault();
-    if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
+    if (validateForm(currentStep)) {
+      e.preventDefault();
+      if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
+    }
   };
 
   const handleBack = () => {
