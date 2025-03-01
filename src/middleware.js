@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import connectToDb from "./db/db";
 
 export const config = {
   matcher: ["/dashboard/:path*", "/signin", "/signup", "/"],
@@ -11,7 +10,7 @@ export default async function middleware(request) {
   const token = request.cookies.get("token");
   const url = request.nextUrl;
   const host = request.headers.get("host");
-  
+
   if (host && domainMappings[host]) {
     return NextResponse.rewrite(
       new URL(`/portfolio/${domainMappings[host]}`, req.url)
