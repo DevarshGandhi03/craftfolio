@@ -12,6 +12,7 @@ import {
   FaBlog,
   FaEnvelope,
   FaSignOutAlt,
+  FaGlobe,
 } from "react-icons/fa";
 
 const sidebarLinks = [
@@ -20,6 +21,7 @@ const sidebarLinks = [
   { name: "Resume", href: "/dashboard/resume", icon: <FaFileAlt /> },
   { name: "Blogs", href: "/dashboard/blogs", icon: <FaBlog /> },
   { name: "Messages", href: "/dashboard/messages", icon: <FaEnvelope /> },
+  { name: "Add Custom Domain", href: "/dashboard/add-domain", icon: <FaGlobe /> },
 ];
 
 export default function SettingsLayout({ children }) {

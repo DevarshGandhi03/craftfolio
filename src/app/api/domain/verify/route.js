@@ -19,7 +19,7 @@ export async function GET(req) {
     // Update status in MongoDB
     await Domain.findOneAndUpdate({ customDomain: domain }, { status: "verified" });
 
-    return NextResponse.json({ message: "Domain verified successfully!" });
+    return NextResponse.json({ message: "Domain verified successfully!" ,success:true});
   } catch (error) {
     return NextResponse.json({ error: "Domain verification failed" }, { status: 400 });
   }

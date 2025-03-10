@@ -6,17 +6,19 @@ export async function POST(req) {
 
   try {
     const response = await axios.post(
-      `https://api.vercel.com/v9/projects/prj_XYA61B9nxfbG02wNeW6DsUIYKkcm/domains`,
+      `https://api.vercel.com/v9/projects/${process.env.VERCEL_PROJECT_ID}/domains`,
       { name: domain },
       {
         headers: {
-          Authorization: `Bearer lvFAHVl3Ei8kJmJuvYREsvz8`,
+          Authorization: `Bearer ${process.env.VERCEL_API_KEY}`,
         },
       }
     );
 
     return NextResponse.json({ message: "Domain added to Vercel", data: response.data });
   } catch (error) {
+    console.log(error);
+    
     return NextResponse.json({ error: "Failed to add domain to Vercel" }, { status: 500 });
   }
 }
