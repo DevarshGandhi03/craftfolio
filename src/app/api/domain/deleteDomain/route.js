@@ -23,7 +23,7 @@ export async function DELETE(req) {
       `https://api.vercel.com/v9/projects/${process.env.VERCEL_PROJECT_ID}/domains/${domain}`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.VERCEL_API_TOKEN}`,
+          Authorization: `Bearer ${process.env.VERCEL_API_KEY}`,
           "Content-Type": "application/json",
         },
       }
