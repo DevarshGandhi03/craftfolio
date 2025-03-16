@@ -163,7 +163,7 @@ export default function Portfolio() {
               disabled={loading || isDomainAdded}
               type="text"
               className="w-full"
-              placeholder="example.com"
+              placeholder="Enter the domain as : yourdomain.com"
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
             />
@@ -190,7 +190,7 @@ export default function Portfolio() {
 
           <div className="bg-gray-100 p-4 rounded-lg mt-4">
             <h4 className="text-lg font-semibold text-gray-700">
-              For Root Domain (<code>example.com</code>)
+              For Root Domain (<code>www.craftfolio.in</code>)
             </h4>
             <ul className="list-disc list-inside text-gray-600 text-sm mt-2">
               <li>

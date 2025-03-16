@@ -9,17 +9,47 @@ export async function GET(req) {
   const domain = searchParams.get("domain");
 
   try {
-    const records = await dns.resolveCname(domain);
-    
-    if (!records.includes("craftfolio-rouge.vercel.app")) {
-      return NextResponse.json({ error: "Domain verification failed" }, { status: 400 });
+    let isCnameValid = false;
+    let isARecordValid = false;
+
+    // Check CNAME Record for 'www.domain.com'
+    try {
+      const cnameRecords = await dns.resolveCname(`www.${domain}`);
+      isCnameValid = cnameRecords.includes("craftfolio-rouge.vercel.app");
+    } catch (err) {
+      console.log("CNAME check failed or not found", err);
     }
 
-    // Update status in MongoDB
-    await Domain.findOneAndUpdate({ customDomain: domain }, { status: "verified" });
+    // Check A Record for 'domain.com'
+    try {
+      const aRecords = await dns.resolve4(domain);
+      isARecordValid = aRecords.includes("76.76.21.21");
+    } catch (err) {
+      console.log("A record check failed or not found", err);
+    }
 
-    return NextResponse.json({ message: "Domain verified successfully!" ,success:true});
+    // If either check passes, verify the domain
+    if (isARecordValid || isCnameValid) {
+      await Domain.findOneAndUpdate(
+        { customDomain: domain },
+        { status: "verified" }
+      );
+
+      return NextResponse.json({
+        message: "Domain verified successfully!",
+        success: true,
+      });
+    }
+
+    return NextResponse.json(
+      { error: "Domain verification failed. Check your DNS settings." },
+      { status: 400 }
+    );
   } catch (error) {
-    return NextResponse.json({ error: "Domain verification failed" }, { status: 400 });
+    console.error("Error verifying domain:", error);
+    return NextResponse.json(
+      { error: "Domain verification failed due to server error." },
+      { status: 500 }
+    );
   }
 }
