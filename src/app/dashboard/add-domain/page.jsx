@@ -12,10 +12,11 @@ export default function Portfolio() {
   const [domain, setDomain] = useState("");
   const [message, setMessage] = useState("");
   const [verificationStatus, setVerificationStatus] = useState("");
-  const { user, userPortfolioDetails, isSubmitted, getPortfolioDetails } =
-    useContext(AuthContext);
+  const { user, userPortfolioDetails, isSubmitted } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const [isDomainVerified, setIsDomainVerified] = useState(false);
+  const [isDomainVerified, setIsDomainVerified] = useState("");
+  const [isDomainSaved, setIsDomainSaved] = useState(false);
+  const [isDomainAdded, setIsDomainAdded] = useState(false);
   const [userName, setUserName] = useState(null);
   const router = useRouter();
 
@@ -24,14 +25,21 @@ export default function Portfolio() {
     setMessage("");
 
     try {
-      const response = await axios.post("/api/domain/add", { customDomain:domain ,username:userName});
-      console.log(response.data.message);
-      
+      const response = await axios.post("/api/domain/add", {
+        customDomain: domain,
+        username: userName,
+      });
+
+      if (response.data) {
+        setIsDomainAdded(true);
+        setIsDomainSaved(true);
+      }
     } catch (error) {
-      console.log(error);
+      setIsDomainAdded(false);
+      setIsDomainSaved(false);
       toast({
         title: error.response.data.message,
-        variant:"destructive"
+        variant: "destructive",
       });
     }
 
@@ -45,10 +53,18 @@ export default function Portfolio() {
       const response = await axios.get("/api/domain/getDetails", {
         headers: { userName },
       });
-      setDomain(response.data.customDomain);
-      setIsDomainVerified(response.data.isVerified);
+      if (response.data.success) {
+        setIsDomainSaved(true);
+        setDomain(response.data.customDomain);
+        setIsDomainVerified(response.data.status);
+        setIsDomainAdded(true);
+      }
     } catch (error) {
-      console.log(error);
+      setIsDomainSaved(false);
+      setDomain("");
+      setIsDomainVerified("pending");
+      setIsDomainAdded(false);
+      setVerificationStatus("");
     }
 
     setLoading(false);
@@ -59,25 +75,39 @@ export default function Portfolio() {
 
     try {
       const response = await axios.get(`/api/domain/verify?domain=${domain}`);
-      console.log(response);
 
       if (response.data.success) {
-        const res=await axios.post("/api/domain/vercel",{domain:domain})
-        console.log(res);
-        
-        setVerificationStatus("✅ Domain is successfully verified!");
+        const res = await axios.post("/api/domain/vercel", { domain: domain });
+        setIsDomainVerified("verified");
+        setVerificationStatus("✅ Your custom domain is added successfully!");
+        setIsDomainSaved(true);
       } else {
         setVerificationStatus(
           "❌ Domain verification failed. Check DNS settings."
         );
       }
     } catch (error) {
-      console.log(error);
-      
+
       setVerificationStatus("❌ Error verifying domain. Try again later.");
     }
 
     setLoading(false);
+  };
+  const deleteDomain = async () => {
+    try {
+      const res = await axios.delete("/api/domain/deleteDomain", {
+        data: { domain: domain },
+      });
+      if (res.data.success) {
+        getDetails();
+      }
+    } catch (error) {
+      setIsDomainSaved(false);
+      setDomain("");
+      setIsDomainVerified("pending");
+      setIsDomainAdded(false);
+      setVerificationStatus("");
+    }
   };
 
   function setUserDetails() {
@@ -106,7 +136,7 @@ export default function Portfolio() {
 
   return isSubmitted ? (
     <div>
-      <div className="md:pl-6 pl-0 md:mt-5 mt-3">
+      <div className="md:pl-6 px-2 md:pr-0 md:mt-5 mt-10">
         <div className="flex flex-col gap-2 mb-5">
           <h2 className="text-2xl font-semibold mt-5 text-gray-800">
             Connect your custom domain to your portfolio website.
@@ -130,16 +160,21 @@ export default function Portfolio() {
           {/* Input Field with shadcn */}
           <div className="bg-gray-50 shadow-sm p-4 rounded-lg mt-4">
             <Input
+              disabled={loading || isDomainAdded}
               type="text"
               className="w-full"
               placeholder="example.com"
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
             />
-              <Button className="mt-3" onClick={handleSaveDomain} disabled={loading}>
-                {loading ? "Saving..." : "Save Domain"}
-              </Button>
-            
+            <Button
+              className="mt-3"
+              onClick={handleSaveDomain}
+              disabled={loading || isDomainAdded}
+            >
+              {isDomainAdded ? "Saved" : loading ? "Saving..." : "Save Domain"}
+            </Button>
+
             {message && <p className="mt-2 text-sm">{message}</p>}
           </div>
         </div>
@@ -193,44 +228,40 @@ export default function Portfolio() {
               </li>
             </ul>
           </div>
-
-          <p className="text-sm text-gray-500 mt-4">
-            Changes may take up to 24 hours to propagate. You can check the
-            status at
-            <a
-              href="https://www.whatsmydns.net/"
-              target="_blank"
-              className="text-blue-500 underline ml-1"
-            >
-              whatsmydns.net
-            </a>
-            .
-          </p>
         </div>
-      </div>
-      <div className="mt-8">
-        <h3 className="text-xl font-semibold text-gray-800">
-          Step 3: Verify Your Domain
-        </h3>
-        <p className="text-sm text-gray-500 mt-2">
-          Once you've updated the DNS settings, click below to verify if your
-          domain is properly linked.
-        </p>
+        <div className="mt-8">
+          <h3 className="text-xl font-semibold text-gray-800">
+            Step 3: Verify Your Domain
+          </h3>
+          <p className="text-sm text-gray-500 mt-2">
+            Once you've updated the DNS settings, click below to verify if your
+            domain is properly linked.
+          </p>
 
-        <div className="bg-gray-50 shadow-sm p-4 rounded-lg mt-4">
-          <Button
-            onClick={verifyDomain}
-            disabled={loading || isDomainVerified}
-          >
-            {isDomainVerified
-              ? "Verified"
-              : loading
-              ? "Checking..."
-              : "Verify Domain"}
-          </Button>
-          {verificationStatus && (
-            <p className="mt-2 text-sm">{verificationStatus}</p>
-          )}
+          <div className="bg-gray-50 shadow-sm flex p-4 rounded-lg mt-4">
+            <Button
+              onClick={verifyDomain}
+              disabled={
+                loading || isDomainVerified == "verified" || !isDomainAdded
+              }
+            >
+              {isDomainVerified == "verified"
+                ? "Verified"
+                : loading
+                ? "Checking..."
+                : "Verify Domain"}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={deleteDomain}
+              className={`w-40 ${isDomainSaved ? "block" : "hidden"} mx-5`}
+            >
+              Unlink Domain
+            </Button>
+            {verificationStatus && (
+              <p className="mt-2 text-sm">{verificationStatus}</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

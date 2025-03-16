@@ -10,7 +10,6 @@ export async function GET(req) {
 
   try {
     const records = await dns.resolveCname(domain);
-    console.log(records);
     
     if (!records.includes("craftfolio-rouge.vercel.app")) {
       return NextResponse.json({ error: "Domain verification failed" }, { status: 400 });

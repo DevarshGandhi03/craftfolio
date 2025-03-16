@@ -17,7 +17,6 @@ export async function POST(req) {
 
     return NextResponse.json({ message: "Domain added to Vercel", data: response.data });
   } catch (error) {
-    console.log(error);
     
     return NextResponse.json({ error: "Failed to add domain to Vercel" }, { status: 500 });
   }

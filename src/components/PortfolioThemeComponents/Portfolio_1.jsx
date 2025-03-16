@@ -83,14 +83,16 @@ function Portfolio_1({ portfolioDetails }) {
                 ></span>
               </a>
             ))}
-            <Link
-              href={`/portfolio/blogs/${portfolioDetails.userName}`}
-              className="relative text-gray-600 text-lg hover:text-gray-900 transition duration-150 ease-in-out group cursor-pointer"
-              passHref
-            >
-              Blog
-              <span className="absolute left-0 bottom-0 h-[2px] bg-gray-900 transition-all duration-300 w-0 group-hover:w-full"></span>
-            </Link>
+            {portfolioDetails.hashnodeUsername.length >= 1 && (
+              <Link
+                href={`/portfolio/blogs/${portfolioDetails.userName}`}
+                className="relative text-gray-600 text-lg hover:text-gray-900 transition duration-150 ease-in-out group cursor-pointer"
+                passHref
+              >
+                Blog
+                <span className="absolute left-0 bottom-0 h-[2px] bg-gray-900 transition-all duration-300 w-0 group-hover:w-full"></span>
+              </Link>
+            )}
           </div>
 
           <div className="md:hidden">
@@ -136,64 +138,70 @@ function Portfolio_1({ portfolioDetails }) {
           )}
         </div>
       </div>
-      <div className="fixed bottom-8 md:block hidden right-6 z-40">
-        <button
-          className="p-4 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
-          onClick={() => setIsSocialOpen(!isSocialOpen)}
-        >
-          {isSocialOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+      {(portfolioDetails.github ||
+        portfolioDetails.linkedin ||
+        portfolioDetails.twitter ||
+        portfolioDetails.instagram) && (
+        <div className="fixed bottom-8 md:block hidden right-6 z-40">
+          <button
+            className="p-4 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
+            onClick={() => setIsSocialOpen(!isSocialOpen)}
+          >
+            {isSocialOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
 
-        <div
-          className={cn(
-            "fixed right-24 bottom-8 flex flex-row justify-center items-center space-x-3 transition-all duration-300",
-            isSocialOpen
-              ? "opacity-100 translate-x-0"
-              : "opacity-0 translate-x-8 pointer-events-none"
-          )}
-        >
-          {portfolioDetails.github && (
-            <a
-              href={portfolioDetails.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center p-3 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-700 transition transform hover:scale-110"
-            >
-              <FaGithub className="w-8 h-8" />
-            </a>
-          )}
-          {portfolioDetails.linkedin && (
-            <a
-              href={portfolioDetails.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center p-3 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-400 transition transform hover:scale-110"
-            >
-              <FaLinkedin className="w-8 h-8" />
-            </a>
-          )}
-          {portfolioDetails.twitter && (
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center p-3 bg-blue-400 text-white rounded-full shadow-lg hover:bg-blue-300 transition transform hover:scale-110"
-            >
-              <FaTwitter className="w-8 h-8" />
-            </a>
-          )}
-          {portfolioDetails.instagram && (
-            <a
-              href={portfolioDetails.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center p-3 bg-pink-600 text-white rounded-full shadow-lg hover:bg-pink-500 transition transform hover:scale-110"
-            >
-              <FaInstagram className="w-8 h-8" />
-            </a>
-          )}
+          <div
+            className={cn(
+              "fixed right-24 bottom-8 flex flex-row justify-center items-center space-x-3 transition-all duration-300",
+              isSocialOpen
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 translate-x-8 pointer-events-none"
+            )}
+          >
+            {portfolioDetails.github && (
+              <a
+                href={portfolioDetails.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center p-3 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-700 transition transform hover:scale-110"
+              >
+                <FaGithub className="w-8 h-8" />
+              </a>
+            )}
+            {portfolioDetails.linkedin && (
+              <a
+                href={portfolioDetails.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center p-3 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-400 transition transform hover:scale-110"
+              >
+                <FaLinkedin className="w-8 h-8" />
+              </a>
+            )}
+            {portfolioDetails.twitter && (
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center p-3 bg-blue-400 text-white rounded-full shadow-lg hover:bg-blue-300 transition transform hover:scale-110"
+              >
+                <FaTwitter className="w-8 h-8" />
+              </a>
+            )}
+            {portfolioDetails.instagram && (
+              <a
+                href={portfolioDetails.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center p-3 bg-pink-600 text-white rounded-full shadow-lg hover:bg-pink-500 transition transform hover:scale-110"
+              >
+                <FaInstagram className="w-8 h-8" />
+              </a>
+            )}
+          </div>
         </div>
-      </div>
+      )}
+
       {sections.map((section) => (
         <section key={section.id} id={section.id}>
           {section.id === "home" && (

@@ -8,7 +8,10 @@ export async function DELETE(req) {
     const { domain } = await req.json();
 
     if (!domain) {
-      return NextResponse.json({ error: "Domain is required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Domain is required" },
+        { status: 400 }
+      );
     }
 
     await connectToDb();
@@ -17,6 +20,8 @@ export async function DELETE(req) {
     if (!domainEntry) {
       return NextResponse.json({ error: "Domain not found" }, { status: 404 });
     }
+    
+    await Domain.deleteOne({ customDomain: domain });
 
     // Delete from Vercel
     await axios.delete(
@@ -30,13 +35,18 @@ export async function DELETE(req) {
     );
 
     // Remove from MongoDB
-    await Domain.deleteOne({ customDomain: domain });
 
-    return NextResponse.json({ success: true, message: "Domain deleted successfully!" });
+    return NextResponse.json({
+      success: true,
+      message: "Domain deleted successfully!",
+    });
   } catch (error) {
-    console.error("Error deleting domain:", error.response?.data || error.message);
     return NextResponse.json(
-      { success: false, error: error.response?.data?.error?.message || "Failed to delete domain" },
+      {
+        success: false,
+        error:
+          error.response?.data?.error?.message || "Failed to delete domain",
+      },
       { status: 500 }
     );
   }
