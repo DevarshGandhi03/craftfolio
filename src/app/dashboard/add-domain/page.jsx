@@ -190,7 +190,7 @@ export default function Portfolio() {
 
           <div className="bg-gray-100 p-4 rounded-lg mt-4">
             <h4 className="text-lg font-semibold text-gray-700">
-              For Root Domain (<code>www.craftfolio.in</code>)
+              For Root Domain (<code>craftfolio.in</code>)
             </h4>
             <ul className="list-disc list-inside text-gray-600 text-sm mt-2">
               <li>
@@ -211,7 +211,7 @@ export default function Portfolio() {
 
           <div className="bg-gray-100 p-4 rounded-lg mt-4">
             <h4 className="text-lg font-semibold text-gray-700">
-              For <code>www.example.com</code> (Optional)
+              For <code>www.craftfolio.in</code> (Optional)
             </h4>
             <ul className="list-disc list-inside text-gray-600 text-sm mt-2">
               <li>
@@ -221,7 +221,7 @@ export default function Portfolio() {
                 <strong>Host:</strong> www
               </li>
               <li>
-                <strong>Points to:</strong> <code>example.com</code>
+                <strong>Points to:</strong> <code>www.craftfolio.in</code>
               </li>
               <li>
                 <strong>TTL:</strong> 600

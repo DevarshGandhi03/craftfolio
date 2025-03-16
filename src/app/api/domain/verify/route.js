@@ -15,7 +15,7 @@ export async function GET(req) {
     // Check CNAME Record for 'www.domain.com'
     try {
       const cnameRecords = await dns.resolveCname(`www.${domain}`);
-      isCnameValid = cnameRecords.includes("craftfolio-rouge.vercel.app");
+      isCnameValid = cnameRecords.includes("craftfolio.in");
     } catch (err) {
       console.log("CNAME check failed or not found", err);
     }

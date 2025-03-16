@@ -10,6 +10,7 @@ export async function POST(req) {
   const domainObj=await Domain.findOne({username})
   console.log(domainObj);
   
+  
   if (domainObj?.status) {
     return NextResponse.json({ message: "Domain already exists" }, { status: 400 });
   }
@@ -22,7 +23,6 @@ export async function POST(req) {
   if (!customDomain.match(/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
     return NextResponse.json({ message: "Invalid domain format" }, { status: 400 });
   }
-  console.log("reached");
   
 
   // Save to MongoDB
