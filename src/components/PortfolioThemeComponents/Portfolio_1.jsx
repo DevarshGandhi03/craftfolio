@@ -83,7 +83,7 @@ function Portfolio_1({ portfolioDetails }) {
                 ></span>
               </a>
             ))}
-            {portfolioDetails.hashnodeUsername.length >= 1 && (
+            {portfolioDetails.hashnodeUsername?.length >= 1 && (
               <Link
                 href={`/portfolio/blogs/${portfolioDetails.userName}`}
                 className="relative text-gray-600 text-lg hover:text-gray-900 transition duration-150 ease-in-out group cursor-pointer"
