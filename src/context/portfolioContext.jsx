@@ -114,10 +114,9 @@ function PortfolioProvider({ children }) {
     }
 
     if (steps == 2) {
-      if (projects.length === 0)
-        if (education.length === 0)
-          validationErrors.education =
-            "Please add at least one education detail.";
+      if (education.length === 0)
+        validationErrors.education =
+          "Please add at least one education detail.";
     }
 
     setErrors(validationErrors);
@@ -239,7 +238,7 @@ function PortfolioProvider({ children }) {
       setCalledOnce(true);
       setIsSubmitted(true);
       setPageLoading(false);
-      setCurrentStep(0)
+      setCurrentStep(0);
       router.push("/dashboard/portfolio");
     }
   }
@@ -274,7 +273,7 @@ function PortfolioProvider({ children }) {
       setImageLoading(true);
       setEditForm(true);
       setProjectLoading(true);
-      setCurrentStep(0)
+      setCurrentStep(0);
     }
   }
 
@@ -336,7 +335,9 @@ function PortfolioProvider({ children }) {
         editForm,
         setEditForm,
         setResumeTheme,
-        resumeTheme,currentStep, setCurrentStep
+        resumeTheme,
+        currentStep,
+        setCurrentStep,
       }}
     >
       {pageLoading ? <Loading /> : children}
